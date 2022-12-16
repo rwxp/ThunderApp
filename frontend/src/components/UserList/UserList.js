@@ -19,7 +19,6 @@ import {
 } from "@mui/material";
 
 const UserList = () => {
-  
   const [users, setUsers] = useState([]);
 
   const navigate = useNavigate();
@@ -37,11 +36,10 @@ const UserList = () => {
     return comparison;
   }
 
+  users.sort(compare);
 
-  users.sort(compare)
-
-
-  const confirmActivation = (id) => {
+  // eslint-disable-next-line
+  const deleteConfirmation = (id) => {
     Swal.fire({
       title: "Are you sure you want to delete this user?",
       text: "You won't be able to revert this!",
@@ -72,6 +70,8 @@ const UserList = () => {
     listUsers();
   }, []);
 
+  
+  // eslint-disable-next-line
   const handleDelete = async (userId) => {
     await UserAPI.deleteUser(userId);
     listUsers();
@@ -80,7 +80,7 @@ const UserList = () => {
   return (
     <Box className="User-list">
       <Box>
-        <Grid sx={{ marginBottom:3 }}>
+        <Grid sx={{ marginBottom: 3 }}>
           <h1>
             <strong>Users List</strong>
           </h1>
@@ -110,6 +110,9 @@ const UserList = () => {
                   <strong>Phone</strong>
                 </TableCell>
                 <TableCell>
+                  <strong>Role</strong>
+                </TableCell>
+                <TableCell>
                   <strong>Is Active</strong>
                 </TableCell>
                 <TableCell>
@@ -121,7 +124,11 @@ const UserList = () => {
               {users.map((user) => (
                 <TableRow
                   key={user.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  sx={{
+                    "&:last-child td, &:last-child th": {
+                      border: 0,
+                    },
+                  }}
                 >
                   <TableCell component="th" scope="row">
                     {user.id}
@@ -131,6 +138,7 @@ const UserList = () => {
                   <TableCell>{user.birthDate}</TableCell>
                   <TableCell>{user.address}</TableCell>
                   <TableCell>{user.phone}</TableCell>
+                  <TableCell>{user.role}</TableCell>
                   <TableCell>{JSON.stringify(user.isActive)}</TableCell>
                   <TableCell component="td" align="center">
                     {user.isActive === true ? (
@@ -146,7 +154,7 @@ const UserList = () => {
                         variant="contained"
                         size="small"
                         onClick={() => navigate(`/update/${user.id}`)}
-                      >                      
+                      >
                         Activate
                       </Button>
                     )}

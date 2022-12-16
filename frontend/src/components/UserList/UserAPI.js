@@ -38,6 +38,7 @@ export const updateUser = async (userId, updatedUser) => {
         birthDate: String(updatedUser.birthDate).trim(),
         address: String(updatedUser.address).trim(),
         phone: String(updatedUser.phone).trim(),
+        role: String(updatedUser.role).trim(),
         isActive: Boolean(updatedUser.isActive),
       }),
     });

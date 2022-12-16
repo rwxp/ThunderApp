@@ -9,4 +9,5 @@ class Users(models.Model):
     birthDate = models.DateField()
     address = models.CharField(max_length=24)
     phone = models.CharField(max_length=24)
+    role = models.CharField(max_length=24)
     isActive = models.BooleanField()

@@ -34,7 +34,7 @@ class UsersView(View):
     def post(self, request):
         jd = json.loads(request.body)
         Users.objects.create(id=jd['id'], lastName=jd['lastName'], firstName=jd['firstName'],
-                             birthDate=jd['birthDate'], address=jd['address'], phone=jd['phone'], isActive=jd['isActive'])
+                             birthDate=jd['birthDate'], address=jd['address'], phone=jd['phone'], role=jd['role'], isActive=jd['isActive'])
         datos = {'message': 'Success'}
         return JsonResponse(datos)
 
@@ -50,6 +50,7 @@ class UsersView(View):
             user.birthDate = jd['birthDate']
             user.address = jd['address']
             user.phone = jd['phone']
+            user.role = jd['role']
             user.isActive = jd['isActive']
             user.save()
             datos = {'message': "Success"}

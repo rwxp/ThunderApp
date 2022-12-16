@@ -12,7 +12,6 @@ import { useState, useEffect } from "react";
 import React from "react";
 import * as UserAPI from "../UserList/UserAPI.js";
 
-import Swal from "sweetalert2";
 
 const Form = () => {
   const initialState = {
@@ -22,6 +21,7 @@ const Form = () => {
     birthDate: "",
     address: "",
     phone: "",
+    role: "",
     isActive: false,
   };
 
@@ -65,6 +65,7 @@ const Form = () => {
       birthDate: data.user.birthDate,
       address: data.user.address,
       phone: data.user.phone,
+      role: data.user.role,
       isActive: data.user.isActive,
     });
   };
@@ -75,22 +76,7 @@ const Form = () => {
     }
   }, []);
 
-  const confirmActivation = () => {
-    Swal.fire({
-      title: "Are you sure you want to?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-      } else {
-        navigate("/");
-      }
-    });
-  };
+  
 
   return (
     <Box>
@@ -152,6 +138,16 @@ const Form = () => {
               name="phone"
               type="text"
               value={user.phone}
+              onChange={handleInputChange}
+              disabled={true}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              id="role-input"
+              name="role"
+              type="text"
+              value={user.role}
               onChange={handleInputChange}
               disabled={true}
             />
