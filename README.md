@@ -1,5 +1,7 @@
 # ThunderApp
 
+## CAMBIAR EL NOMBRE DE LA CARPETA 'Thunder' a 'thunder'
+
 Primero se clona el repositorio desde la terminal en alguna carpeta
 ```
 $ git clone https://github.com/KevinAlejandro1702/ThunderApp
