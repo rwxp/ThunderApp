@@ -1,5 +1,6 @@
 import "./App.css";
 import UserList from "./components/UserList/UserList";
+import AdminLogin from "./components/Adminlogin/AdminLogin";
 import Form from "./components/UserData/UserData";
 import React from 'react';
 
@@ -10,6 +11,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<UserList />} />
+        <Route path="/userList" element={<UserList />} />
         <Route path="/update/:id" element={<Form />} />
       </Routes>
     </BrowserRouter>
