@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as UserAPI from "./UserAPI";
+import "./UserList.css"
 import Swal from "sweetalert2";
 
 // mui material components
