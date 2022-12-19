@@ -20,3 +20,4 @@ class Admin(models.Model):
 
 class Operadores(models.Model):
     id = models.OneToOneField(Users, primary_key=True, on_delete=models.CASCADE)
+

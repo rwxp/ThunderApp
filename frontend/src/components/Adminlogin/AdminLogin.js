@@ -1,5 +1,5 @@
 import React from 'react';
-import  '../Adminlogin/AdminLogin.css';
+import  './AdminLogin.css';
 import Navbar from '../LandingPage/Navbar.js'
 import {
   MDBBtn,
