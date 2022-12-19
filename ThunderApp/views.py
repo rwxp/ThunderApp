@@ -67,3 +67,6 @@ class UsersView(View):
         else:
             datos = {'message': "User not found..."}
         return JsonResponse(datos)
+
+
+

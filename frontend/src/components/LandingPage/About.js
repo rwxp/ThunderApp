@@ -6,11 +6,16 @@ import Image2 from "./Images/timeline.png";
 import Image3 from "./Images/newsletter-dev.png";
 import Image4 from "./Images/chart-bar-33.png";
 import About2 from "./About2";
+import { useEffect } from "react";
+import Navbar from './Navbar.js'
 
 const About = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   return (
     <div className="mainPage">
-      {/* Main Text*/}
+      <Navbar />  
       <div className="container pt-5">
         <div className="d-flex flex-wrap align-items-center justify-content-center">
           <div className="m-5 textView pt-3">

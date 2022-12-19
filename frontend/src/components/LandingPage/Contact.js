@@ -4,6 +4,9 @@ import Img1 from "./Images/logo1.png";
 import { MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBIcon, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit';
 
 function Contact () { 
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   return (
     <>
       <div className="mx-auto gradient-custom mt-10" style={{  maxWidth: '800px', height: '470px' }}>

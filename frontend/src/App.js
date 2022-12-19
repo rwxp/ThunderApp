@@ -14,9 +14,8 @@ import UserList from "./components/UserList/UserList";
 
 function App() {
   return (
+    
     <Router>
-     <Navbar />  
-        {/* Navbar */}
     <Routes>
       <Route path="/Login" element={<Login/>} />
       <Route path="/UserList" element={<UserList />} />
