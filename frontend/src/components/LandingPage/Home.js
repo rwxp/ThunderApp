@@ -2,9 +2,10 @@
 import React from "react";
 import Image1 from "./Images/home.png";
 import About from "./About";
-import Login from '../Adminlogin/AdminLogin';
+
 import Footer from "./Footer";
 import "../../App.css";
+import Contact from "./Contact";
 const Home = () => {
   return (
     <div className="bodyMain">
@@ -66,7 +67,9 @@ const Home = () => {
 
           {/* Other Components to HOME */}
           <About />
+          <Contact />
         </div>
+        
         <Footer />
       </div>
     </div>

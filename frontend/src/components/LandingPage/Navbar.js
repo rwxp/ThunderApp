@@ -66,7 +66,7 @@ export default function App() {
                   className="btn btn-outline-secondary btn-rounded ps-5 pe-5"
                   data-mdb-ripple-color="dark"
                 >
-                  Get Started
+                  Home
                 </button>
               </NavLink>
             </MDBNavbarItem>
