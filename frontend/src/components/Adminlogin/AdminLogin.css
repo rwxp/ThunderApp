@@ -1,9 +1,9 @@
 .gradient-custom-2 {
   /* fallback for old browsers */
-  background:#b44593;
+  background:rgba(0,212,255,1) ;
 
   /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+  background: -webkit-linear-gradient(to right, rgba(2,0,36,1) 0%, rgba(26,90,117,1) 35%, rgba(0,212,255,1), white);
 
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(26,90,117,1) 35%, rgba(0,212,255,1) 100%);

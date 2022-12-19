@@ -4,34 +4,35 @@
 
 Primero se clona el repositorio desde la terminal en alguna carpeta
 ```
-$ git clone https://github.com/KevinAlejandro1702/ThunderApp
+git clone https://github.com/KevinAlejandro1702/ThunderApp
 ```
 
 ## Correr Backend
 
 Activar el venv
 ```
-$ \.venv\Scripts\activate
+.venv/Scripts/activate
 ```
 
 Iniciar el servidor
 ```
-$ py manage.py runserver
+py manage.py runserver
 ```
+
 
 ## Correr Frontend
 ```
-$ cd \frontend
+cd frontend/
 ```
 
 Instalar las dependencias
 ```
-$ npm install
+npm install
 ```
 
 Iniciar la aplicación de React
 ```
-$ npm start
+npm start
 ```
 
 ### Los usuarios dentro de la base de datos se pueden ver en
