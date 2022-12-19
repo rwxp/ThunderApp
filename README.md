@@ -4,7 +4,7 @@
 
 Primero se clona el repositorio desde la terminal en alguna carpeta
 ```
-git clone https://github.com/KevinAlejandro1702/ThunderApp
+git clone https://github.com/rwxp/ThunderApp
 ```
 
 ## Correr Backend
