@@ -1,6 +1,7 @@
 import React from 'react';
 import "./Contact.css";
 import Img1 from "./Images/logo1.png";
+import { useEffect } from "react";
 import { MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBIcon, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit';
 
 function Contact () { 
