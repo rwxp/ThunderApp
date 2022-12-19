@@ -9,13 +9,15 @@ import {
   MDBInput
 }
 from 'mdb-react-ui-kit';
-import logo from "./adminloginimages/icon2.png";
+import logo from "../Adminlogin/adminloginimages/icon2.png";
 import {getUser} from '../UserList/UserAPI';
 import {useState} from 'react';
 
-function AdminLogin() {
+function AdminRegister() {
   const [id, setId] = useState(0);
-  const [password, setPassword] = useState("")
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [Address, setAddress] = useState("");
 
   function handleSubmit(){
     getUser(id)
@@ -53,17 +55,37 @@ function AdminLogin() {
                   Login</h2>
             </div>
 
-            <p>Please login to your account</p>
+            <p>Please add the new user</p>
 
 
-            <MDBInput wrapperClass='mb-4' label='ID' id='form1' type='email' onChange={(e)=> setId(e)}/>
+            <MDBInput wrapperClass='mb-4' label='ID' id='form1' type='id' onChange={(e)=> setId(e)}/>
             <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' onChange={(e)=> setPassword(e)}/>
-
-
-            <div className="text-center pt-1 mb-5 pb-1">
-              <MDBBtn className="mb-4 w-100 gradient-custom-2">Sign in</MDBBtn>
-              <a className="text-muted" href="#!">Forgot password?</a>
+            <MDBInput wrapperClass='mb-4' label='Email' id='form2' type='Email' onChange={(e)=> setEmail(e)}/>
+            <MDBInput wrapperClass='mb-4' label='Address' id='form2' type='Address' onChange={(e)=> setAddress(e)}/>
+            <div class="btn-group">
+                <button
+                    type="button"
+                    class="btn btn-primary dropdown-toggle"
+                    data-mdb-toggle="dropdown"
+                    data-mdb-display="static"
+                    aria-expanded="false">
+                 Rol
+                </button>
+                <ul class="dropdown-menu dropdown-menu-lg-end">
+                     <li><button class="dropdown-item" type="button">Operador</button></li>
+                     <li><button class="dropdown-item" type="button">Gerente</button></li>
+                     <li><button class="dropdown-item" type="button">Cliente</button></li>
+                </ul>
             </div>
+
+            
+
+            <MDBRow>
+                <div className="text-center pt-1 mb-5 pb-1">
+                    <MDBBtn className="mb-4 w-100 gradient-custom-2">Sign in</MDBBtn>
+                    <a className="text-muted" href="#!">Forgot password?</a>
+                </div>
+            </MDBRow>
 
             <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
               <p className="mb-0">Don't have an account?</p>
@@ -96,4 +118,4 @@ function AdminLogin() {
   );
 }
 
-export default AdminLogin;
+export default AdminRegister;
