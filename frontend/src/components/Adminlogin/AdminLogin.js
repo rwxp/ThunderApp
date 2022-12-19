@@ -10,21 +10,25 @@ import {
 }
 from 'mdb-react-ui-kit';
 import logo from "./adminloginimages/icon2.png";
-import {getUser} from '../UserList/UserAPI';
+import {verifyUser} from '../UserList/UserAPI';
 import {useState} from 'react';
 
 function AdminLogin() {
   const [id, setId] = useState(0);
   const [password, setPassword] = useState("")
 
-  function handleSubmit(){
-    getUser(id)
+  async function handleSubmit(event){
+    event.preventDefault();
+    var ans = await verifyUser(id, password);
+    var res  = await ans.json()
+    console.log(res)
   }
   return (
-    <MDBContainer className="my-5 gradient-form" onSubmit={handleSubmit}>
-      <Navbar /> 
+    
+    <MDBContainer className="my-5 gradient-form" >
+      <Navbar />
+      <form onSubmit={handleSubmit}>
       <MDBRow>
-
         <MDBCol col='6' className="mb-5">
           <div className="d-flex flex-column ms-5">
 
@@ -54,12 +58,12 @@ function AdminLogin() {
             <p>Please login to your account</p>
 
 
-            <MDBInput wrapperClass='mb-4' label='ID' id='form1' type='email' onChange={(e)=> setId(e)}/>
-            <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' onChange={(e)=> setPassword(e)}/>
+            <MDBInput wrapperClass='mb-4' label='ID' id='form1' onChange={ event => setId(event.target.value)}/>
+            <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' onChange={ event => {setPassword(event.target.value)}}/>
 
 
             <div className="text-center pt-1 mb-5 pb-1">
-              <MDBBtn className="mb-4 w-100 gradient-custom-2">Sign in</MDBBtn>
+              <MDBBtn className="mb-4 w-100 gradient-custom-2" type= "submit">Sign in</MDBBtn>
               <a className="text-muted" href="#!">Forgot password?</a>
             </div>
 
@@ -89,8 +93,9 @@ function AdminLogin() {
         </MDBCol>
 
       </MDBRow>
-
+      </form>
     </MDBContainer>
+
   );
 }
 

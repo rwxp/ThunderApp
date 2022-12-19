@@ -30,6 +30,19 @@ class UsersView(View):
                 datos = {'message': 'Users not found'}
             return JsonResponse(datos)
 
+    @method_decorator(csrf_exempt)
+    def verifyUser(request):
+        data = json.loads(request.body)
+        type(data["id"])
+        if(data["id"] == 0):
+            datos = {'message': 'User not found!'}
+        else:
+            user = list(Users.objects.filter(id=data["id"]).values())
+            if(len(user)>0):
+                datos = {'user': user}
+            else:
+                datos = {'message': 'Incorrect ID or incorrect password'}
+            return JsonResponse(datos)
 
     def post(self, request):
         jd = json.loads(request.body)

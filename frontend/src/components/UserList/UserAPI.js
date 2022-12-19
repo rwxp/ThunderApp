@@ -49,3 +49,16 @@ export const deleteUser = async (userId) => {
         method: 'DELETE'
     });
 };
+
+export const verifyUser = async(usuario, contra)=>{
+    return await fetch(API_URL+'verifyUser', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "id": String(usuario).trim(),
+            "password": String(contra).trim()
+        })
+    });
+}
