@@ -3,11 +3,18 @@ import React from "react";
 import Image1 from "./Images/home.png";
 import About from "./About";
 import Login from '../Adminlogin/AdminLogin';
+import { useEffect } from "react";
+import Navbar from './Navbar.js'
 import Footer from "./Footer";
 import "../../App.css";
 const Home = () => {
+
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   return (
     <div className="bodyMain">
+      <Navbar /> 
       <div className="backPath">
         <br />
         <br />

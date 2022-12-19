@@ -1,5 +1,6 @@
 import React from 'react';
 import  './AdminLogin.css';
+import Navbar from '../LandingPage/Navbar.js'
 import {
   MDBBtn,
   MDBContainer,
@@ -9,11 +10,19 @@ import {
 }
 from 'mdb-react-ui-kit';
 import logo from "./adminloginimages/icon2.png";
+import {getUser} from '../UserList/UserAPI';
+import {useState} from 'react';
 
 function AdminLogin() {
-  return (
-    <MDBContainer className="my-5 gradient-form" onSubmit={getUser}>
+  const [id, setId] = useState(0);
+  const [password, setPassword] = useState("")
 
+  function handleSubmit(){
+    getUser(id)
+  }
+  return (
+    <MDBContainer className="my-5 gradient-form" onSubmit={handleSubmit}>
+      <Navbar /> 
       <MDBRow>
 
         <MDBCol col='6' className="mb-5">
@@ -45,8 +54,8 @@ function AdminLogin() {
             <p>Please login to your account</p>
 
 
-            <MDBInput wrapperClass='mb-4' label='ID' id='form1' type='email'/>
-            <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password'/>
+            <MDBInput wrapperClass='mb-4' label='ID' id='form1' type='email' onChange={(e)=> setId(e)}/>
+            <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' onChange={(e)=> setPassword(e)}/>
 
 
             <div className="text-center pt-1 mb-5 pb-1">
