@@ -15,9 +15,10 @@ import UserList from "./components/UserList/UserList";
 function App() {
   return (
     <Router>
-    
+     <Navbar />  
+        {/* Navbar */}
     <Routes>
-      <Route path="/" element={<Login/>} />
+      <Route path="/Login" element={<Login/>} />
       <Route path="/UserList" element={<UserList />} />
       <Route path="/update/:id" element={<Form />} />
       <Route path="/Home" element={<Home/>} />
