@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './AdminLogin.css';
+import  './AdminLogin.css';
 import {
   MDBBtn,
   MDBContainer,
@@ -9,10 +9,11 @@ import {
 }
 from 'mdb-react-ui-kit';
 import logo from "./adminloginimages/icon.png";
+import { getUser } from '../UserList/UserAPI';
 
 function AdminLogin() {
   return (
-    <MDBContainer className="my-5 gradient-form">
+    <MDBContainer className="my-5 gradient-form" onSubmit={getUser}>
 
       <MDBRow>
 
@@ -28,7 +29,7 @@ function AdminLogin() {
             <p>Please login to your account</p>
 
 
-            <MDBInput wrapperClass='mb-4' label='Email address' id='form1' type='email'/>
+            <MDBInput wrapperClass='mb-4' label='ID' id='form1' type='email'/>
             <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password'/>
 
 
