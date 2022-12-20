@@ -37,7 +37,7 @@ class UsersView(View):
         if(id == 0):
             datos = {'message': 'User not found!'}
         else:
-            user = list(Users.objects.filter(id=id).values())
+            user = list(Users.objects.filter(id=id, password= data["password"]).values())
             if(len(user)>0):
                 datos = {'user': user}
             else:
@@ -46,8 +46,12 @@ class UsersView(View):
 
     def post(self, request):
         jd = json.loads(request.body)
+        if(jd['isActive']== 'true'):
+            boolean = True
+        else:
+            boolean =False
         Users.objects.create(id=jd['id'], lastName=jd['lastName'], firstName=jd['firstName'],
-                             birthDate=jd['birthDate'], address=jd['address'], phone=jd['phone'], role=jd['role'], isActive=jd['isActive'])
+                             birthDate=jd['birthDate'], password=jd['password'] ,address=jd['address'], phone=jd['phone'], role=jd['role'], isActive=boolean)
         datos = {'message': 'Success'}
         return JsonResponse(datos)
 

@@ -10,21 +10,30 @@ import {
 }
 from 'mdb-react-ui-kit';
 import logo from "../Adminlogin/adminloginimages/icon2.png";
-import {getUser} from '../UserList/UserAPI';
+import {getUser, registerUser} from '../UserList/UserAPI';
 import {useState} from 'react';
 
 function AdminRegister() {
   const [id, setId] = useState(0);
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [Address, setAddress] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [birthdate, setBirthdate] = useState("");
+  const [address, setAddress] = useState("")
+  const [phone, setPhone] = useState("")
+  const [password, setPassword] = useState(""); 
+  const [role, setRole] = useState("Admin");
+  const [isActive, setIsActive] = useState(true)
 
-  function handleSubmit(){
-    getUser(id)
+  async function handleSubmit(event){
+    event.preventDefault()
+    var ans = await registerUser(id, firstName, lastName, birthdate, address, phone
+      , password, role, isActive);
+    var res = await ans.json();
   }
   return (
-    <MDBContainer className="my-5 gradient-form" onSubmit={handleSubmit}>
+    <MDBContainer className="my-5 gradient-form" >
       <Navbar /> 
+      <form onSubmit={handleSubmit}>
       <MDBRow>
 
         <MDBCol col='6' className="mb-5" style={{
@@ -57,11 +66,13 @@ function AdminRegister() {
 
             <p>Please add the new user</p>
 
-
-            <MDBInput wrapperClass='mb-4' label='ID' id='form1' type='id' onChange={(e)=> setId(e)}/>
-            <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' onChange={(e)=> setPassword(e)}/>
-            <MDBInput wrapperClass='mb-4' label='Email' id='form2' type='Email' onChange={(e)=> setEmail(e)}/>
-            <MDBInput wrapperClass='mb-4' label='Address' id='form2' type='Address' onChange={(e)=> setAddress(e)}/>
+            <MDBInput wrapperClass='mb-4' label='ID' id='form1' type='id' onChange={(e)=> setId(e.target.value)}/>
+            <MDBInput wrapperClass='mb-4' label='First name' id='form1' type='id' onChange={(e)=> setFirstName(e.target.value)}/>
+            <MDBInput wrapperClass='mb-4' label='Last name' id='form1' type='id' onChange={(e)=> setLastName(e.target.value)}/>
+            <MDBInput wrapperClass='mb-4' label='Birthdate YYYY-MM-DD' id='form1' type='id' onChange={(e)=> setBirthdate(e.target.value)}/>
+            <MDBInput wrapperClass='mb-4' label='Address' id='form2' type='Address' onChange={(e)=> setAddress(e.target.value)}/>
+            <MDBInput wrapperClass='mb-4' label='Phone' id='form2' type='Address' onChange={(e)=> setPhone(e.target.value)}/>
+            <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' onChange={(e)=> setPassword(e.target.value)}/>
             <div class="btn-group">
                 <button
                     type="button"
@@ -82,7 +93,7 @@ function AdminRegister() {
 
             <MDBRow>
                 <div className="text-center pt-1 mb-5 pb-1">
-                    <MDBBtn className="mb-4 w-100 gradient-custom-2">Sign in</MDBBtn>
+                    <MDBBtn className="mb-4 w-100 gradient-custom-2" type="submit">Sign in</MDBBtn>
                     <a className="text-muted" href="#!">Forgot password?</a>
                 </div>
             </MDBRow>
@@ -113,7 +124,7 @@ function AdminRegister() {
         </MDBCol>
 
       </MDBRow>
-
+    </form>
     </MDBContainer>
   );
 }
