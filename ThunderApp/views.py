@@ -39,7 +39,7 @@ class UsersView(View):
         else:
             user = list(Users.objects.filter(id=id, password= data["password"]).values())
             if(len(user)>0):
-                datos = {'user': user}
+                datos = {'message':'Success', 'user': user}
             else:
                 datos = {'message': 'Incorrect ID or incorrect password'}
             return JsonResponse(datos)
