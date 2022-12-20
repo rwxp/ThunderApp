@@ -12,7 +12,6 @@ import { useState, useEffect } from "react";
 import React from "react";
 import * as UserAPI from "../UserList/UserAPI.js";
 
-
 const Form = () => {
   const initialState = {
     id: 0,
@@ -34,7 +33,7 @@ const Form = () => {
     console.log(user);
     try {
       await UserAPI.updateUser(params.id, user);
-      setTimeout(navigate("/"), 3000);
+      setTimeout(navigate("/UserList"), 3000);
     } catch (error) {
       console.log(error);
     }
@@ -76,8 +75,6 @@ const Form = () => {
     }
   }, []);
 
-  
-
   return (
     <Box>
       <form onSubmit={handleSubmit}>
@@ -99,7 +96,6 @@ const Form = () => {
               type="text"
               value={user.firstName}
               onChange={handleInputChange}
-              disabled={false}
             />
           </Grid>
           <Grid item>
@@ -109,7 +105,6 @@ const Form = () => {
               type="text"
               value={user.lastName}
               onChange={handleInputChange}
-              disabled={true}
             />
           </Grid>
           <Grid item>
@@ -119,7 +114,7 @@ const Form = () => {
               type="text"
               value={user.birthDate}
               onChange={handleInputChange}
-              disabled={true}
+              
             />
           </Grid>
           <Grid item>
@@ -129,7 +124,7 @@ const Form = () => {
               type="text"
               value={user.address}
               onChange={handleInputChange}
-              disabled={true}
+              
             />
           </Grid>
           <Grid item>
@@ -139,7 +134,7 @@ const Form = () => {
               type="text"
               value={user.phone}
               onChange={handleInputChange}
-              disabled={true}
+              
             />
           </Grid>
           <Grid item>
@@ -149,7 +144,7 @@ const Form = () => {
               type="text"
               value={user.role}
               onChange={handleInputChange}
-              disabled={true}
+              
             />
           </Grid>
           <Grid item>

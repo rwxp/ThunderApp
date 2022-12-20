@@ -42,7 +42,7 @@ const Home = () => {
                   Thunder App
                 </h1>
                 <h6
-                  class="card-subtitle mb-4 "
+                  className="card-subtitle mb-4 "
                   style={{
                     fontSize: 20,
                     color: "#6FC6C9",
