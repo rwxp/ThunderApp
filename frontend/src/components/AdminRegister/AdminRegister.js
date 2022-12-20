@@ -52,7 +52,7 @@ function AdminRegister() {
                 color:  "#124265",
                 textAlign: "center",
                 fontFamily: "Arial",}}>
-                  Login</h2>
+                  Sign in</h2>
             </div>
 
             <p>Please add the new user</p>
@@ -88,9 +88,9 @@ function AdminRegister() {
             </MDBRow>
 
             <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
-              <p className="mb-0">Don't have an account?</p>
-              <MDBBtn outline className='mx-2' color='primary'>
-                Sign in
+              <p className="mb-0">You already have an account?</p>
+              <MDBBtn outline className='mx-2' color='primary' href="/Login">
+                Login
               </MDBBtn>
             </div>
 
