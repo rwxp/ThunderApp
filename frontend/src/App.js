@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Routes, Route, } from "react-router-dom";
 import Home from './components/LandingPage/Home';
 import About from './components/LandingPage/About';
 import Contact from './components/LandingPage/Contact';
-import Navbar from './components/LandingPage/Navbar';
-import ScrollToTop from './components/LandingPage/ScrollToTop';
+import Sidebar from './components/DashboardPage/Sidebar';
+import Topbar from './components/DashboardPage/Topbar';
 import Login from './components/Adminlogin/AdminLogin';
 import Register from './components/AdminRegister/AdminRegister';
 import Form from "./components/UserData/UserData";
@@ -18,6 +18,8 @@ function App() {
   <Router>
     <Routes>
       <Route path="/Login" element={<Login/>} />
+      <Route path="/Topbar" element={<Topbar/>} />
+      <Route path="/Sidebar" element={<Sidebar/>} />
       <Route path="/Register" element={<Register/>} />
       <Route path="/UserList" element={<UserList />} />
       <Route path="/update/:id" element={<Form />} />
