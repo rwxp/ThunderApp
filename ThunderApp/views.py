@@ -37,7 +37,7 @@ class UsersView(View):
         if(id == 0):
             datos = {'message': 'User not found!'}
         else:
-            user = list(Users.objects.filter(id=id).values())
+            user = list(Users.objects.filter(id=id, password= data["password"]).values())
             if(len(user)>0):
                 datos = {'user': user}
             else:
