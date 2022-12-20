@@ -8,22 +8,26 @@ export const getUser = async (userId = 0) => {
     return await fetch(`${API_URL}${userId}`);
 };
 
-/*export const registerUser = async (newUser) => {
+export const registerUser = async (id, firstName, lastName, birthdate, address, phone
+      , password, role, isActive) => {
     return await fetch(API_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            "firstName": String(newUser.name).trim(),
-            "lastName": String(newUser.foundation).trim(),
-            "birthDate": String(newUser.website).trim(),
-            "address": String(newUser.address).trim(),
-            "phone": String(newUser.phone).trim(),
-            "isActive": Boolean(newUser.isActive)
+            "id": String(id).trim(),
+            "firstName": String(firstName).trim(),
+            "lastName": String(lastName).trim(),
+            "birthDate": String(birthdate).trim(),   
+            "address": String(address).trim(),
+            "phone": String(phone).trim(),   
+            "password": String(password).trim(),
+            "role": String(role).trim(),
+            "isActive": String(isActive).trim()
         })
     });
-};*/
+};
 
 export const updateUser = async (userId, updatedUser) => {
     return await fetch(`${API_URL}${userId}`, {
