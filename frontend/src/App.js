@@ -1,6 +1,6 @@
 import './App.css';
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, } from "react-router-dom";
 import Home from './components/LandingPage/Home';
 import About from './components/LandingPage/About';
 import Contact from './components/LandingPage/Contact';
@@ -24,6 +24,7 @@ function App() {
       <Route path="/" element={<Home/>} />
       <Route path="/About" element={<About />} />
       <Route path="/Contact" element={<Contact />} />
+  
     </Routes>
   </Router>
   );
