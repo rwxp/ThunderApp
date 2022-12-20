@@ -45,7 +45,7 @@ export default function App() {
           <MDBNavbarNav className="d-flex justify-content-end">
             <MDBNavbarItem className="p-3">
               {/* Other Navbar Items */}
-              <NavLink to="/About" className="navText" >
+              <NavLink to="/About" className="navText">
                 About
               </NavLink>
             </MDBNavbarItem>

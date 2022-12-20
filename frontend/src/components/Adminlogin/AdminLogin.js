@@ -28,21 +28,22 @@ function AdminLogin() {
     <MDBContainer className="my-5 gradient-form" >
       <Navbar />
       <form onSubmit={handleSubmit}>
-      <MDBRow>
+      <MDBRow >
         <MDBCol col='6' className="mb-5">
           <div className="d-flex flex-column ms-5">
 
-            <div className="text-center">
+            <div className="text-center" >
             <h2 className="mt-1 mb-5 pb-1"
                 style={{
-                fontSize: 40,
+                marginTop:'15px',
+                fontSize: 35,
                 fontWeight: 800,
                 color: "#124265",
                 textAlign: "center",
                 fontFamily: "sans-serif",}}>
                   Thunder
                   <img src={logo}
-                style={{width: '90px'}} alt="logo" /></h2>
+                style={{width: '80px', marginTop:'15px'}} alt="logo" /></h2>
 
               
               <h2 className="mt-1 mb-5 pb-1"
@@ -69,8 +70,8 @@ function AdminLogin() {
 
             <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
               <p className="mb-0">Don't have an account?</p>
-              <MDBBtn outline className='mx-2' color='primary'>
-                Danger
+              <MDBBtn outline className='mx-2' color='primary' href="/Register">
+                Register 
               </MDBBtn>
             </div>
 

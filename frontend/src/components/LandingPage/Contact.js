@@ -2,6 +2,7 @@ import React from 'react';
 import "./Contact.css";
 import Img1 from "./Images/logo1.png";
 import { useEffect } from "react";
+import Navbar from './Navbar.js'
 import { MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBIcon, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit';
 import Navbar from './Navbar.js'
 
@@ -11,6 +12,7 @@ function Contact () {
   }, []);
   return (
     <>
+    <Navbar />
       <div className="mx-auto gradient-custom mt-10" style={{  maxWidth: '800px', height: '470px' }}>
       <Navbar /> 
         <MDBRow className="pt-3 mx-3">
@@ -23,7 +25,7 @@ function Contact () {
               <p className="white-text">Send us an email for contact us with you</p>
             </div>
             <div className="back-button">
-                <MDBBtn rounded style={{ backgroundColor: '#6FC6C9'}}>Go back</MDBBtn>
+                <MDBBtn rounded style={{ backgroundColor: '#6FC6C9'}}href="/">Go back</MDBBtn>
             </div>
           </MDBCol>
           <MDBCol md="9" className="justify-content-center">
