@@ -4,7 +4,6 @@ import Img1 from "./Images/logo1.png";
 import { useEffect } from "react";
 import Navbar from './Navbar.js'
 import { MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBIcon, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit';
-import Navbar from './Navbar.js'
 
 function Contact () { 
   useEffect(() => {

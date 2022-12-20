@@ -16,14 +16,13 @@ import {useState} from 'react';
 function AdminLogin() {
   const [id, setId] = useState(0);
   const [password, setPassword] = useState("")
-  const submit = false;
+  const [respuesta, setRespuesta] = useState("")
 
   async function handleSubmit(event){
     event.preventDefault();
     var ans = await verifyUser(id, password);
     var res  = await ans.json();
-    submit = true;
-    console.log(res)
+    setRespuesta(res.message)
   }
   return (
     
@@ -62,8 +61,12 @@ function AdminLogin() {
             </div>
 
             <p>Please login to your account</p>
-
-
+            <div>
+            {respuesta ? (<div class="alert alert-danger" role="alert">
+                Los datos que ingresó no son correctos, sapo
+              </div>):<div></div>}
+              </div>
+              
             <MDBInput wrapperClass='mb-4' label='ID' id='form1' onChange={ event => setId(event.target.value)}/>
             <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' onChange={ event => {setPassword(event.target.value)}}/>
 
