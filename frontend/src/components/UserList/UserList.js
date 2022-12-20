@@ -166,6 +166,10 @@ const UserList = () => {
           </Table>
         </TableContainer>
       </Box>
+
+      <Button variant="contained" sx={{mt:2.5}} onClick={()=>navigate('/')}>
+        Sign out
+      </Button>
     </Box>
   );
 };

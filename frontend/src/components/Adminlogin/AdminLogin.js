@@ -12,16 +12,20 @@ from 'mdb-react-ui-kit';
 import logo from "../LandingPage/Images/logo2.png";
 import {verifyUser} from '../UserList/UserAPI';
 import {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function AdminLogin() {
   const [id, setId] = useState(0);
   const [password, setPassword] = useState("")
   const [respuesta, setRespuesta] = useState("")
 
+  const navigate = useNavigate()
+
   async function handleSubmit(event){
     event.preventDefault();
     var ans = await verifyUser(id, password);
-    var res  = await ans.json();
+    var res = await ans.json();
+    console.log(res)
     setRespuesta(res.message)
   }
   return (
@@ -60,9 +64,10 @@ function AdminLogin() {
 
             <p>Please login to your account</p>
             <div>
-            {respuesta ? (<div class="alert alert-danger" role="alert">
+            {respuesta && respuesta!="Success" ? (<div className="alert alert-danger" role="alert">
                 Los datos que ingresó no son correctos, sapo
-              </div>):<div></div>}
+                </div>) : (respuesta=="Success" ? navigate('/UserList') : <div></div>)}
+                
               </div>
               
             <MDBInput wrapperClass='mb-4' label='ID' id='form1' onChange={ event => setId(event.target.value)}/>
