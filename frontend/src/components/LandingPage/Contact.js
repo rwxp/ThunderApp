@@ -3,6 +3,7 @@ import "./Contact.css";
 import Img1 from "./Images/logo1.png";
 import { useEffect } from "react";
 import { MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBIcon, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit';
+import Navbar from './Navbar.js'
 
 function Contact () { 
   useEffect(() => {
@@ -11,6 +12,7 @@ function Contact () {
   return (
     <>
       <div className="mx-auto gradient-custom mt-10" style={{  maxWidth: '800px', height: '470px' }}>
+      <Navbar /> 
         <MDBRow className="pt-3 mx-3">
           <MDBCol md="3">
             <div className="text-center" style={{ marginTop: '50px', marginLeft: '10px' }}>

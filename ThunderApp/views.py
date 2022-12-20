@@ -33,11 +33,11 @@ class UsersView(View):
     @method_decorator(csrf_exempt)
     def verifyUser(request):
         data = json.loads(request.body)
-        type(data["id"])
-        if(data["id"] == 0):
+        id = int(data["id"])
+        if(id == 0):
             datos = {'message': 'User not found!'}
         else:
-            user = list(Users.objects.filter(id=data["id"]).values())
+            user = list(Users.objects.filter(id=id).values())
             if(len(user)>0):
                 datos = {'user': user}
             else:
