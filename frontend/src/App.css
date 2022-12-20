@@ -9,6 +9,20 @@
   position:relative;
   display:block;
 }
+.navbar{
+  background-color:#6FC6C9;
+}
+.navText {
+  color:white;
+  font-size: large;
+}
+.navbar-brand{
+  width: 50px;
+  height: 50px;
+}
+.navText:hover {
+  color:#124265;
+}
 .bodyMain::before{
   content:"";
   position:absolute;
@@ -73,17 +87,7 @@
   font-size: 20px;
   color: rgb(155, 155, 155);
 }
-.navText {
-  color: #000;
-  font-size: large;
-}
-.navbar-brand{
-  width: 50px;
-  height: 50px;
-}
-.navText:hover {
-  color:rgba(0,212,255,1);
-}
+
 .h1head {
   font-size: 2.5rem;
   font-weight: 900;
@@ -168,6 +172,7 @@ background-color: #ffffff;
 box-shadow: 5px 5px 10px rgb(197, 197, 197);
 }
 
+
 .form-outline{
   border: 1px solid rgb(192, 192, 192);
   border-radius: 5px;
@@ -179,7 +184,7 @@ box-shadow: 5px 5px 10px rgb(197, 197, 197);
   color: rgb(126, 126, 126);
 }
 .Llink{
-  color: blue;
+  color:white;
   text-decoration: underline;
 }
 .footer{
