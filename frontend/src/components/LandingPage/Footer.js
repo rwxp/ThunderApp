@@ -4,6 +4,8 @@ import Img1 from "./Images/logo.png";
 import Img2 from "./Images/facebook-icon.png";
 import Img3 from "./Images/twitter-3.png";
 import Img4 from "./Images/instagram-2016.png";
+import { TableRow } from "@mui/material";
+import { MDBRow } from "mdb-react-ui-kit";
 const Footer = () => {
   return (
     <div className="mainPage">
@@ -19,17 +21,18 @@ const Footer = () => {
               estadísticas que muestran el consumo de sus clientes y toda la información relevante 
               que su empresa necesite, también permite asignar roles para cada trabajador de su empresa.
             </p>
-          </div>
-          <div className="d-flex justify-content-between pt-3 iconFooter">
-            <div>
-              <img className="d-block" src={Img2} alt="icon" />
+            <div className="footer d-flex justify-content-evenly flex-wrap p-5">
+              <div >
+                <a href="https://www.facebook.com/"> <img className="d-block2" src={Img2} alt="icon" /></a>
+              </div>
+              <div >
+                <a href="https://twitter.com/"> <img className="d-block2" src={Img3} alt="icon" /></a>
+              </div>
+              <div >
+                <a href="https://www.instagram.com/"> <img className="d-block2" src={Img4} alt="icon" /></a>
+              </div>
             </div>
-            <div>
-              <img className="d-block" src={Img3} alt="icon" />
-            </div>
-            <div>
-              <img className="d-block" src={Img4} alt="icon" />
-            </div>
+            
           </div>
         </div>
         <div className="alignDiv">

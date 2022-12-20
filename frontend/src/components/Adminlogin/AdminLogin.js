@@ -16,11 +16,13 @@ import {useState} from 'react';
 function AdminLogin() {
   const [id, setId] = useState(0);
   const [password, setPassword] = useState("")
+  const submit = false;
 
   async function handleSubmit(event){
     event.preventDefault();
     var ans = await verifyUser(id, password);
-    var res  = await ans.json()
+    var res  = await ans.json();
+    submit = true;
     console.log(res)
   }
   return (
@@ -43,9 +45,11 @@ function AdminLogin() {
                 fontFamily: "sans-serif",}}>
                   Thunder
                   <img src={logo}
-                style={{width: '80px', marginTop:'15px'}} alt="logo" /></h2>
+                style={{width: '80px', marginTop:'15px'}} alt="logo" />
+             </h2>
 
-              
+             
+
               <h2 className="mt-1 mb-5 pb-1"
                 style={{
                 fontSize: 30,
@@ -53,7 +57,8 @@ function AdminLogin() {
                 color:  "#124265",
                 textAlign: "center",
                 fontFamily: "Arial",}}>
-                  Login</h2>
+                  Login
+              </h2>
             </div>
 
             <p>Please login to your account</p>

@@ -21,14 +21,16 @@ function Contact () {
               <p className="white-text">Send us an email for contact us with you</p>
             </div>
             <div className="back-button">
-                <MDBBtn rounded style={{ backgroundColor: '#6FC6C9'}}>Go back</MDBBtn>
+                <MDBBtn rounded style={{ backgroundColor: '#6FC6C9'}} href="/">Go back</MDBBtn>
             </div>
           </MDBCol>
           <MDBCol md="9" className="justify-content-center">
             <MDBCard className="card-custom pb-4">
               <MDBCardBody className="mt-0 mx-5">
                 <div className="text-center mb-3 pb-2 mt-3">
-                  <MDBTypography tag="h4" style={{fontSize: 30, fontWeight: 800, color: "#124265",textAlign: "center",fontFamily: "sans-serif",}} >Contact us</MDBTypography>
+                  <MDBTypography tag="h4" 
+                  style={{fontSize: 30, fontWeight: 800, color: "#124265",textAlign: "center",fontFamily: "sans-serif",}} 
+                  >Contact us</MDBTypography>
                 </div>
 
                 <form className="mb-0">

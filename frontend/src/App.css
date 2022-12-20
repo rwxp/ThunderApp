@@ -193,20 +193,15 @@ box-shadow: 5px 5px 10px rgb(197, 197, 197);
   height: 50px;
 
 }
+
+.d-block2{
+  width: 25px;
+  height: 25px;
+}
 .paraFooter{
-  width: 220px;
+  width: 200px;
   text-align: justify;
   margin-right:20px;
 }
 
-.imgBlock{
-  border-radius: 50%;
-}
-.footerDiv{
-  margin-right: 40px;
-  margin-top: 10px;
-}
-alignDiv{
-  justify-content: start;
-  text-align: start;
-} 
+
