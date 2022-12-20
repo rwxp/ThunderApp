@@ -31,4 +31,3 @@ function App() {
 }
 
 export default App;
-// CODE BY GRACY PATEL
