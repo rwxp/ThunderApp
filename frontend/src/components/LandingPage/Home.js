@@ -2,20 +2,25 @@
 import React from "react";
 import Image1 from "./Images/home.png";
 import About from "./About";
-import Login from '../Adminlogin/AdminLogin';
+import Login from "../Adminlogin/AdminLogin";
 import { useEffect } from "react";
-import Navbar from './Navbar.js'
+import Navbar from "./Navbar.js";
 import Footer from "./Footer";
 import "../../App.css";
 import Contact from "./Contact";
-const Home = () => {
 
+import { useNavigate } from "react-router-dom";
+
+const Home = () => {
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
+
+  const navigate = useNavigate();
+
   return (
     <div className="bodyMain">
-      <Navbar /> 
+      <Navbar />
       <div className="backPath">
         <br />
         <br />
@@ -26,37 +31,44 @@ const Home = () => {
                 {/* Heading */}
                 <h1
                   style={{
-                  fontSize: 50,
-                  fontWeight: 800,
-                  color: "#124265",
-                  
-                  textAlign: "left",
-                  fontFamily:  "serif"}}>
+                    fontSize: 50,
+                    fontWeight: 800,
+                    color: "#124265",
+
+                    textAlign: "left",
+                    fontFamily: "serif",
+                  }}
+                >
                   Thunder App
-               </h1>
-                <h6 class="card-subtitle mb-4 " 
+                </h1>
+                <h6
+                  className="card-subtitle mb-4 "
                   style={{
-                  fontSize: 20,
-                  color: "#6FC6C9",
-                  textAlign: "left",}}>
+                    fontSize: 20,
+                    color: "#6FC6C9",
+                    textAlign: "left",
+                  }}
+                >
                   Statistics of your customers
                 </h6>
-               
+
                 {/* Data Para */}
                 <p className="para pt-4 pb-4">
-                  
-                  Una aplicación para generar facturas automáticas del consumo de sus clientes
+                  Una aplicación para generar facturas automáticas del consumo
+                  de sus clientes
                 </p>
                 <div className="d-flex">
                   <button
                     type="button"
                     className="btn btn-secondary btn-rounded me-3"
+                    onClick={() => navigate("/Login")}
                   >
                     <h6>Start Free Trial</h6>
                   </button>
                   <button
                     type="button"
                     className="btn btn-light btn-rounded me-3"
+                    onClick={() => navigate("/About")}
                   >
                     <h6>Learn More</h6>
                   </button>
@@ -76,7 +88,7 @@ const Home = () => {
           <About />
           <Contact />
         </div>
-        
+
         <Footer />
       </div>
     </div>

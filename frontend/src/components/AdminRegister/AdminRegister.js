@@ -9,22 +9,31 @@ import {
   MDBInput
 }
 from 'mdb-react-ui-kit';
-import logo from "../Adminlogin/adminloginimages/icon2.png";
-import {getUser} from '../UserList/UserAPI';
+import logo from "../LandingPage/Images/logo2.png";
+import {getUser, registerUser} from '../UserList/UserAPI';
 import {useState} from 'react';
 
 function AdminRegister() {
   const [id, setId] = useState(0);
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [Address, setAddress] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [birthdate, setBirthdate] = useState("");
+  const [address, setAddress] = useState("")
+  const [phone, setPhone] = useState("")
+  const [password, setPassword] = useState(""); 
+  const [role, setRole] = useState("Admin");
+  const [isActive, setIsActive] = useState(true)
 
-  function handleSubmit(){
-    getUser(id)
+  async function handleSubmit(event){
+    event.preventDefault()
+    var ans = await registerUser(id, firstName, lastName, birthdate, address, phone
+      , password, role, isActive);
+    var res = await ans.json();
   }
   return (
-    <MDBContainer className="my-5 gradient-form" onSubmit={handleSubmit}>
+    <MDBContainer className="my-5 gradient-form" >
       <Navbar /> 
+      <form onSubmit={handleSubmit}>
       <MDBRow>
 
         <MDBCol col='6' className="mb-5" style={{
@@ -33,16 +42,9 @@ function AdminRegister() {
           <div className="d-flex flex-column ms-5">
 
             <div className="text-center">
-            <h2 className="mt-1 mb-5 pb-1"
-                style={{
-                fontSize: 35,
-                fontWeight: 800,
-                color: "#124265",
-                textAlign: "center",
-                fontFamily: "sans-serif",}}>
-                  Thunder
+            <h2 className="mt-3 mb-5 pb-1">
                   <img src={logo}
-                style={{width: '80px'}} alt="logo" /></h2>
+                style={{width: '100px'}} alt="logo" /></h2>
 
               
               <h2 className="mt-1 mb-5 pb-1"
@@ -57,24 +59,26 @@ function AdminRegister() {
 
             <p>Please add the new user</p>
 
-
-            <MDBInput wrapperClass='mb-4' label='ID' id='form1' type='id' onChange={(e)=> setId(e)}/>
-            <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' onChange={(e)=> setPassword(e)}/>
-            <MDBInput wrapperClass='mb-4' label='Email' id='form2' type='Email' onChange={(e)=> setEmail(e)}/>
-            <MDBInput wrapperClass='mb-4' label='Address' id='form2' type='Address' onChange={(e)=> setAddress(e)}/>
-            <div class="btn-group">
+            <MDBInput wrapperClass='mb-4' label='ID' id='id' type='id' onChange={(e)=> setId(e.target.value)}/>
+            <MDBInput wrapperClass='mb-4' label='First name' id='fname' type='id' onChange={(e)=> setFirstName(e.target.value)}/>
+            <MDBInput wrapperClass='mb-4' label='Last name' id='lname' type='id' onChange={(e)=> setLastName(e.target.value)}/>
+            <MDBInput wrapperClass='mb-4' label='Birthdate YYYY-MM-DD' id='bdate' type='id' onChange={(e)=> setBirthdate(e.target.value)}/>
+            <MDBInput wrapperClass='mb-4' label='Address' id='address' type='Address' onChange={(e)=> setAddress(e.target.value)}/>
+            <MDBInput wrapperClass='mb-4' label='Phone' id='phone' type='Address' onChange={(e)=> setPhone(e.target.value)}/>
+            <MDBInput wrapperClass='mb-4' label='Password' id='password' type='password' onChange={(e)=> setPassword(e.target.value)}/>
+            <div className="btn-group">
                 <button
                     type="button"
-                    class="btn btn-primary dropdown-toggle"
+                    className="btn btn-primary dropdown-toggle"
                     data-mdb-toggle="dropdown"
                     data-mdb-display="static"
                     aria-expanded="false">
                  Rol
                 </button>
-                <ul class="dropdown-menu dropdown-menu-lg-end">
-                     <li><button class="dropdown-item" type="button">Operador</button></li>
-                     <li><button class="dropdown-item" type="button">Gerente</button></li>
-                     <li><button class="dropdown-item" type="button">Cliente</button></li>
+                <ul className="dropdown-menu dropdown-menu-lg-end">
+                     <li><button className="dropdown-item" type="button">Operador</button></li>
+                     <li><button className="dropdown-item" type="button">Gerente</button></li>
+                     <li><button className="dropdown-item" type="button">Cliente</button></li>
                 </ul>
             </div>
 
@@ -82,7 +86,7 @@ function AdminRegister() {
 
             <MDBRow>
                 <div className="text-center pt-1 mb-5 pb-1">
-                    <MDBBtn className="mb-4 w-100 gradient-custom-2">Sign in</MDBBtn>
+                    <MDBBtn className="mb-4 w-100 gradient-custom-2" type="submit">Sign in</MDBBtn>
                     <a className="text-muted" href="#!">Forgot password?</a>
                 </div>
             </MDBRow>
@@ -102,8 +106,8 @@ function AdminRegister() {
           <div className="d-flex flex-column  justify-content-center gradient-custom-2 h-100 mb-4">
 
             <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-              <h4 class="mb-4">We are more than just a company</h4>
-              <p class="small mb-0">Una empresa de energía eléctrica que desarrolla un sistema para gestionar la información
+              <h4 className="mb-4">We are more than just a company</h4>
+              <p className="small mb-0">Una empresa de energía eléctrica que desarrolla un sistema para gestionar la información
                 de sus clientes ya sean corporativos o personas naturales, su consumo y la facturación.
               </p>
             </div>
@@ -113,7 +117,7 @@ function AdminRegister() {
         </MDBCol>
 
       </MDBRow>
-
+    </form>
     </MDBContainer>
   );
 }

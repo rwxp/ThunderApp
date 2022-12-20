@@ -1,6 +1,6 @@
 //Navbar used MDB Bootstrap
 import React, { useState } from "react";
-import Img1 from "./Images/logo1.png";
+import Img1 from "./Images/logo2.png";
 import { animateScroll as scroll } from "react-scroll";
 import {
   MDBContainer,
@@ -9,9 +9,11 @@ import {
   MDBNavbarNav,
   MDBNavbarItem,
   MDBCollapse,
-  MDBIcon
+  MDBIcon,
 } from "mdb-react-ui-kit";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
+
+import HomeIcon from "@mui/icons-material/Home";
 
 export default function App() {
   const [showNav, setShowNav] = useState(false);
@@ -25,8 +27,13 @@ export default function App() {
         {/* Scroll yo top */}
         <NavLink className="navbar-brand" to="/">
           <NavLink href="/" onClick={toggleHome}>
-            <img  className="d-block w-100" src={Img1} alt="LOGO MAIN"
-                 />
+            <img
+              className="d-block w-100"
+              src={Img1}
+              height={60}
+              width={60}
+              alt="LOGO MAIN"
+            />
           </NavLink>
         </NavLink>
         <MDBNavbarToggler
@@ -49,7 +56,7 @@ export default function App() {
                 About
               </NavLink>
             </MDBNavbarItem>
-           
+
             <MDBNavbarItem className="p-3">
               <NavLink to="/Contact" className="navText">
                 Contact Us
@@ -67,7 +74,7 @@ export default function App() {
                   className="btn btn-outline-secondary btn-rounded ps-5 pe-5"
                   data-mdb-ripple-color="dark"
                 >
-                  Home
+                  <HomeIcon/>
                 </button>
               </NavLink>
             </MDBNavbarItem>
