@@ -9,7 +9,7 @@ import {
   MDBInput
 }
 from 'mdb-react-ui-kit';
-import logo from "./adminloginimages/icon2.png";
+import logo from "../LandingPage/Images/logo2.png";
 import {verifyUser} from '../UserList/UserAPI';
 import {useState} from 'react';
 
@@ -25,7 +25,7 @@ function AdminLogin() {
     setRespuesta(res.message)
   }
   return (
-    
+
     <MDBContainer className="my-5 gradient-form" >
       <Navbar />
       <form onSubmit={handleSubmit}>
@@ -42,20 +42,18 @@ function AdminLogin() {
                 color: "#124265",
                 textAlign: "center",
                 fontFamily: "sans-serif",}}>
-                  Thunder
                   <img src={logo}
-                style={{width: '80px', marginTop:'15px'}} alt="logo" />
+                style={{width: '100px', marginTop:'35px'}} alt="logo" />
              </h2>
 
              
-
               <h2 className="mt-1 mb-5 pb-1"
                 style={{
                 fontSize: 30,
                 fontWeight: 800,
                 color:  "#124265",
                 textAlign: "center",
-                fontFamily: "Arial",}}>
+                fontFamily: "Montserrat",}}>
                   Login
               </h2>
             </div>
@@ -91,8 +89,8 @@ function AdminLogin() {
           <div className="d-flex flex-column  justify-content-center gradient-custom-2 h-100 mb-4">
 
             <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-              <h4 class="mb-4">We are more than just a company</h4>
-              <p class="small mb-0">Una empresa de energía eléctrica que desarrolla un sistema para gestionar la información
+              <h4 className="mb-4">We are more than just a company</h4>
+              <p className="small mb-0">Una empresa de energía eléctrica que desarrolla un sistema para gestionar la información
                 de sus clientes ya sean corporativos o personas naturales, su consumo y la facturación.
               </p>
             </div>
