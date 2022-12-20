@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as UserAPI from "./UserAPI";
-import "./UserList.css"
+import "./UserList.css";
 import Swal from "sweetalert2";
 
 // mui material components
@@ -71,7 +71,6 @@ const UserList = () => {
     listUsers();
   }, []);
 
-  
   // eslint-disable-next-line
   const handleDelete = async (userId) => {
     await UserAPI.deleteUser(userId);
@@ -79,10 +78,10 @@ const UserList = () => {
   };
 
   return (
-    <Box className="User-list">
+    <Box className="User-list" >
       <Box>
         <Grid sx={{ marginBottom: 3 }}>
-          <h1>
+          <h1 style={{ color: "#E8F9FF" }}>
             <strong>Users List</strong>
           </h1>
         </Grid>
@@ -90,33 +89,37 @@ const UserList = () => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>
+                <TableCell align="center">
                   <TableSortLabel>
                     <strong>User ID</strong>
                   </TableSortLabel>
                 </TableCell>
-                <TableCell>
+                <TableCell align="center">
                   <strong>First Name</strong>
                 </TableCell>
-                <TableCell>
+                <TableCell align="center">
                   <strong>Last Name</strong>
                 </TableCell>
-                <TableCell>
-                  <strong>Date of Birth</strong>
+                <TableCell align="center">
+                  <strong>
+                    Date of Birth
+                    <br />
+                    (YYYY-MM-DD)
+                  </strong>
                 </TableCell>
-                <TableCell>
+                <TableCell align="center">
                   <strong>Address</strong>
                 </TableCell>
-                <TableCell>
+                <TableCell align="center">
                   <strong>Phone</strong>
                 </TableCell>
-                <TableCell>
+                <TableCell align="center">
                   <strong>Role</strong>
                 </TableCell>
-                <TableCell>
+                <TableCell align="center">
                   <strong>Is Active</strong>
                 </TableCell>
-                <TableCell>
+                <TableCell align="center">
                   <strong>Change State</strong>
                 </TableCell>
               </TableRow>
@@ -134,13 +137,15 @@ const UserList = () => {
                   <TableCell component="th" scope="row">
                     {user.id}
                   </TableCell>
-                  <TableCell>{user.firstName}</TableCell>
-                  <TableCell>{user.lastName}</TableCell>
-                  <TableCell>{user.birthDate}</TableCell>
-                  <TableCell>{user.address}</TableCell>
-                  <TableCell>{user.phone}</TableCell>
-                  <TableCell>{user.role}</TableCell>
-                  <TableCell>{JSON.stringify(user.isActive)}</TableCell>
+                  <TableCell align="center">{user.firstName}</TableCell>
+                  <TableCell align="center">{user.lastName}</TableCell>
+                  <TableCell align="center">{user.birthDate}</TableCell>
+                  <TableCell align="center">{user.address}</TableCell>
+                  <TableCell align="center">{user.phone}</TableCell>
+                  <TableCell align="center">{user.role}</TableCell>
+                  <TableCell align="center">
+                    {JSON.stringify(user.isActive)}
+                  </TableCell>
                   <TableCell component="td" align="center">
                     {user.isActive === true ? (
                       <Button
@@ -167,7 +172,11 @@ const UserList = () => {
         </TableContainer>
       </Box>
 
-      <Button variant="contained" sx={{mt:2.5}} onClick={()=>navigate('/')}>
+      <Button
+        variant="contained"
+        sx={{ mt: 2.5 }}
+        onClick={() => navigate("/")}
+      >
         Sign out
       </Button>
     </Box>

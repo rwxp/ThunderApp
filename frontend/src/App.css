@@ -2,44 +2,44 @@
 .App {
   background-image: linear-gradient(#fff, rgb(226, 230, 255));
 }
-.NavFixed{
+.NavFixed {
   position: sticky;
 }
-.bodyMain{
-  position:relative;
-  display:block;
+.bodyMain {
+  position: relative;
+  display: block;
 }
-.bodyMain::before{
-  content:"";
-  position:absolute;
+.bodyMain::before {
+  content: "";
+  position: absolute;
   /*height: 100vh;
   min-height: 100%;*/
-  background-image: linear-gradient(190deg,#fff,#E2F1FF);
+  background-image: linear-gradient(190deg, #fff, #e2f1ff);
   clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
-  top:0;
-  bottom:0;
-  right:0;
-  left:0;
-  width:auto;
-  height:100vh;
-  z-index:-3;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: auto;
+  height: 100vh;
+  z-index: -3;
 }
-.backPath{
-  position:relative;
-  display:block;
+.backPath {
+  position: relative;
+  display: block;
 }
-.backPath::before{
-  content:"";
-  position:absolute;
-  background-image: linear-gradient(190deg,#F9F0FF,#E2F1FF);
+.backPath::before {
+  content: "";
+  position: absolute;
+  background-image: linear-gradient(190deg, #f9f0ff, #e2f1ff);
   clip-path: polygon(0 20%, 100% 0%, 100% 76%, 0% 100%);
   top: 2850px;
-  bottom:0;
-  right:0;
-  left:0;
-  width:auto;
-  height:80vh;
-  z-index:-3;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: auto;
+  height: 80vh;
+  z-index: -3;
 }
 .mainPage {
   top: 1;
@@ -76,12 +76,12 @@
   color: #000;
   font-size: large;
 }
-.navbar-brand{
+.navbar-brand {
   width: 50px;
   height: 50px;
 }
 .navText:hover {
-  color:rgba(0,212,255,1);
+  color: rgba(0, 212, 255, 1);
 }
 .h1head {
   font-size: 2.5rem;
@@ -126,7 +126,7 @@
   font-size: 20px;
 }
 .para {
-  color: #8989A2;
+  color: #8989a2;
   font-family: Metropolis;
   font-size: 18px;
   width: 50vh;
@@ -143,64 +143,72 @@
 .head-flex {
   height: 650px;
 }
-.divLogin{
+.divLogin {
   padding: 250px;
 }
-.loginBack{
+.loginBack {
   position: absolute;
   width: 508px;
   height: 503px;
   left: 896px;
   top: 202px;
   border-radius: 5px;
-  background-color:#F9F0FF;
+  background-color: #f9f0ff;
 }
-.loginF{
+.loginF {
   position: absolute;
-width: 410px;
-height: 503px;
-left: 950px;
-top: 160px;
-border: 0.5px solid rgb(197, 197, 197);
-border-radius: 5px;
-background-color: #ffffff;
-box-shadow: 5px 5px 10px rgb(197, 197, 197);
+  width: 410px;
+  height: 503px;
+  left: 950px;
+  top: 160px;
+  border: 0.5px solid rgb(197, 197, 197);
+  border-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 5px 5px 10px rgb(197, 197, 197);
 }
 
-.form-outline{
+.form-outline {
   border: 1px solid rgb(192, 192, 192);
   border-radius: 5px;
 }
-.btnLogin{
+.btnLogin {
   width: 90%;
 }
-.logText{
+.logText {
   color: rgb(126, 126, 126);
 }
-.Llink{
+.Llink {
   color: blue;
   text-decoration: underline;
 }
-.footer{
-  background-color: #FBFCFF;
+.footer {
+  background-color: #fbfcff;
   height: 40vh;
 }
-.logo-img-footer{
+.logo-img-footer {
   margin: 50px;
   margin-top: 10px;
   width: 40px;
   height: 50px;
-
 }
 
-.d-block2{
+.d-block2 {
   width: 25px;
   height: 25px;
 }
-.paraFooter{
+.paraFooter {
   width: 200px;
   text-align: justify;
-  margin-right:20px;
+  margin-right: 20px;
 }
 
-
+.User-list {
+  background-image: radial-gradient(
+    circle at -20.71% 50%,
+    #e1dbff 0,
+    #ccc8f9 25%,
+    #b5b5f2 50%,
+    #9ba3eb 75%,
+    #7f93e5 100%
+  );
+}
