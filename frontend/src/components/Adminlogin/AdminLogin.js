@@ -18,14 +18,14 @@ function AdminLogin() {
   const [id, setId] = useState(0);
   const [password, setPassword] = useState("")
   const [respuesta, setRespuesta] = useState("")
+  const [role, setRole] = useState("")
 
   const navigate = useNavigate()
 
   async function handleSubmit(event){
     event.preventDefault();
-    var ans = await verifyUser(id, password);
+    var ans = await verifyUser(id, password, role);
     var res = await ans.json();
-    console.log(res)
     setRespuesta(res.message)
   }
   return (
@@ -65,14 +65,24 @@ function AdminLogin() {
             <p>Please login to your account</p>
             <div>
             {respuesta && respuesta!="Success" ? (<div className="alert alert-danger" role="alert">
-                Los datos que ingresó no son correctos, sapo
-                </div>) : (respuesta=="Success" ? navigate('/UserList') : <div></div>)}
+                Los datos que ingresó no son correctos
+                </div>) : (respuesta=="Success" && role=="Cliente" ? navigate(`/Cliente/`) : 
+                (respuesta=="Success" && role=="Operador" ? navigate(`/Operador`) 
+                : (respuesta=="Success" && role=="Gerente" ? navigate(`/Gerente`) 
+                : (respuesta=="Success" && role=="Admin" ? navigate(`/Administrador`) : <div></div> ))))}
                 
-              </div>
+            </div>
               
             <MDBInput wrapperClass='mb-4' label='ID' id='form1' onChange={ event => setId(event.target.value)}/>
-            <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' onChange={ event => {setPassword(event.target.value)}}/>
-
+            <MDBInput wrapperClass='mb-2' label='Password' id='form2' type='password' onChange={ event => {setPassword(event.target.value)}}/>
+            
+            <select className="mb-5 w-100 select" id="role" onChange={(e)=> setRole(e.target.value)}>
+              <option selected="true" disabled="disabled">Seleccione el rol a desempeñar</option>
+              <option value="Cliente">Cliente</option>
+              <option value="Gerente">Gerente </option>
+              <option value="Operador">Operador</option>
+              <option value="Admin">Administrador</option>
+            </select>
 
             <div className="text-center pt-1 mb-5 pb-1">
               <MDBBtn className="mb-4 w-100 gradient-custom-2" type= "submit">Sign in</MDBBtn>
