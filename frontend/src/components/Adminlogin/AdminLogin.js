@@ -79,7 +79,7 @@ function AdminLogin() {
                 ) : respuesta == "Success" && role == "Gerente" ? (
                   navigate(`/Gerente`)
                 ) : respuesta == "Success" && role == "Admin" ? (
-                  navigate(`/Administrador`)
+                  navigate(`/Dashboard`)
                 ) : (
                   <div></div>
                 )}
@@ -121,17 +121,6 @@ function AdminLogin() {
                 <a className="text-muted" href="#!">
                   Forgot password?
                 </a>
-              </div>
-              <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
-                <p className="mb-0">Don't have an account?</p>
-                <MDBBtn
-                  outline
-                  className="mx-2"
-                  color="primary"
-                  href="/Register"
-                >
-                  Register
-                </MDBBtn>
               </div>
             </div>
           </MDBCol>

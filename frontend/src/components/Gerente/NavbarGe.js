@@ -1,6 +1,6 @@
 //Navbar used MDB Bootstrap
 import React, { useState } from "react";
-import Img1 from "../LandingPage/Images/logo2.png";
+import Img1 from "../LandingPage/Images/logo3.png";
 import { animateScroll as scroll } from "react-scroll";
 import {
   MDBContainer,
@@ -50,20 +50,11 @@ export default function App() {
         </MDBNavbarToggler>
         <MDBCollapse navbar show={showNav}>
           <MDBNavbarNav className="d-flex justify-content-end">
-            <MDBNavbarItem className="p-3">
-              <NavLink to="/Dashboard" className="navText">
-               <button className="btn btn-outline-secondary btn-rounded ps-30 pe-30">
-                Dashboard
-               </button>
-              </NavLink>
-            </MDBNavbarItem>
-            <MDBNavbarItem className="p-3">
-              <NavLink to="/" className="navText">
-               <button className="btn btn-outline-secondary btn-rounded ps-10 pe-30">
-                Logout
-               </button>
-              </NavLink>
-            </MDBNavbarItem>
+              <MDBNavbarItem className="p-3">
+                <NavLink to="/" className="navText">
+                  Logout
+                </NavLink>
+              </MDBNavbarItem>
             <MDBNavbarItem className="m-2">
             </MDBNavbarItem>
           </MDBNavbarNav>
