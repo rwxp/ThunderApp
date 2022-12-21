@@ -1,6 +1,6 @@
 import React from 'react';
 import "./Contact.css";
-import Img1 from "./Images/logo1.png";
+import Img1 from "./Images/logo3.png";
 import { useEffect } from "react";
 import Navbar from './Navbar.js'
 import { MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBIcon, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit';
@@ -20,7 +20,7 @@ function Contact () {
               <MDBIcon fas icon="shipping-fast text-white" size="3x" />
               <MDBTypography tag="h3" className="text-white">
               <img  className="d-block w-100" src={Img1} alt="LOGO MAIN"/>
-                  Thunder</MDBTypography>
+                  </MDBTypography>
               <p className="white-text">Send us an email for contact us with you</p>
             </div>
             <div className="back-button">

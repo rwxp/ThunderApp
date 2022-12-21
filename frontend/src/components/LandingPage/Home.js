@@ -1,6 +1,6 @@
 //HOME PAGE
 import React from "react";
-import Image1 from "./Images/home.png";
+import Image1 from "./Images/home3.jpg";
 import About from "./About";
 import Login from "../Adminlogin/AdminLogin";
 import { useEffect } from "react";
