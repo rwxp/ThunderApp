@@ -25,6 +25,7 @@ function AdminLogin() {
     event.preventDefault();
     var ans = await verifyUser(id, password, role);
     var res = await ans.json();
+    console.log(res);
     setRespuesta(res.message);
   }
   return (
@@ -79,7 +80,7 @@ function AdminLogin() {
                 ) : respuesta == "Success" && role == "Gerente" ? (
                   navigate(`/Gerente`)
                 ) : respuesta == "Success" && role == "Admin" ? (
-                  navigate(`/Dashboard`)
+                  navigate('/Dashboard')
                 ) : (
                   <div></div>
                 )}
@@ -106,7 +107,7 @@ function AdminLogin() {
                 id="role"
                 onChange={(e) => setRole(e.target.value)}
               >
-                <option selected="true" disabled="disabled">
+                <option selected={true} disabled="disabled">
                   Seleccione el rol a desempeñar
                 </option>
                 <option value="Cliente">Cliente</option>

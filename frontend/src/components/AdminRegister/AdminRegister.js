@@ -76,7 +76,7 @@ function AdminRegister() {
                   Los datos ingresados son incorrectos
                 </div>
               ) : (
-                navigate('/Dashboard')
+                (respuesta === "Success" ? navigate('/Dashboard') : <div></div>)
               )}
             </div>
 
