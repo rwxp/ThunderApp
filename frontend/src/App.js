@@ -10,8 +10,6 @@ import Register from './components/AdminRegister/AdminRegister';
 import Form from "./components/UserData/UserData";
 import UserList from "./components/UserList/UserList";
 
-import Sidebar from './components/DashboardPage/Sidebar';
-import Topbar from './components/DashboardPage/Topbar';
 import Dashboard from './components/DashboardPage/Dashboard/index';
 
 
@@ -22,8 +20,7 @@ function App() {
   <Router>
     <Routes>
       <Route path="/Login" element={<Login/>} />
-      <Route path="/Topbar" element={<Topbar/>} />
-      <Route path="/Sidebar" element={<Sidebar/>} />
+      
       <Route path="/Dashboard" element={<Dashboard/>} />
       <Route path="/Register" element={<Register/>} />
       <Route path="/UserList" element={<UserList />} />

@@ -14,18 +14,43 @@ import BarChart from "../ComponentsDashboard/BarChart";
 import StatBox from "../ComponentsDashboard/StatBox";
 import ProgressCircle from "../ComponentsDashboard/ProgressCircle";
 import Sidebar from '../Sidebar';
+import Topbar from '../Topbar';
+import { useState } from "react";
+
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [isSidebar, setIsSidebar] = useState(true);
 
   return (
+  
     
-    <Box m="20px">
-      {/* HEADER */}
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+  <Box m="0px"  >
+    <div className="app">
+      <Topbar setIsSidebar={setIsSidebar} />
+      <Box display="flex">
+        <Box
+          
+          marginLeft={'0px'}
+          marginRight={'30px'}
+          display="flex"
+          alignItems="left"
+          justifyContent="left"
+        >
+        <Sidebar isSidebar={isSidebar} />
+        </Box>
+
+      <Box
+        gridRow={'400px'}
+        gridTemplateColumns="repeat(12, 1fr)"
+        gridAutoRows="140px"
+        gap="20px"
+      > 
+       
+       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
-        
+
         <Box>
           <Button
             sx={{
@@ -41,6 +66,8 @@ const Dashboard = () => {
           </Button>
         </Box>
       </Box>
+      
+      
 
       {/* GRID & CHARTS */}
       <Box
@@ -49,6 +76,9 @@ const Dashboard = () => {
         gridAutoRows="140px"
         gap="20px"
       >
+        
+        
+        
         {/* ROW 1 */}
         <Box
           gridColumn="span 3"
@@ -280,7 +310,12 @@ const Dashboard = () => {
           </Box>
         </Box>
       </Box>
+      </Box>
+      </Box>
+    </div>
     </Box>
+    
+    
   );
 };
 
