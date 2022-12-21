@@ -12,18 +12,20 @@ import LineChart from "../ComponentsDashboard/LineChart";
 import GeographyChart from "../ComponentsDashboard/GeographyChart";
 import BarChart from "../ComponentsDashboard/BarChart";
 import StatBox from "../ComponentsDashboard/StatBox";
-import ProgressCircle from "../ProgressCircle";
+import ProgressCircle from "../ComponentsDashboard/ProgressCircle";
+import Sidebar from '../Sidebar';
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   return (
+    
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
-
+        
         <Box>
           <Button
             sx={{
