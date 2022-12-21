@@ -18,6 +18,7 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import Img1 from "../LandingPage/Images/logo.png";
+import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -71,7 +72,7 @@ const Sidebar = () => {
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
               margin: "10px 0 20px 0",
-              color: 'gray',
+              color: "gray",
             }}
           >
             {!isCollapsed && (
@@ -125,7 +126,6 @@ const Sidebar = () => {
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-              
             />
 
             <Typography
@@ -135,9 +135,9 @@ const Sidebar = () => {
             >
               Data
             </Typography>
-            
+
             <Item
-              title="Users List"
+              title="Manage users"
               to="/UserList"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
@@ -145,9 +145,9 @@ const Sidebar = () => {
             />
 
             <Item
-              title="Manage Team"
-              to="/team"
-              icon={<PeopleOutlinedIcon />}
+              title="Add new user"
+              to="/Register"
+              icon={<PersonAddAltIcon />}
               selected={selected}
               setSelected={setSelected}
             />
