@@ -1,18 +1,18 @@
 import React from 'react';
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../Theme";
-import { mockTransactions } from "../../data/mockData";
+import { mockTransactions } from "../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import EmailIcon from "@mui/icons-material/Email";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TrafficIcon from "@mui/icons-material/Traffic";
-import Header from "../Header";
-import LineChart from "../../components/LineChart";
-import GeographyChart from "../../components/GeographyChart";
-import BarChart from "../../components/BarChart";
-import StatBox from "../../components/StatBox";
-import ProgressCircle from "../../components/ProgressCircle";
+import Header from "../ComponentsDashboard/Header";
+import LineChart from "../ComponentsDashboard/LineChart";
+import GeographyChart from "../ComponentsDashboard/GeographyChart";
+import BarChart from "../ComponentsDashboard/BarChart";
+import StatBox from "../ComponentsDashboard/StatBox";
+import ProgressCircle from "../ProgressCircle";
 
 const Dashboard = () => {
   const theme = useTheme();

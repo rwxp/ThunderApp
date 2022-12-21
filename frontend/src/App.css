@@ -76,7 +76,7 @@
   color: rgb(155, 155, 155);
 }
 .navText {
-  color: #000;
+  color: white;
   font-size: large;
 }
 .navbar-brand {
@@ -84,7 +84,7 @@
   height: 50px;
 }
 .navText:hover {
-  color: rgba(0, 212, 255, 1);
+  color: #124265;
 }
 .h1head {
   font-size: 2.5rem;
