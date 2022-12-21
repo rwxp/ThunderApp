@@ -70,7 +70,7 @@ const Sidebar = () => {
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
               margin: "10px 0 20px 0",
-              color: 'black',
+              color: "black",
             }}
           >
             {!isCollapsed && (
@@ -111,7 +111,7 @@ const Sidebar = () => {
                   Ed Roh
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  VP Fancy Admin
+                  ThunderApp Admin
                 </Typography>
               </Box>
             </Box>
@@ -133,6 +133,15 @@ const Sidebar = () => {
             >
               Data
             </Typography>
+            
+            <Item
+              title="Users List"
+              to="/UserList"
+              icon={<ReceiptOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
             <Item
               title="Manage Team"
               to="/team"
@@ -144,13 +153,6 @@ const Sidebar = () => {
               title="Contacts Information"
               to="/contacts"
               icon={<ContactsOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Table"
-              to="/UserList"
-              icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />

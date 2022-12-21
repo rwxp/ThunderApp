@@ -54,7 +54,7 @@ function AdminRegister() {
                 color:  "#124265",
                 textAlign: "center",
                 fontFamily: "Arial",}}>
-                  Sign in</h2>
+                  Sign up</h2>
             </div>
 
             <p>Please add the new user</p>
