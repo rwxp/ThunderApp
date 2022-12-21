@@ -65,22 +65,14 @@ function AdminRegister() {
             <MDBInput wrapperClass='mb-4' label='Birthdate YYYY-MM-DD' id='bdate' type='id' onChange={(e)=> setBirthdate(e.target.value)}/>
             <MDBInput wrapperClass='mb-4' label='Address' id='address' type='Address' onChange={(e)=> setAddress(e.target.value)}/>
             <MDBInput wrapperClass='mb-4' label='Phone' id='phone' type='Address' onChange={(e)=> setPhone(e.target.value)}/>
-            <MDBInput wrapperClass='mb-4' label='Password' id='password' type='password' onChange={(e)=> setPassword(e.target.value)}/>
-            <div className="btn-group">
-                <button
-                    type="button"
-                    className="btn btn-primary dropdown-toggle"
-                    data-mdb-toggle="dropdown"
-                    data-mdb-display="static"
-                    aria-expanded="false">
-                 Rol
-                </button>
-                <ul className="dropdown-menu dropdown-menu-lg-end">
-                     <li><button className="dropdown-item" type="button">Operador</button></li>
-                     <li><button className="dropdown-item" type="button">Gerente</button></li>
-                     <li><button className="dropdown-item" type="button">Cliente</button></li>
-                </ul>
-            </div>
+            <MDBInput wrapperClass='mb-2' label='Password' id='password' type='password' onChange={(e)=> setPassword(e.target.value)}/>
+
+            <select className="mb-5 w-100 select" id="role" onChange={(e)=> setRole(e.target.value)}>
+              <option selected="true" disabled="disabled">Seleccione el rol a desempeñar</option>
+              <option value="Cliente">Cliente</option>
+              <option value="Gerente">Gerente </option>
+              <option value="Operador">Operador</option>
+            </select>
 
             
 

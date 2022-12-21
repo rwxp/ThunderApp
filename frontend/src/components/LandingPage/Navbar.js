@@ -22,7 +22,7 @@ export default function App() {
   };
   return (
     // MDB NAVBAR
-    <MDBNavbar className="navbar fixed-top" expand="lg" light bgColor="light">
+    <MDBNavbar className="navbar fixed-top" expand="lg" >
       <MDBContainer>
         {/* Scroll yo top */}
         <NavLink className="navbar-brand" to="/">
