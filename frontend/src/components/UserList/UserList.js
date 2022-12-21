@@ -78,9 +78,9 @@ const UserList = () => {
   };
 
   return (
-    <Box className="User-list" >
+    <Box className="User-list">
       <Box>
-        <Grid sx={{ marginBottom: 3 }}>
+        <Grid sx={{ marginBottom: 3, marginTop: 3 }}>
           <h1 style={{ color: "#E8F9FF" }}>
             <strong>Users List</strong>
           </h1>
@@ -170,15 +170,16 @@ const UserList = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        <Grid container justifyContent={"center"}>
+          <Button
+            variant="contained"
+            sx={{ mt: 2.5, mb: 2.5}}
+            onClick={() => navigate("/Dashboard")}
+          >
+            Go back
+          </Button>
+        </Grid>
       </Box>
-
-      <Button
-        variant="contained"
-        sx={{ mt: 2.5 }}
-        onClick={() => navigate("/")}
-      >
-        Sign out
-      </Button>
     </Box>
   );
 };

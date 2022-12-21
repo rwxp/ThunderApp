@@ -30,7 +30,7 @@ function AdminLogin() {
   }
   return (
 
-    <MDBContainer className="my-5 gradient-form" >
+    <MDBContainer className="my-5 gradient-form">
       <Navbar />
       <form onSubmit={handleSubmit}>
       <MDBRow >
@@ -64,9 +64,9 @@ function AdminLogin() {
 
             <p>Please login to your account</p>
             <div>
-            {respuesta && respuesta!="Success" ? (<div className="alert alert-danger" role="alert">
+            {respuesta && respuesta!=="Success" ? (<div className="alert alert-danger" role="alert">
                 Los datos que ingresó no son correctos, sapo
-                </div>) : (respuesta=="Success" ? navigate('/UserList') : <div></div>)}
+                </div>) : (respuesta==="Success" ? navigate('/UserList') : <div></div>)}
                 
               </div>
               
