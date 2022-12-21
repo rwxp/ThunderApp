@@ -10,7 +10,7 @@
   display: block;
 }
 .navbar {
- background-color: #2278a1;
+ background-color: #124265;
  /*background-color: white;*/
 }
 .bodyMain::before {
@@ -182,7 +182,7 @@
   color: rgb(126, 126, 126);
 }
 .Llink {
-  color: blue;
+  color: #124265;
   text-decoration: underline;
 }
 .footer {
