@@ -4,6 +4,8 @@ import * as UserAPI from "./UserAPI";
 import "./UserList.css";
 import Swal from "sweetalert2";
 
+import logo from "../LandingPage/Images/logo2.png";
+
 // mui material components
 import {
   Box,
@@ -13,10 +15,12 @@ import {
   TableRow,
   TableBody,
   TableCell,
+  Toolbar,
   Paper,
   Button,
   Grid,
   TableSortLabel,
+  Typography,
 } from "@mui/material";
 
 const UserList = () => {
@@ -24,22 +28,6 @@ const UserList = () => {
 
   const navigate = useNavigate();
 
-  function compare(a, b) {
-    const idA = a.id;
-    const idB = b.id;
-
-    let comparison = 0;
-    if (idA > idB) {
-      comparison = 1;
-    } else if (idA < idB) {
-      comparison = -1;
-    }
-    return comparison;
-  }
-
-  users.sort(compare);
-
-  // eslint-disable-next-line
   const deleteConfirmation = (id) => {
     Swal.fire({
       title: "Are you sure you want to delete this user?",
@@ -51,8 +39,7 @@ const UserList = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-      } else {
-        navigate("/");
+        id && handleDelete(id);
       }
     });
   };
@@ -78,14 +65,18 @@ const UserList = () => {
   };
 
   return (
-    <Box className="User-list" >
-      <Box>
-        <Grid sx={{ marginBottom: 3 }}>
-          <h1 style={{ color: "#E8F9FF" }}>
-            <strong>Users List</strong>
-          </h1>
+    <Box className="User-list">
+      <Box component={Paper} sx={{ background: "aliceblue", borderRadius: 5 }}>
+        <Grid container sx={{ mb: 3, mt: 3, ml: 3, alignItems: "center" }}>
+          <img src={logo} height={90} width={90}></img>
+          <Grid item sx={{ ml: 4 }}>
+            <h1 style={{ color: "#124265" }}>
+              <strong>Users List</strong>
+            </h1>
+          </Grid>
         </Grid>
-        <TableContainer component={Paper} sx={{ borderRadius: 5 }}>
+
+        <TableContainer>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -122,6 +113,7 @@ const UserList = () => {
                 <TableCell align="center">
                   <strong>Change State</strong>
                 </TableCell>
+                <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
@@ -134,7 +126,7 @@ const UserList = () => {
                     },
                   }}
                 >
-                  <TableCell component="th" scope="row">
+                  <TableCell align="center" component="th" scope="row">
                     {user.id}
                   </TableCell>
                   <TableCell align="center">{user.firstName}</TableCell>
@@ -151,6 +143,12 @@ const UserList = () => {
                       <Button
                         variant="contained"
                         size="small"
+                        sx={{
+                          ":hover": {
+                            bgcolor: "lightblue",
+                            color: "white",
+                          },
+                        }}
                         onClick={() => navigate(`/update/${user.id}`)}
                       >
                         Deactivate
@@ -159,26 +157,50 @@ const UserList = () => {
                       <Button
                         variant="contained"
                         size="small"
+                        sx={{
+                          ":hover": {
+                            bgcolor: "lightblue",
+                            color: "white",
+                          },
+                        }}
                         onClick={() => navigate(`/update/${user.id}`)}
                       >
                         Activate
                       </Button>
                     )}
                   </TableCell>
+                  <TableCell component="td" align="center">
+                    <Button
+                      variant="contained"
+                      size="small"
+                      sx={{
+                        color: "white",
+                        backgroundColor: "#C93456",
+                        ":hover": {
+                          bgcolor: "pink",
+                          color: "white",
+                        },
+                      }}
+                      onClick={() => deleteConfirmation(user.id)}
+                    >
+                      DELETE
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
+        <Grid container justifyContent={"center"}>
+          <Button
+            variant="contained"
+            sx={{ mt: 2.5, mb: 2.5 }}
+            onClick={() => navigate("/Dashboard")}
+          >
+            Go back
+          </Button>
+        </Grid>
       </Box>
-
-      <Button
-        variant="contained"
-        sx={{ mt: 2.5 }}
-        onClick={() => navigate("/")}
-      >
-        Sign out
-      </Button>
     </Box>
   );
 };

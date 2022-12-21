@@ -9,8 +9,9 @@
   position: relative;
   display: block;
 }
-.navbar{
-  background-color:#6FC6C9;
+.navbar {
+ background-color: #2278a1;
+ /*background-color: white;*/
 }
 .bodyMain::before {
   content: "";
@@ -84,7 +85,7 @@
   height: 50px;
 }
 .navText:hover {
-  color: #124265;
+  color: #9bf6ff;
 }
 .h1head {
   font-size: 2.5rem;
@@ -206,12 +207,12 @@
 }
 
 .User-list {
-  background-image: radial-gradient(
-    circle at -20.71% 50%,
-    #e1dbff 0,
-    #ccc8f9 25%,
-    #b5b5f2 50%,
-    #9ba3eb 75%,
-    #7f93e5 100%
+  background-image: linear-gradient(
+    to right bottom,
+    #124265,
+    #1a5c83,
+    #2278a1,
+    #2a96be,
+    #33b4db
   );
 }

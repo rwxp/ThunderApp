@@ -80,7 +80,7 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h3" color={colors.greenAccent}>
+                <Typography variant="h3" color={colors.blueAccent}>
                   ADMIN
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
@@ -111,7 +111,7 @@ const Sidebar = () => {
                   Sebastian Caicedo
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  VP Fancy Admin
+                  ThunderApp Admin
                 </Typography>
               </Box>
             </Box>
@@ -124,6 +124,7 @@ const Sidebar = () => {
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
+              
             />
 
             <Typography
@@ -133,6 +134,15 @@ const Sidebar = () => {
             >
               Data
             </Typography>
+            
+            <Item
+              title="Users List"
+              to="/UserList"
+              icon={<ReceiptOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
             <Item
               title="Manage Team"
               to="/team"
@@ -144,13 +154,6 @@ const Sidebar = () => {
               title="Contacts Information"
               to="/contacts"
               icon={<ContactsOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Table"
-              to="/UserList"
-              icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />

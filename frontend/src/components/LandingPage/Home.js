@@ -33,7 +33,7 @@ const Home = () => {
                   style={{
                     fontSize: 50,
                     fontWeight: 800,
-                    color: "#124265",
+                    color: "#1a5c83",
 
                     textAlign: "left",
                     fontFamily: "serif",
@@ -45,7 +45,7 @@ const Home = () => {
                   className="card-subtitle mb-4 "
                   style={{
                     fontSize: 20,
-                    color: "#6FC6C9",
+                    color: "#33b4db",
                     textAlign: "left",
                   }}
                 >

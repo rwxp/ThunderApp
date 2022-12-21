@@ -1,6 +1,13 @@
 .gradient-custom {
     
-    background: -webkit-linear-gradient(left, rgba(2,0,36,1) 0%, rgba(26,90,117,1) 35%);
+    background-image: linear-gradient(
+    to right bottom,
+    #124265,
+    #1a5c83,
+    #2278a1,
+    #2a96be,
+    #33b4db
+  );
     }
 .mx-auto {
     margin-top: 100px;
