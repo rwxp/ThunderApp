@@ -9,9 +9,14 @@ import Login from './components/Adminlogin/AdminLogin';
 import Register from './components/AdminRegister/AdminRegister';
 import Form from "./components/UserData/UserData";
 import UserList from "./components/UserList/UserList";
+import OpRegister from "./components/Operador/OperatorRegister"
 
 import Dashboard from './components/DashboardPage/Dashboard/index';
 
+import Administrador from "./components/Administrador/Administrador";
+import Cliente from "./components/Cliente/Cliente";
+import Operador from "./components/Operador/Operador";
+import Gerente from "./components/Gerente/Gerente";
 
 
 function App() {
@@ -27,6 +32,12 @@ function App() {
       <Route path="/" element={<Home/>} />
       <Route path="/About" element={<About />} />
       <Route path="/Contact" element={<Contact />} />
+      <Route path="/Gerente" element={<Gerente />} />
+      <Route path="/Administrador" element={<Administrador />} />
+      <Route path="/Cliente" element={<Cliente />} />
+      <Route path="/Operador" element={<Operador />} />
+      <Route path="/OpRegister" element={<OpRegister />} />
+    
   
     </Routes>
   </Router>
