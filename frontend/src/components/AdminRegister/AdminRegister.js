@@ -44,7 +44,7 @@ function AdminRegister() {
     <MDBContainer className="my-5 gradient-form" >
       <form onSubmit={handleSubmit}>
         <MDBRow>
-          <MDBCol col="6" className="mb-5" style={{ marginTop: "20px" }}>
+          <MDBCol col="6" className="mb-5" >
             <div className="d-flex flex-column ms-5">
               <div className="text-center">
                 <h2 className="mt-3 mb-5 pb-1">
@@ -61,61 +61,10 @@ function AdminRegister() {
                     fontFamily: "Arial",
                   }}
                 >
-                  Sign up
+                  Register User
                 </h2>
               </div>
 
-              <p>Please add the new user</p>
-
-              <MDBInput
-                wrapperClass="mb-4"
-                label="ID"
-                id="id"
-                type="id"
-                onChange={(e) => setId(e.target.value)}
-              />
-              <MDBInput
-                wrapperClass="mb-4"
-                label="First name"
-                id="fname"
-                type="id"
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-              <MDBInput
-                wrapperClass="mb-4"
-                label="Last name"
-                id="lname"
-                type="id"
-                onChange={(e) => setLastName(e.target.value)}
-              />
-              <MDBInput
-                wrapperClass="mb-4"
-                label="Birthdate YYYY-MM-DD"
-                id="bdate"
-                type="id"
-                onChange={(e) => setBirthdate(e.target.value)}
-              />
-              <MDBInput
-                wrapperClass="mb-4"
-                label="Address"
-                id="address"
-                type="Address"
-                onChange={(e) => setAddress(e.target.value)}
-              />
-              <MDBInput
-                wrapperClass="mb-4"
-                label="Phone"
-                id="phone"
-                type="Address"
-                onChange={(e) => setPhone(e.target.value)}
-              />
-              <MDBInput
-                wrapperClass="mb-2"
-                label="Password"
-                id="password"
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
             </div>
             <p>Please add the new user</p>
               <div>
@@ -150,16 +99,14 @@ function AdminRegister() {
                     className="mb-4 w-100 gradient-custom-2"
                     type="submit"
                   >
-                    Sign in
+                    Create User
                   </MDBBtn>
-                  <a className="text-muted" href="#!">
-                    Forgot password?
-                  </a>
+                 
                 </div>
               </MDBRow>
 
-            <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
-              <p className="mb-0">You already have an account?</p>
+            <div className="d-flex flex-column align-items-center justify-content-center pb-4 mb-4">
+              <p className="mb-0">Regresar a la página principal</p>
               <MDBBtn outline className='mx-2' color='primary' href="/Dashboard">
                 Go back
               </MDBBtn>
