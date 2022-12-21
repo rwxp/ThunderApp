@@ -145,8 +145,8 @@ const Sidebar = () => {
             />
 
             <Item
-              title="Manage Team"
-              to="/team"
+              title="Add users"
+              to="/Register"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
