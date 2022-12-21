@@ -116,7 +116,7 @@ function AdminLogin() {
               </select>
               <div className="text-center pt-1 mb-5 pb-1">
                 <MDBBtn className="mb-4 w-100 gradient-custom-2" type="submit">
-                  Sign in
+                  Login
                 </MDBBtn>
                 <a className="text-muted" href="#!">
                   Forgot password?
