@@ -1,6 +1,6 @@
 //Navbar used MDB Bootstrap
 import React, { useState } from "react";
-import Img1 from "../LandingPage/Images/logo2.png";
+import Img1 from "../LandingPage/Images/logo3.png";
 import { animateScroll as scroll } from "react-scroll";
 import {
   MDBContainer,
@@ -52,16 +52,12 @@ export default function App() {
           <MDBNavbarNav className="d-flex justify-content-end">
             <MDBNavbarItem className="p-3">
               <NavLink to="/OpRegister" className="navText">
-               <button className="btn btn-outline-secondary btn-rounded ps-10 pe-30">
                 Registrar Clientes
-               </button>
               </NavLink>
             </MDBNavbarItem>
             <MDBNavbarItem className="p-3">
               <NavLink to="/" className="navText">
-               <button className="btn btn-outline-secondary btn-rounded ps-10 pe-30">
                 Logout
-               </button>
               </NavLink>
             </MDBNavbarItem>
             <MDBNavbarItem className="m-2">
