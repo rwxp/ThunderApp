@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
-import { tokens } from "../Theme";
+import { tokens, ColorModeContext, useMode  } from "../Theme";
 import { mockTransactions } from "../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import EmailIcon from "@mui/icons-material/Email";
@@ -16,15 +16,20 @@ import ProgressCircle from "../ComponentsDashboard/ProgressCircle";
 import Sidebar from '../Sidebar';
 import Topbar from '../Topbar';
 import { useState } from "react";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+
 
 
 const Dashboard = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const [ theme,colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
-
-  return (
   
+  const colors = tokens(theme.palette.mode);
+  
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
     
   <Box m="0px"  >
     <div className="app">
@@ -314,7 +319,8 @@ const Dashboard = () => {
       </Box>
     </div>
     </Box>
-    
+  </ThemeProvider>
+  </ColorModeContext.Provider>
     
   );
 };
