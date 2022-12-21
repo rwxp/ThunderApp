@@ -23,16 +23,17 @@ function AdminRegister() {
   const [password, setPassword] = useState(""); 
   const [role, setRole] = useState("Admin");
   const [isActive, setIsActive] = useState(true)
+  const [respuesta, setRespuesta] = useState("")
 
   async function handleSubmit(event){
     event.preventDefault()
     var ans = await registerUser(id, firstName, lastName, birthdate, address, phone
       , password, role, isActive);
     var res = await ans.json();
+    setRespuesta(res.message)
   }
   return (
     <MDBContainer className="my-5 gradient-form" >
-      <Navbar /> 
       <form onSubmit={handleSubmit}>
       <MDBRow>
 
@@ -58,7 +59,14 @@ function AdminRegister() {
             </div>
 
             <p>Please add the new user</p>
-
+              <div>
+                {respuesta && respuesta != "Success" ? (
+                  <div className="alert alert-danger" role="alert">
+                    El usuario que ingresó ya se encuentra registrado.
+                  </div>
+                ) : <div></div>}
+              </div>
+             
             <MDBInput wrapperClass='mb-4' label='ID' id='id' type='id' onChange={(e)=> setId(e.target.value)}/>
             <MDBInput wrapperClass='mb-4' label='First name' id='fname' type='id' onChange={(e)=> setFirstName(e.target.value)}/>
             <MDBInput wrapperClass='mb-4' label='Last name' id='lname' type='id' onChange={(e)=> setLastName(e.target.value)}/>
@@ -72,6 +80,7 @@ function AdminRegister() {
               <option value="Cliente">Cliente</option>
               <option value="Gerente">Gerente </option>
               <option value="Operador">Operador</option>
+              <option value="Admin">Administrador</option>
             </select>
 
             
@@ -85,8 +94,8 @@ function AdminRegister() {
 
             <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4">
               <p className="mb-0">You already have an account?</p>
-              <MDBBtn outline className='mx-2' color='primary' href="/Login">
-                Login
+              <MDBBtn outline className='mx-2' color='primary' href="/Dashboard">
+                Go back
               </MDBBtn>
             </div>
 
