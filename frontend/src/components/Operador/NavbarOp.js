@@ -35,6 +35,7 @@ export default function App() {
               alt="LOGO MAIN"
             />
           </NavLink>
+<<<<<<< HEAD
           <MDBNavbarToggler
             type="button"
             color="#000"
@@ -86,5 +87,47 @@ export default function App() {
         </MDBContainer>
       </MDBNavbar>
     </div>
+=======
+        </NavLink>
+        <MDBNavbarToggler
+          type="button"
+          color="#000"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          onClick={() => {
+            setShowNav(!showNav);
+          }}
+          // Responsiveness of Nav
+        >
+          <MDBIcon icon="bars" fas />
+        </MDBNavbarToggler>
+        <MDBCollapse navbar show={showNav}>
+          <MDBNavbarNav className="d-flex justify-content-end">
+            <MDBNavbarItem className="p-3">
+              <NavLink to="/OpRegister" className="navText">
+                Registrar Clientes
+              </NavLink>
+            </MDBNavbarItem>
+            <MDBNavbarItem className="p-3">
+              <NavLink to="/" className="navText">
+                Logout
+              </NavLink>
+            </MDBNavbarItem>
+            <MDBNavbarItem className="m-2">
+              <NavLink to="/Operador" onClick={toggleHome}>
+                <button
+                  type="button"
+                  className="btn btn-outline-secondary btn-rounded ps-5 pe-5"
+                  data-mdb-ripple-color="dark"
+                >
+                  <HomeIcon/>
+                </button>
+              </NavLink>
+            </MDBNavbarItem>
+          </MDBNavbarNav>
+        </MDBCollapse>
+      </MDBContainer>
+    </MDBNavbar>
+>>>>>>> 95329353edf9889ac685e4132b30ced944d397b3
   );
 }

@@ -46,13 +46,18 @@ class UsersView(View):
 
     def post(self, request):
         jd = json.loads(request.body)
+        datos = {'message': 'Success'}
         if(jd['isActive']== 'true'):
             boolean = True
         else:
             boolean =False
-        Users.objects.create(id=jd['id'], lastName=jd['lastName'], firstName=jd['firstName'],
+        try:
+            Users.objects.create(id=jd['id'], lastName=jd['lastName'], firstName=jd['firstName'],
                              birthDate=jd['birthDate'], password=jd['password'] ,address=jd['address'], phone=jd['phone'], role=jd['role'], isActive=boolean)
-        datos = {'message': 'Success'}
+        except Exception as e:
+            print("Falló la inserción")
+            datos = {'message': 'Fail'}
+            return JsonResponse(datos)
         return JsonResponse(datos)
 
 
