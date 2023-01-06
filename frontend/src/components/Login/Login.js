@@ -1,5 +1,5 @@
 import React from "react";
-import "./AdminLogin.css";
+import "./Login.css";
 import Navbar from "../LandingPage/Navbar.js";
 import {
   MDBBtn,
@@ -29,7 +29,7 @@ function AdminLogin() {
     setRespuesta(res.message);
   }
   return (
-    <MDBContainer className="my-5 gradient-form">
+    <MDBContainer className="my-5 mt-9 gradient-form">
       <Navbar />
       <form onSubmit={handleSubmit}>
         <MDBRow>
@@ -37,9 +37,9 @@ function AdminLogin() {
             <div className="d-flex flex-column ms-3">
               <div className="text-center">
                 <h2
-                  className="mt-1 mb-5 pb-1"
+                  className="mt-9 mb-5 pb-1"
                   style={{
-                    marginTop: "15px",
+                    marginTop: "12px",
                     fontSize: 35,
                     fontWeight: 800,
                     color: "#124265",
@@ -69,18 +69,18 @@ function AdminLogin() {
               </div>
               <p>Please login to your account</p>
               <div>
-                {respuesta && respuesta != "Success" ? (
+                {respuesta && respuesta !== "Success" ? (
                   <div className="alert alert-danger" role="alert">
                     Los datos que ingresó no son correctos
                   </div>
-                ) : respuesta == "Success" && role == "Cliente" ? (
+                ) : respuesta === "Success" && role === "Cliente" ? (
                   navigate(`/Cliente/`)
-                ) : respuesta == "Success" && role == "Operador" ? (
+                ) : respuesta === "Success" && role === "Operador" ? (
                   navigate(`/Operador`)
-                ) : respuesta == "Success" && role == "Gerente" ? (
+                ) : respuesta === "Success" && role === "Gerente" ? (
                   navigate(`/Gerente`)
-                ) : respuesta == "Success" && role == "Admin" ? (
-                  navigate('/Dashboard')
+                ) : respuesta === "Success" && role === "Admin" ? (
+                  navigate("/Dashboard")
                 ) : (
                   <div></div>
                 )}

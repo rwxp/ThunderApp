@@ -1,38 +1,32 @@
-.gradient-custom {
-    
-    background-image: linear-gradient(
-    to right bottom,
+.Contact-gradient {
+  background-image: linear-gradient(
+    to right,
     #124265,
     #1a5c83,
     #2278a1,
     #2a96be,
     #33b4db
   );
-    }
-.mx-auto {
-    margin-top: 100px;
-}
-    
-.card-custom {
-    border-bottom-left-radius: 40% 50%;
-    border-top-left-radius: 10% 50%;
-    background-color: #f8f9fa ;
-}
-    
-    
-.input-custom {
-    background-color: white ;
-}
-    
-.white-text {
-    color: hsl(52, 0%, 98%);
-    font-weight: 100 ;
-    font-size: 14px;
+  width: auto;
+  height: 100vh;
+  display: grid;
+  place-items: center;
 }
 
-    
-.back-button {   
-    font-weight: 700;
-    color: white;
-    margin-top: 50px ;
+.Contact-form {
+  width: 800px;
+  height: 400px;
+  display: grid;
+  place-items: center;
+}
+
+.Contact-landing {
+  width: auto;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.Contact-bg {
+  background-color: aquamarine;
 }

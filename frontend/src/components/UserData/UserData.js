@@ -73,7 +73,7 @@ const Form = () => {
     if (params.id) {
       loadUser(params.id);
     }
-  }, []);
+  });
 
   return (
     <Box>

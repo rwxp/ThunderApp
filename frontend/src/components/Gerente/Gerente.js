@@ -1,5 +1,4 @@
 import React from 'react';
-import  '../Adminlogin/AdminLogin.css';
 import Navbar from '../Gerente/NavbarGe.js'
 import {
   MDBBtn,
