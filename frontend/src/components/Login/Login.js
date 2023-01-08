@@ -1,10 +1,11 @@
 import React from "react";
 import "./Login.css";
+import * as UserAPI from "../UserList/UserAPI";
 
 import logo from "../LandingPage/Images/logo2.png";
 
 import { verifyUser } from "../UserList/UserAPI";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -14,9 +15,18 @@ import {
   useTheme,
   TextField,
   Button,
+  Menu,
+  MenuItem,
+  Divider,
+  Paper,
+  MenuList,
 } from "@mui/material";
 
-function AdminLogin() {
+
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { EmailIcon } from "@mui/icons-material/Email";
+
+const Login = () => {
   const [id, setId] = useState(0);
   const [password, setPassword] = useState("");
   const [respuesta, setRespuesta] = useState("");
@@ -34,6 +44,77 @@ function AdminLogin() {
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const [users, setUsers] = useState([]);
+
+  const initialState = {
+    id: 0,
+    lastName: "",
+    firstName: "",
+    birthDate: "",
+    address: "",
+    phone: "",
+    role: "",
+    isActive: false,
+  };
+
+  const [user, setUser] = useState(initialState);
+
+  const listUsers = async () => {
+    try {
+      const res = await UserAPI.listUsers();
+      const data = await res.json();
+      setUsers(data.users);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    listUsers();
+  }, []);
+
+  const saveValues = () => {
+    setAll();
+    handleClose();
+  }
+
+  const getAdmin = () => {
+    setUser(users.filter((user) => user.role === "Admin")[0]);
+    console.log(user);
+  };
+
+  const getCliente = () => {
+    setUser(users.filter((user) => user.role === "Cliente")[0]);
+    console.log(user);
+  };
+
+  const getOperador = () => {
+    setUser(users.filter((user) => user.role === "Operador")[0]);
+    console.log(user);
+  };
+
+  const getGerente = () => {
+    setUser(users.filter((user) => user.role === "Gerente")[0]);
+    console.log(user);
+  };
+
+  const setAll = () => {
+    setId(user.id);
+    setPassword(user.password);
+    setRole(user.role);
+  };
 
   return (
     <Box sx={{ mt: "80px" }}>
@@ -59,7 +140,7 @@ function AdminLogin() {
                     Los datos que ingresó no son correctos
                   </div>
                 ) : respuesta === "Success" && role === "Cliente" ? (
-                  navigate(`/Cliente/`)
+                  navigate(`/Cliente`)
                 ) : respuesta === "Success" && role === "Operador" ? (
                   navigate(`/Operador`)
                 ) : respuesta === "Success" && role === "Gerente" ? (
@@ -79,37 +160,34 @@ function AdminLogin() {
                 marginBottom={isMobile ? 3 : 1}
               >
                 <TextField
-                  label="ID"
+                  placeholder="ID"
                   id="form1"
+                  value={user.id}
                   size="small"
                   onChange={(event) => setId(event.target.value)}
-                  sx={{ border: "2px solid lightgray", borderRadius: "5px" }}
                 />
                 <TextField
-                  marginBottom={isMobile ? 3 : 1}
-                  label="Password"
+                  placeholder="Password"
                   id="form2"
-                  type="password"
+                  value={user.password}
                   size="small"
                   onChange={(event) => {
                     setPassword(event.target.value);
                   }}
-                  sx={{ border: "2px solid lightgray", borderRadius: "5px" }}
                 />
               </Grid>
 
               <select
                 className="w-100 mb-2 select"
                 id="role"
-                onChange={(e) => setRole(e.target.value)}
+                onChange={(e) => setRole(user.role)}
               >
-                <option selected={true} disabled="disabled">
-                  {isMobile ? (
+                {/*isMobile ? (
                     <>Seleccione el rol</>
                   ) : (
                     <>Seleccione el rol a desempeñar</>
-                  )}
-                </option>
+                  )*/}
+                <option value={user.role}>{user.role}</option>
                 <option value="Cliente">Cliente</option>
                 <option value="Gerente">Gerente </option>
                 <option value="Operador">Operador</option>
@@ -171,8 +249,59 @@ function AdminLogin() {
           )}
         </Grid>
       </form>
+
+      <Grid container position="fixed" top="120px" left="170vh">
+        <Button
+          id="demo-customized-button"
+          aria-controls={open ? "demo-customized-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          variant="contained"
+          disableElevation
+          onClick={handleClick}
+          endIcon={<KeyboardArrowDownIcon />}
+        >
+          Ingreso rápido
+        </Button>
+
+        <Menu
+          id="demo-customized-menu"
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          MenuListProps={{
+            "aria-labelledby": "demo-customized-button",
+          }}
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+        >
+          <MenuList>
+            <MenuItem onClick={getAdmin}>Admin</MenuItem>
+            <Divider />
+            <MenuItem disableRipple onClick={getCliente}>
+              Cliente
+            </MenuItem>
+            <Divider />
+            <MenuItem disableRipple onClick={getOperador}>
+              Operador
+            </MenuItem>
+            <Divider />
+            <MenuItem disableRipple onClick={getGerente}>
+              Gerente
+            </MenuItem>
+            <Divider />
+            <MenuItem sx={{color:'green', fontWeight:600}} onClick={saveValues}>Guardar</MenuItem>
+          </MenuList>
+        </Menu>
+      </Grid>
     </Box>
   );
-}
+};
 
-export default AdminLogin;
+export default Login;

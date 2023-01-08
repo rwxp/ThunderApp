@@ -65,6 +65,7 @@ function Customer() {
     setOpen(false);
   };
 
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -108,7 +109,7 @@ function Customer() {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          {["Consultar consumo", "Starred", "Send email", "Drafts"].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>

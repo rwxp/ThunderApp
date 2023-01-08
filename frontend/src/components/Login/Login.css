@@ -40,7 +40,7 @@
     padding: 0.4em 1.4em 0.3em 0.8em;
     box-sizing: border-box;
     margin: 20px auto;
-    border: 2.4px solid #aaa;
+    border: 1.5px solid #aaa;
     box-shadow: 0 2px 0 1px rgba(0, 0, 0, 0.03);
     border-radius: 0.4em;
     appearance: none;
@@ -51,4 +51,9 @@
 .body {
   margin: 0;
   padding: 0;
+}
+
+.MuiMenu-list {
+  background-color: lightblue;
+  color:rgb(0, 0, 0);
 }

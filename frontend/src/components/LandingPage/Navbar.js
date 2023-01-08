@@ -20,7 +20,7 @@ import logo from "./Images/logo3.png";
 
 import MenuItem from "@mui/material/MenuItem";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import HomeIcon from "@mui/icons-material/Home";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -30,6 +30,7 @@ import LoginIcon from "@mui/icons-material/Login";
 
 function Navbar() {
   const navigate = useNavigate();
+  const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -55,162 +56,188 @@ function Navbar() {
     setAnchor(null);
   };
 
+  const goHome = () => {
+    navigate("/");
+    handleClose();
+  };
+  const goAbout = () => {
+    navigate("/About");
+    handleClose();
+  };
+  const goContact = () => {
+    navigate("/Contact");
+    handleClose();
+  };
+  const goLogin = () => {
+    navigate("/Login");
+    handleClose();
+  };
+
+  const path = location.pathname;
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar>
-        <Toolbar
-          className={fix ? "Navbar fixed" : "Navbar"}
-          sx={{ backgroundColor: "#124265" }}
-        >
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            sx={{ paddingLeft: 2 }}
+      {path === "/Cliente" ||
+      path === "/Dashboard" ||
+      path === "/Operador" ||
+      path === "/Gerente" ? (
+        <></>
+      ) : (
+        <AppBar>
+          <Toolbar
+            className={fix ? "Navbar fixed" : "Navbar"}
+            sx={{ backgroundColor: "#124265" }}
           >
-            <img
-              className="App-logo"
-              width="80"
-              height="80"
-              src={logo}
-              alt="logo"
-            />
-          </IconButton>
-
-          {isMobile ? (
-            <Grid
-              container
-              spacing={2}
-              sx={{
-                justifyContent: "flex-end",
-                alignItems: "center",
-                mt: 0.1,
-              }}
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              sx={{ paddingLeft: 2 }}
             >
-              <Button
-                sx={{ color: "white" }}
-                id="resources-button"
-                onClick={handleClick}
-                aria-controls={open ? "resources-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
+              <img
+                className="App-logo"
+                width="80"
+                height="80"
+                src={logo}
+                alt="logo"
+              />
+            </IconButton>
+
+            {isMobile ? (
+              <Grid
+                container
+                spacing={2}
+                sx={{
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                  mt: 0.1,
+                }}
               >
-                <MenuIcon />
-              </Button>
+                <Button
+                  sx={{ color: "white" }}
+                  id="resources-button"
+                  onClick={handleClick}
+                  aria-controls={open ? "resources-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                >
+                  <MenuIcon />
+                </Button>
 
-              <Menu
-                id="resources-menu"
-                anchorEl={anchor}
-                open={open}
-                MenuListProps={{ "aria-labelledby": "resources-button" }}
-                onClose={handleClose}
-                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                <Menu
+                  id="resources-menu"
+                  anchorEl={anchor}
+                  open={open}
+                  MenuListProps={{ "aria-labelledby": "resources-button" }}
+                  onClose={handleClose}
+                  anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                >
+                  <MenuItem onClick={goHome}>
+                    <ListItemIcon>
+                      <HomeIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Home</ListItemText>
+                  </MenuItem>
+
+                  <MenuItem onClick={goAbout}>
+                    <ListItemIcon>
+                      <InfoIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>About</ListItemText>
+                  </MenuItem>
+
+                  <MenuItem onClick={goContact}>
+                    <ListItemIcon>
+                      <EmailIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Contact us</ListItemText>
+                  </MenuItem>
+
+                  <MenuItem onClick={goLogin}>
+                    <ListItemIcon>
+                      <LoginIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Login</ListItemText>
+                  </MenuItem>
+                </Menu>
+              </Grid>
+            ) : (
+              <Grid
+                container
+                spacing={2}
+                sx={{
+                  justifyContent: "flex-end",
+                  paddingRight: 2,
+                  alignItems: "center",
+                }}
               >
-                <MenuItem onClick={() => navigate("/")}>
-                  <ListItemIcon>
-                    <HomeIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Home</ListItemText>
-                </MenuItem>
-
-                <MenuItem onClick={() => navigate("/About")}>
-                  <ListItemIcon>
-                    <InfoIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>About</ListItemText>
-                </MenuItem>
-
-                <MenuItem onClick={() => navigate("/Contact")}>
-                  <ListItemIcon>
-                    <EmailIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Contact us</ListItemText>
-                </MenuItem>
-
-                <MenuItem onClick={() => navigate("/Login")}>
-                  <ListItemIcon>
-                    <LoginIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Login</ListItemText>
-                </MenuItem>
-              </Menu>
-            </Grid>
-          ) : (
-            <Grid
-              container
-              spacing={2}
-              sx={{
-                justifyContent: "flex-end",
-                paddingRight: 2,
-                alignItems: "center",
-              }}
-            >
-              <Grid item>
-                <Button
-                  onClick={() => navigate("/About")}
-                  sx={{
-                    color: "white",
-                    fontWeight: 550,
-                    fontFamily: "Montserrat",
-                    ":hover": {
-                      bgcolor: "lightblue",
+                <Grid item>
+                  <Button
+                    onClick={() => navigate("/About")}
+                    sx={{
                       color: "white",
-                    },
-                  }}
-                >
-                  Acerca de
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  onClick={() => navigate("/Contact")}
-                  sx={{
-                    color: "white",
-                    fontWeight: 550,
-                    fontFamily: "Montserrat",
-                    ":hover": {
-                      bgcolor: "lightblue",
+                      fontWeight: 550,
+                      fontFamily: "Montserrat",
+                      ":hover": {
+                        bgcolor: "lightblue",
+                        color: "white",
+                      },
+                    }}
+                  >
+                    Acerca de
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button
+                    onClick={() => navigate("/Contact")}
+                    sx={{
                       color: "white",
-                    },
-                  }}
-                >
-                  Contactanos
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  onClick={() => navigate("/Login")}
-                  sx={{
-                    color: "white",
-                    fontWeight: 550,
-                    fontFamily: "Montserrat",
-                    ":hover": {
-                      bgcolor: "lightblue",
+                      fontWeight: 550,
+                      fontFamily: "Montserrat",
+                      ":hover": {
+                        bgcolor: "lightblue",
+                        color: "white",
+                      },
+                    }}
+                  >
+                    Contactanos
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button
+                    onClick={() => navigate("/Login")}
+                    sx={{
                       color: "white",
-                    },
-                  }}
-                >
-                  Ingresar
-                </Button>
-              </Grid>
-              <Grid item>
-                <IconButton
-                  onClick={() => navigate("/")}
-                  sx={{
-                    color: "white",
-                    ":hover": {
-                      bgcolor: "lightblue",
+                      fontWeight: 550,
+                      fontFamily: "Montserrat",
+                      ":hover": {
+                        bgcolor: "lightblue",
+                        color: "white",
+                      },
+                    }}
+                  >
+                    Ingresar
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <IconButton
+                    onClick={() => navigate("/")}
+                    sx={{
                       color: "white",
-                    },
-                  }}
-                >
-                  <HomeIcon />
-                </IconButton>
+                      ":hover": {
+                        bgcolor: "lightblue",
+                        color: "white",
+                      },
+                    }}
+                  >
+                    <HomeIcon />
+                  </IconButton>
+                </Grid>
               </Grid>
-            </Grid>
-          )}
-        </Toolbar>
-      </AppBar>
+            )}
+          </Toolbar>
+        </AppBar>
+      )}
     </Box>
   );
 }

@@ -1,6 +1,10 @@
 import "./App.css";
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 import Home from "./components/LandingPage/Home";
 import About from "./components/LandingPage/About";
 import Contact2 from "./components/LandingPage/Contact2";
@@ -20,14 +24,10 @@ import Cliente from "./components/Cliente/Cliente";
 import Operador from "./components/Operador/Operador";
 import Gerente from "./components/Gerente/Gerente";
 
-
-const path = window.location.pathname;
-
-
 function App() {
   return (
     <Router>
-      {path === "/Cliente" || path === "/Dashboard" ? undefined : <Navbar />}
+      <Navbar/>
       <Routes>
         <Route path="/Login" element={<Login />} />
         <Route path="/Dashboard" element={<Dashboard />} />
