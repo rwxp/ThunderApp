@@ -14,9 +14,11 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
+  Link,
 } from "@mui/material";
 
 import { makeStyles } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -48,6 +50,7 @@ const Footer = () => {
   const classes = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const navigate = useNavigate();
 
   return (
     <>
@@ -66,9 +69,17 @@ const Footer = () => {
               >
                 <CardContent sx={{ textAlign: "center", position: "relative" }}>
                   <Grid container>
-                    <FacebookIcon sx={{ fontSize: 36, color: "aliceblue" }} />
-                    <TwitterIcon sx={{ fontSize: 36, color: "aliceblue" }} />
-                    <InstagramIcon sx={{ fontSize: 36, color: "aliceblue" }} />
+                    <Link href="https://www.facebook.com/" target="_blank">
+                      <FacebookIcon sx={{ fontSize: 36, color: "aliceblue" }} />
+                    </Link>
+                    <Link href="https://twitter.com/" target="_blank">
+                      <TwitterIcon sx={{ fontSize: 36, color: "aliceblue" }} />
+                    </Link>
+                    <Link href="https://www.instagram.com/" target="_blank">
+                      <InstagramIcon
+                        sx={{ fontSize: 36, color: "aliceblue" }}
+                      />
+                    </Link>
                   </Grid>
                 </CardContent>
               </Card>

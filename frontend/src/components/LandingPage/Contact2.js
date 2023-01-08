@@ -9,6 +9,8 @@ import {
   Button,
   TextField,
   Paper,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 
 import "./Contact.css";
@@ -48,68 +50,91 @@ const MyPaper = ({ children, landing }) => {
 
 const Contact2 = ({ landing }) => {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Box className={landing ? "Contact-landing" : "Contact-gradient"}>
-      <Box className="Contact-form" marginTop={landing ? "0px" : "50px"}>
+    <Box
+      className={
+        landing
+          ? "Contact-landing"
+          : isMobile
+          ? "Contact-gradient-mob"
+          : "Contact-gradient"
+      }
+    >
+      <Box
+        className={isMobile ? "Contact-form-mob" : "Contact-form"}
+        marginTop={landing ? "0px" : isMobile ? "0px" : "50px"}
+      >
         <MyPaper landing={landing}>
           <Grid
             container
             textAlign="center"
+            paddingX={isMobile ? (landing ? 0 : 4) : 4}
             sx={{
-              px: 4,
               justifyContent: "center",
               alignItems: "center",
             }}
           >
-            <Grid item md={4}>
-              <Card
-                variant="contained"
-                sx={{ backgroundColor: "rgba(255,255,255,0)" }}
-              >
-                <CardMedia>
-                  <img
-                    src={logo}
-                    alt="Thunder Logo"
-                    width="120px"
-                    height="auto"
-                  />
-                </CardMedia>
-                <CardContent>
-                  <Typography variant="body" color={landing ? "white" : "black"}>
-                    Send us an email for <br /> contact us with you
-                  </Typography>
-                </CardContent>
-                <CardActions
-                  sx={{ alignItems: "center", justifyContent: "center" }}
+            {isMobile ? (
+              <></>
+            ) : (
+              <Grid item md={4}>
+                <Card
+                  variant="contained"
+                  sx={{ backgroundColor: "rgba(255,255,255,0)" }}
                 >
-                  {landing ? (
-                    <Button variant="contained" sx={{ color: "white" }}>
-                      Go back
-                    </Button>
-                  ) : (
-                    <Button variant="outlined">Go back</Button>
-                  )}
-                </CardActions>
-              </Card>
-            </Grid>
+                  <CardMedia>
+                    <img
+                      src={logo}
+                      alt="Thunder Logo"
+                      width="120px"
+                      height="auto"
+                    />
+                  </CardMedia>
+                  <CardContent>
+                    <Typography
+                      variant="body"
+                      color={landing ? "white" : "black"}
+                    >
+                      Send us an email for <br /> contact us with you
+                    </Typography>
+                  </CardContent>
+                  <CardActions
+                    sx={{ alignItems: "center", justifyContent: "center" }}
+                  >
+                    {landing ? (
+                      <Button variant="contained" sx={{ color: "white" }}>
+                        Go back
+                      </Button>
+                    ) : (
+                      <Button variant="outlined">Go back</Button>
+                    )}
+                  </CardActions>
+                </Card>
+              </Grid>
+            )}
 
             <Grid
               item
               md={8}
-              sx={{ px: 4, py: 2, borderRadius: 4 }}
+              xs={8}
+              sm={8}
+              paddingX={isMobile ? (landing ? 4 : 0) : 4}
+              sx={{ py: 2, borderRadius: 4, justifyContent: "center" }}
               backgroundColor={landing ? "white" : undefined}
             >
               <Typography
+                fontSize={isMobile ? 22: 30}
                 sx={{
-                  fontSize: 30,
                   fontWeight: 800,
                   color: "#124265",
                   textAlign: "center",
-                  fontFamily: "montserrat",
+                  fontFamily: "Montserrat",
                 }}
               >
-                Contact us
+                Contáctanos
               </Typography>
               <Box component="form" sx={{ py: 2 }}>
                 <TextField
@@ -134,7 +159,7 @@ const Contact2 = ({ landing }) => {
                     mb: 2,
                   }}
                 >
-                  <Grid item md={5.5}>
+                  <Grid item md={5.5} marginBottom={isMobile ? 2 : 0}>
                     <TextField
                       label="Subject"
                       variant="outlined"

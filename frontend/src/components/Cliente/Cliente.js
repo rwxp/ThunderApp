@@ -1,69 +1,140 @@
-import React from 'react';
-import Navbar from '../Cliente/NavbarCl.js'
+import * as React from "react";
 import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBInput
-}
-from 'mdb-react-ui-kit';
-import logo from "../LandingPage/Images/logo2.png";
-import {getUser, registerUser} from '../UserList/UserAPI';
-import {useState} from 'react';
+  styled,
+  useTheme,
+  Box,
+  Drawer,
+  CssBaseline,
+  Toolbar,
+  List,
+  Typography,
+  Divider,
+  IconButton,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
 
-function ClienteView() {
-  const [id, setId] = useState(0);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [birthdate, setBirthdate] = useState("");
-  const [address, setAddress] = useState("")
-  const [phone, setPhone] = useState("")
-  const [password, setPassword] = useState(""); 
-  const [role, setRole] = useState("Cliente");
-  const [isActive, setIsActive] = useState(true)
+import MuiAppBar from "@mui/material/AppBar"
 
-  async function handleSubmit(event){
-    event.preventDefault()
-    var ans = await getUser(id, firstName, lastName, birthdate, address, phone
-      , password, role, isActive);
-    var res = await ans.json();
-  }
+import MenuIcon from "@mui/icons-material/Menu";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+
+const drawerWidth = 240;
+
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  transition: theme.transitions.create(["margin", "width"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
+
+function Customer() {
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <MDBContainer className="my-5 gradient-form" >
-      <Navbar /> 
-      <form onSubmit={handleSubmit}>
-      <MDBRow>
-
-        <MDBCol col='6' className="mb-5" style={{
-                
-                marginTop:'20px'}}>
-          <div className="d-flex flex-column ms-5">
-
-            <div className="text-center">
-            <h2 className="mt-3 mb-5 pb-1">
-                  <img src={logo}
-                style={{width: '100px'}} alt="logo" /></h2>
-
-              
-              <h2 className="mt-1 mb-5 pb-1"
-                style={{
-                fontSize: 30,
-                fontWeight: 800,
-                color:  "#124265",
-                textAlign: "center",
-                fontFamily: "Arial",}}>
-                  Bienvenido Cliente</h2>
-            </div>
-
-          </div>
-
-        </MDBCol>
-
-      </MDBRow>
-    </form>
-    </MDBContainer>
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2, ...(open && { display: "none" }) }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div">
+            Cliente
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            boxSizing: "border-box",
+          },
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === "ltr" ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {["All mail", "Trash", "Spam"].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+    </Box>
   );
 }
 
-export default ClienteView;
+export default Customer;

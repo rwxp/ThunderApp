@@ -20,27 +20,17 @@
   );
 }
 
-@media (min-width: 769px) {
-  .gradient-form {
-    height: 100vh !important;
-  }
+.gradient-form {
+  width: auto;
+  height: 100vh;
+  display: grid;
+  place-items: center;
 }
 
-@media (min-width: 769px) {
-  .gradient-custom-2 {
-    background-image: linear-gradient(
-      to right bottom,
-      #124265,
-      #1a5c83,
-      #2278a1,
-      #2a96be,
-      #33b4db
-    );
-  }
-}
 
 @media (min-width: 769px) {
   .select {
+    width: 100%;
     display: block;
     font-size: 16px;
     font-family: "Verdana", sans-serif;

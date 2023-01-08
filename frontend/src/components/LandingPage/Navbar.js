@@ -83,7 +83,6 @@ function Navbar() {
               spacing={2}
               sx={{
                 justifyContent: "flex-end",
-                paddingRight: 2,
                 alignItems: "center",
                 mt: 0.1,
               }}
@@ -151,13 +150,15 @@ function Navbar() {
                   onClick={() => navigate("/About")}
                   sx={{
                     color: "white",
+                    fontWeight: 550,
+                    fontFamily: "Montserrat",
                     ":hover": {
                       bgcolor: "lightblue",
                       color: "white",
                     },
                   }}
                 >
-                  About
+                  Acerca de
                 </Button>
               </Grid>
               <Grid item>
@@ -165,13 +166,15 @@ function Navbar() {
                   onClick={() => navigate("/Contact")}
                   sx={{
                     color: "white",
+                    fontWeight: 550,
+                    fontFamily: "Montserrat",
                     ":hover": {
                       bgcolor: "lightblue",
                       color: "white",
                     },
                   }}
                 >
-                  Contact us
+                  Contactanos
                 </Button>
               </Grid>
               <Grid item>
@@ -179,13 +182,15 @@ function Navbar() {
                   onClick={() => navigate("/Login")}
                   sx={{
                     color: "white",
+                    fontWeight: 550,
+                    fontFamily: "Montserrat",
                     ":hover": {
                       bgcolor: "lightblue",
                       color: "white",
                     },
                   }}
                 >
-                  Login
+                  Ingresar
                 </Button>
               </Grid>
               <Grid item>

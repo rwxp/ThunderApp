@@ -13,8 +13,31 @@
   place-items: center;
 }
 
+.Contact-gradient-mob {
+  background-image: linear-gradient(
+    to right,
+    #124265,
+    #1a5c83,
+    #2278a1,
+    #2a96be,
+    #33b4db
+  );
+  width: auto;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding-top: 200px;
+}
+
 .Contact-form {
-  width: 800px;
+  width: auto;
+  height: 400px;
+  display: grid;
+  place-items: center;
+}
+
+.Contact-form-mob {
+  width: 40vh;
   height: 400px;
   display: grid;
   place-items: center;

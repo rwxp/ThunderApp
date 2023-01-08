@@ -344,3 +344,12 @@
 .Footer {
   background-color: #bdbdda;
 }
+
+.my-fixed-item {
+  position: fixed;
+  min-height: 120px;
+  text-align: center;
+  word-wrap: break-word;
+  width: 252px;
+  background-color: aquamarine;
+}

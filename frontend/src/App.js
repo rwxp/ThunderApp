@@ -8,7 +8,7 @@ import Contact2 from "./components/LandingPage/Contact2";
 import Navbar from "./components/LandingPage/Navbar";
 
 import Login from "./components/Login/Login";
-import Register from "./components/AdminRegister/AdminRegister";
+import Register from "./components/Register/Register";
 import Form from "./components/UserData/UserData";
 import UserList from "./components/UserList/UserList";
 import OpRegister from "./components/Operador/OperatorRegister";
@@ -20,10 +20,14 @@ import Cliente from "./components/Cliente/Cliente";
 import Operador from "./components/Operador/Operador";
 import Gerente from "./components/Gerente/Gerente";
 
+
+const path = window.location.pathname;
+
+
 function App() {
   return (
     <Router>
-      <Navbar />
+      {path === "/Cliente" || path === "/Dashboard" ? undefined : <Navbar />}
       <Routes>
         <Route path="/Login" element={<Login />} />
         <Route path="/Dashboard" element={<Dashboard />} />

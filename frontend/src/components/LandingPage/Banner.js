@@ -49,7 +49,7 @@ const Banner = () => {
                 fontFamily: "montserrat",
               }}
             >
-              Statistics of your customers
+              Estadísticas de sus clientes
             </h6>
             <Grid item sx={{ mt: 2, mb: 2 }}>
               <p
@@ -58,19 +58,19 @@ const Banner = () => {
                   fontFamily: "montserrat",
                 }}
               >
-                An application to generate automatic bills of your customers
-                consumption
+                Una aplicación para generar facturas automáticas del consumo
+                energético de sus clientes
               </p>
             </Grid>
             <Grid container spacing={2} mt={4}>
               <Grid item>
                 <Button variant="contained" onClick={() => navigate("/Login")}>
-                  Start free trial
+                  Comenzar prueba gratuita
                 </Button>
               </Grid>
               <Grid item>
                 <Button variant="filled" onClick={() => navigate("/About")}>
-                  Learn More
+                  Leer más
                 </Button>
               </Grid>
             </Grid>

@@ -1,17 +1,20 @@
 import React from "react";
 import "./Login.css";
-import Navbar from "../LandingPage/Navbar.js";
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBInput,
-} from "mdb-react-ui-kit";
+
 import logo from "../LandingPage/Images/logo2.png";
+
 import { verifyUser } from "../UserList/UserAPI";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Box,
+  Grid,
+  Typography,
+  useMediaQuery,
+  useTheme,
+  TextField,
+  Button,
+} from "@mui/material";
 
 function AdminLogin() {
   const [id, setId] = useState(0);
@@ -28,46 +31,28 @@ function AdminLogin() {
     console.log(res);
     setRespuesta(res.message);
   }
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
-    <MDBContainer className="my-5 mt-9 gradient-form">
-      <Navbar />
+    <Box sx={{ mt: "80px" }}>
       <form onSubmit={handleSubmit}>
-        <MDBRow>
-          <MDBCol col="6" className="mb-5">
+        <Grid container>
+          <Grid item md={6} sx={{ px: 12 }}>
             <div className="d-flex flex-column ms-3">
               <div className="text-center">
-                <h2
-                  className="mt-9 mb-5 pb-1"
+                <img
+                  src={logo}
                   style={{
-                    marginTop: "12px",
-                    fontSize: 35,
-                    fontWeight: 800,
-                    color: "#124265",
-                    textAlign: "center",
-                    fontFamily: "sans-serif",
+                    width: "100px",
+                    marginTop: "59px",
+                    marginBottom: "30px",
                   }}
-                >
-                  <img
-                    src={logo}
-                    style={{ width: "100px", marginTop: "35px" }}
-                    alt="logo"
-                  />
-                </h2>
-
-                <h2
-                  className="mt-1 mb-5 pb-1"
-                  style={{
-                    fontSize: 30,
-                    fontWeight: 800,
-                    color: "#124265",
-                    textAlign: "center",
-                    fontFamily: "Montserrat",
-                  }}
-                >
-                  Login
-                </h2>
+                  alt="logo"
+                />
               </div>
-              <p>Please login to your account</p>
+              <p>Por favor ingresa a tu cuenta</p>
               <div>
                 {respuesta && respuesta !== "Success" ? (
                   <div className="alert alert-danger" role="alert">
@@ -86,61 +71,107 @@ function AdminLogin() {
                 )}
               </div>
 
-              <MDBInput
-                wrapperClass="mb-4"
-                label="ID"
-                id="form1"
-                onChange={(event) => setId(event.target.value)}
-              />
-              <MDBInput
-                wrapperClass="mb-2"
-                label="Password"
-                id="form2"
-                type="password"
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                }}
-              />
+              <Grid
+                container
+                display="flex"
+                direction="column"
+                rowGap={2}
+                marginBottom={isMobile ? 3 : 1}
+              >
+                <TextField
+                  label="ID"
+                  id="form1"
+                  size="small"
+                  onChange={(event) => setId(event.target.value)}
+                  sx={{ border: "2px solid lightgray", borderRadius: "5px" }}
+                />
+                <TextField
+                  marginBottom={isMobile ? 3 : 1}
+                  label="Password"
+                  id="form2"
+                  type="password"
+                  size="small"
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                  }}
+                  sx={{ border: "2px solid lightgray", borderRadius: "5px" }}
+                />
+              </Grid>
 
               <select
-                className="mb-5 w-100 select"
+                className="w-100 mb-2 select"
                 id="role"
                 onChange={(e) => setRole(e.target.value)}
               >
                 <option selected={true} disabled="disabled">
-                  Seleccione el rol a desempeñar
+                  {isMobile ? (
+                    <>Seleccione el rol</>
+                  ) : (
+                    <>Seleccione el rol a desempeñar</>
+                  )}
                 </option>
                 <option value="Cliente">Cliente</option>
                 <option value="Gerente">Gerente </option>
                 <option value="Operador">Operador</option>
                 <option value="Admin">Administrador</option>
               </select>
-              <div className="text-center pt-1 mb-5 pb-1">
-                <MDBBtn className="mb-4 w-100 gradient-custom-2" type="submit">
-                  Login
-                </MDBBtn>
-                <a className="text-muted" href="#!">
-                  Forgot password?
-                </a>
-              </div>
+
+              <Grid
+                container
+                sx={{
+                  textAlign: "center",
+                  mb: 5,
+                  pb: 1,
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Grid item xs={12}>
+                  <Button
+                    className="gradient-custom-2"
+                    type="submit"
+                    fullWidth
+                    sx={{ mb: 2.5, mt: 3, color: "white" }}
+                  >
+                    Ingresar
+                  </Button>
+                </Grid>
+                <Grid item textAlign="center">
+                  <a className="text-muted" href="#!">
+                    Olvidaste tu contraseña?
+                  </a>
+                </Grid>
+              </Grid>
             </div>
-          </MDBCol>
-          <MDBCol col="6">
-            <div className="d-flex flex-column  justify-content-center gradient-custom-2 h-100">
-              <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-                <h4 className="mb-4">We are more than just a company</h4>
-                <p className="small mb-0">
-                  Una empresa de energía eléctrica que desarrolla un sistema
-                  para gestionar la información de sus clientes ya sean
-                  corporativos o personas naturales, su consumo y la
-                  facturación.
-                </p>
+          </Grid>
+
+          {isMobile ? (
+            <></>
+          ) : (
+            <Grid item md={6}>
+              <div className="d-flex flex-column  justify-content-center gradient-custom-2 h-100">
+                <div className="text-white px-3 py-4 p-md-5 mx-md-4">
+                  <Typography
+                    variant="h5"
+                    fontFamily="Montserrat"
+                    fontWeight="bold"
+                    mb={3}
+                  >
+                    Somos más que sólo una compañía
+                  </Typography>
+                  <Typography className="small mb-0" fontFamily="Montserrat">
+                    Una empresa de energía eléctrica que desarrolla un sistema
+                    para gestionar la información de sus clientes ya sean
+                    corporativos o personas naturales, su consumo y la
+                    facturación.
+                  </Typography>
+                </div>
               </div>
-            </div>
-          </MDBCol>
-        </MDBRow>
+            </Grid>
+          )}
+        </Grid>
       </form>
-    </MDBContainer>
+    </Box>
   );
 }
 
