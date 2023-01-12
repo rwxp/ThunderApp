@@ -6,7 +6,7 @@ import logo from "../LandingPage/Images/logo2.png";
 
 import { verifyUser } from "../UserList/UserAPI";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import {
   Box,
   Grid,
@@ -22,12 +22,17 @@ import {
   MenuList,
 } from "@mui/material";
 
-
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { EmailIcon } from "@mui/icons-material/Email";
 
+import Swal from "sweetalert2";
+
+import { useAuth } from "../../context/Context";
+
 const Login = () => {
-  const [id, setId] = useState(0);
+  const { setName } = useAuth();
+
+  const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [respuesta, setRespuesta] = useState("");
   const [role, setRole] = useState("");
@@ -35,18 +40,30 @@ const Login = () => {
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
-    event.preventDefault();
-    var ans = await verifyUser(id, password, role);
-    var res = await ans.json();
-    console.log(res);
-    setRespuesta(res.message);
+    try {
+      event.preventDefault();
+      var ans = await verifyUser(id, password, role);
+      var res = await ans.json();
+      console.log(res);
+      setRespuesta(res.message);
+    } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: "Los datos que ingresó no son correctos",
+        background: "rgb(176, 55, 55)",
+        color: "white",
+        timer: 2000,
+      });
+      setRespuesta(null);
+    }
   }
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const [isMenuOpen, setMenuOpen] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -63,6 +80,7 @@ const Login = () => {
     lastName: "",
     firstName: "",
     birthDate: "",
+    password: "",
     address: "",
     phone: "",
     role: "",
@@ -86,34 +104,43 @@ const Login = () => {
   }, []);
 
   const saveValues = () => {
+    console.log(user.firstName);
+    setMenuOpen(true);
+    setName(user.firstName+" "+user.lastName);
     setAll();
     handleClose();
-  }
+  };
 
   const getAdmin = () => {
     setUser(users.filter((user) => user.role === "Admin")[0]);
-    console.log(user);
   };
 
   const getCliente = () => {
     setUser(users.filter((user) => user.role === "Cliente")[0]);
-    console.log(user);
   };
 
   const getOperador = () => {
     setUser(users.filter((user) => user.role === "Operador")[0]);
-    console.log(user);
   };
 
   const getGerente = () => {
     setUser(users.filter((user) => user.role === "Gerente")[0]);
-    console.log(user);
+  };
+
+  const setUsuario = () => {
+    console.log(id);
+    setUser(users.filter((user) => user.id === parseInt(id)));
   };
 
   const setAll = () => {
     setId(user.id);
     setPassword(user.password);
     setRole(user.role);
+  };
+
+  const handleChange = (ev) => {
+    setPassword(ev.target.value);
+    setName(user[0].firstName);
   };
 
   return (
@@ -135,23 +162,32 @@ const Login = () => {
               </div>
               <p>Por favor ingresa a tu cuenta</p>
               <div>
-                {respuesta && respuesta !== "Success" ? (
-                  <div className="alert alert-danger" role="alert">
-                    Los datos que ingresó no son correctos
-                  </div>
-                ) : respuesta === "Success" && role === "Cliente" ? (
-                  navigate(`/Cliente`)
-                ) : respuesta === "Success" && role === "Operador" ? (
-                  navigate(`/Operador`)
-                ) : respuesta === "Success" && role === "Gerente" ? (
-                  navigate(`/Gerente`)
-                ) : respuesta === "Success" && role === "Admin" ? (
-                  navigate("/Dashboard")
-                ) : (
-                  <div></div>
-                )}
+                {useEffect(() => {
+                  if (respuesta && respuesta !== "Success") {
+                    Swal.fire({
+                      title: "Error",
+                      text: "Los datos que ingresó no son correctos",
+                      background: "rgb(176, 55, 55)",
+                      color: "white",
+                      timer: 2000,
+                    });
+                    setRespuesta(null);
+                  } else {
+                    if (respuesta === "Success" && role === "Cliente") {
+                      navigate(`/Cliente`);
+                    }
+                    if (respuesta === "Success" && role === "Operador") {
+                      navigate(`/Operador`);
+                    }
+                    if (respuesta === "Success" && role === "Gerente") {
+                      navigate(`/Gerente`);
+                    }
+                    if (respuesta === "Success" && role === "Admin") {
+                      navigate("/Dashboard");
+                    }
+                  }
+                }, [respuesta, role, navigate])}
               </div>
-
               <Grid
                 container
                 display="flex"
@@ -161,39 +197,37 @@ const Login = () => {
               >
                 <TextField
                   placeholder="ID"
-                  id="form1"
-                  value={user.id}
+                  value={isMenuOpen ? user.id : id}
                   size="small"
                   onChange={(event) => setId(event.target.value)}
                 />
                 <TextField
                   placeholder="Password"
                   id="form2"
-                  value={user.password}
+                  value={isMenuOpen ? user.password : password}
                   size="small"
-                  onChange={(event) => {
-                    setPassword(event.target.value);
-                  }}
+                  onFocus={setUsuario}
+                  onChange={(event) => handleChange(event)}
                 />
               </Grid>
-
               <select
                 className="w-100 mb-2 select"
                 id="role"
-                onChange={(e) => setRole(user.role)}
+                onChange={(e) => setRole(e.target.value)}
               >
                 {/*isMobile ? (
-                    <>Seleccione el rol</>
-                  ) : (
-                    <>Seleccione el rol a desempeñar</>
-                  )*/}
-                <option value={user.role}>{user.role}</option>
+                      <>Seleccione el rol</>
+                    ) : (
+                      <>Seleccione el rol a desempeñar</>
+                    )*/}
+                <option value={isMenuOpen ? user.role : ""}>
+                  {isMenuOpen ? user.role : "Seleccione el rol a desempeñar"}
+                </option>
                 <option value="Cliente">Cliente</option>
                 <option value="Gerente">Gerente </option>
                 <option value="Operador">Operador</option>
                 <option value="Admin">Administrador</option>
               </select>
-
               <Grid
                 container
                 sx={{
@@ -222,12 +256,11 @@ const Login = () => {
               </Grid>
             </div>
           </Grid>
-
           {isMobile ? (
             <></>
           ) : (
             <Grid item md={6}>
-              <div className="d-flex flex-column  justify-content-center gradient-custom-2 h-100">
+              <div className="d-flex flex-column justify-content-center gradient-custom-1">
                 <div className="text-white px-3 py-4 p-md-5 mx-md-4">
                   <Typography
                     variant="h5"
@@ -237,7 +270,7 @@ const Login = () => {
                   >
                     Somos más que sólo una compañía
                   </Typography>
-                  <Typography className="small mb-0" fontFamily="Montserrat">
+                  <Typography className="small" fontFamily="Montserrat">
                     Una empresa de energía eléctrica que desarrolla un sistema
                     para gestionar la información de sus clientes ya sean
                     corporativos o personas naturales, su consumo y la
@@ -249,8 +282,7 @@ const Login = () => {
           )}
         </Grid>
       </form>
-
-      <Grid container position="fixed" top="120px" left="170vh">
+      <Grid container position="fixed" top="120px" left="10vh">
         <Button
           id="demo-customized-button"
           aria-controls={open ? "demo-customized-menu" : undefined}
@@ -261,9 +293,8 @@ const Login = () => {
           onClick={handleClick}
           endIcon={<KeyboardArrowDownIcon />}
         >
-          Ingreso rápido
+          <Typography fontSize={12}>Ingreso<br/>rápido</Typography>
         </Button>
-
         <Menu
           id="demo-customized-menu"
           anchorOrigin={{
@@ -284,19 +315,18 @@ const Login = () => {
           <MenuList>
             <MenuItem onClick={getAdmin}>Admin</MenuItem>
             <Divider />
-            <MenuItem disableRipple onClick={getCliente}>
-              Cliente
-            </MenuItem>
+            <MenuItem onClick={getCliente}>Cliente</MenuItem>
             <Divider />
-            <MenuItem disableRipple onClick={getOperador}>
-              Operador
-            </MenuItem>
+            <MenuItem onClick={getOperador}>Operador</MenuItem>
             <Divider />
-            <MenuItem disableRipple onClick={getGerente}>
-              Gerente
-            </MenuItem>
+            <MenuItem onClick={getGerente}>Gerente</MenuItem>
             <Divider />
-            <MenuItem sx={{color:'green', fontWeight:600}} onClick={saveValues}>Guardar</MenuItem>
+            <MenuItem
+              sx={{ color: "green", fontWeight: 600 }}
+              onClick={saveValues}
+            >
+              Guardar
+            </MenuItem>
           </MenuList>
         </Menu>
       </Grid>

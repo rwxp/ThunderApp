@@ -22,6 +22,9 @@ import MenuItem from "@mui/material/MenuItem";
 
 import { useNavigate, useLocation } from "react-router-dom";
 
+import { useAuth } from "../../context/Context";
+
+
 import HomeIcon from "@mui/icons-material/Home";
 import MenuIcon from "@mui/icons-material/Menu";
 import InfoIcon from "@mui/icons-material/Info";
@@ -29,6 +32,9 @@ import EmailIcon from "@mui/icons-material/Email";
 import LoginIcon from "@mui/icons-material/Login";
 
 function Navbar() {
+
+  const { isNavbar } = useAuth();
+
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
@@ -80,7 +86,8 @@ function Navbar() {
       {path === "/Cliente" ||
       path === "/Dashboard" ||
       path === "/Operador" ||
-      path === "/Gerente" ? (
+      path === "/Gerente" ||
+      isNavbar !== true ? (
         <></>
       ) : (
         <AppBar>

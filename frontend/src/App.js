@@ -1,10 +1,6 @@
 import "./App.css";
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/LandingPage/Home";
 import About from "./components/LandingPage/About";
 import Contact2 from "./components/LandingPage/Contact2";
@@ -24,26 +20,35 @@ import Cliente from "./components/Cliente/Cliente";
 import Operador from "./components/Operador/Operador";
 import Gerente from "./components/Gerente/Gerente";
 
+import PageNotFound from "./components/PageNotFound/PageNotFound";
+
+import ContextProvider from "./context/Context";
+
 function App() {
   return (
-    <Router>
-      <Navbar/>
-      <Routes>
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Dashboard" element={<Dashboard />} />
-        <Route path="/Register" element={<Register />} />
-        <Route path="/UserList" element={<UserList />} />
-        <Route path="/update/:id" element={<Form />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/About" element={<About />} />
-        <Route path="/Contact" element={<Contact2 />} />
-        <Route path="/Gerente" element={<Gerente />} />
-        <Route path="/Administrador" element={<Administrador />} />
-        <Route path="/Cliente" element={<Cliente />} />
-        <Route path="/Operador" element={<Operador />} />
-        <Route path="/OpRegister" element={<OpRegister />} />
-      </Routes>
-    </Router>
+    <div>
+      <ContextProvider>
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="*" element={<PageNotFound/>} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/Dashboard" element={<Dashboard />} />
+            <Route path="/Register" element={<Register />} />
+            <Route path="/UserList" element={<UserList />} />
+            <Route path="/update/:id" element={<Form />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/About" element={<About />} />
+            <Route path="/Contact" element={<Contact2 />} />
+            <Route path="/Gerente" element={<Gerente />} />
+            <Route path="/Administrador" element={<Administrador />} />
+            <Route path="/Cliente" element={<Cliente />} />
+            <Route path="/Operador" element={<Operador />} />
+            <Route path="/OpRegister" element={<OpRegister />} />
+          </Routes>
+        </Router>
+      </ContextProvider>
+    </div>
   );
 }
 

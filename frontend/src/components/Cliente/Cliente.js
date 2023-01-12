@@ -14,18 +14,41 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Grid,
 } from "@mui/material";
 
-import MuiAppBar from "@mui/material/AppBar"
+import MuiAppBar from "@mui/material/AppBar";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import AssignmentLateOutlined from "@mui/icons-material/AssignmentLateOutlined";
+import ReceiptOutlined from "@mui/icons-material/ReceiptOutlined";
+import MonetizationOnOutlined from "@mui/icons-material/MonetizationOnOutlined";
+
+import { useAuth } from "../../context/Context";
 
 const drawerWidth = 240;
 
+const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
+  ({ theme, open }) => ({
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create("margin", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: `-${drawerWidth}px`,
+    marginRight: `${drawerWidth / 3}px`,
+    ...(open && {
+      transition: theme.transitions.create("margin", {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
+    }),
+  })
+);
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -65,12 +88,13 @@ function Customer() {
     setOpen(false);
   };
 
+  const { name } = useAuth();
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar sx={{ backgroundColor: "#124265" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -85,6 +109,11 @@ function Customer() {
           </Typography>
         </Toolbar>
       </AppBar>
+
+      <Grid>
+        <h1>Hola</h1>
+      </Grid>
+
       <Drawer
         sx={{
           width: drawerWidth,
@@ -92,6 +121,8 @@ function Customer() {
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
+            backgroundColor: "#33b4db",
+            color: "#FFFFFF",
           },
         }}
         variant="persistent"
@@ -101,39 +132,50 @@ function Customer() {
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
+              <ChevronLeftIcon sx={{ color: "white" }} />
             ) : (
-              <ChevronRightIcon />
+              <ChevronRightIcon sx={{ color: "white" }} />
             )}
           </IconButton>
         </DrawerHeader>
-        <Divider />
+        <Divider
+          sx={{
+            border: "1px solid white",
+          }}
+        />
         <List>
-          {["Consultar consumo", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          {["Consultar estado", "Pagar factura", "Ver factura"].map(
+            (text, index) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {index === 0 ? (
+                      <AssignmentLateOutlined sx={{ color: "white" }} />
+                    ) : index === 1 ? (
+                      <MonetizationOnOutlined sx={{ color: "white" }} />
+                    ) : (
+                      <ReceiptOutlined sx={{ color: "white" }} />
+                    )}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            )
+          )}
         </List>
       </Drawer>
+
+      <Main open={open}>
+        <DrawerHeader />
+        <Typography
+          variant="h4"
+          textAlign={"justify"}
+          fontWeight={600}
+          mt="12px"
+        >
+         Bienvenido <span style={{color: "#33b4db"}}>{name}</span>
+        </Typography>
+      </Main>
     </Box>
   );
 }

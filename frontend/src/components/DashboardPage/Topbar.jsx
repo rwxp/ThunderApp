@@ -20,7 +20,7 @@ const Topbar = () => {
   const navigate = useNavigate();
 
   return (
-    <Box display="flex" justifyContent="space-between" p={2}>
+    <Box display="flex" justifyContent="space-between" py={4}>
       {/* SEARCH BAR */}
       <Box display="flex" alignItems={"center"}>
         <Box
