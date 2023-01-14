@@ -9,7 +9,7 @@ export const useAuth = () => {
 };
 
 const ContextProvider = ({ children }) => {
-  const [name, setName] = useState("Nombre Admin");
+  const [name, setName] = useState("Nombre Usuario");
   const [isNavbar, setNavbar] = useState(true);
 
   return (

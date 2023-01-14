@@ -26,7 +26,9 @@ import AssignmentLateOutlined from "@mui/icons-material/AssignmentLateOutlined";
 import ReceiptOutlined from "@mui/icons-material/ReceiptOutlined";
 import MonetizationOnOutlined from "@mui/icons-material/MonetizationOnOutlined";
 
-import { useAuth } from "../../context/Context";
+import { useAuth } from "../../../context/Context";
+
+import UserMenu from "../UserMenu";
 
 const drawerWidth = 240;
 
@@ -39,7 +41,6 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: `-${drawerWidth}px`,
-    marginRight: `${drawerWidth / 3}px`,
     ...(open && {
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.easeOut,
@@ -76,7 +77,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-const Operador = () => {
+const Customer = () => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -94,25 +95,37 @@ const Operador = () => {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar sx={{ backgroundColor: "#124265" }}>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
+        <Toolbar
+          sx={{
+            backgroundColor: "#124265",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Grid
+            sx={{
+              display: "flex",
+              direction: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Operador
-          </Typography>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ...(open && { display: "none" }) }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap component="div">
+              Cliente
+            </Typography>
+          </Grid>
+          <UserMenu />
         </Toolbar>
       </AppBar>
-
-      <Grid>
-        <h1>Hola</h1>
-      </Grid>
 
       <Drawer
         sx={{
@@ -144,7 +157,7 @@ const Operador = () => {
           }}
         />
         <List>
-          {["Consultar estado", "Registrar pago", "Ver factura"].map(
+          {["Consultar estado", "Pagar factura", "Ver factura"].map(
             (text, index) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton>
@@ -166,18 +179,19 @@ const Operador = () => {
       </Drawer>
 
       <Main open={open}>
-        <DrawerHeader />
-        <Typography
-          variant="h4"
-          textAlign={"justify"}
-          fontWeight={600}
-          mt="12px"
-        >
-         Bienvenido <span style={{color: "#33b4db"}}>{name}</span>
-        </Typography>
+        <Grid sx={{display:"grid", placeItems:"center", height:"100vh"}}>
+          <Typography
+            variant="h4"
+            textAlign={"justify"}
+            fontWeight={600}
+            mt="12px"
+          >
+            Bienvenido {<span style={{ color: "#33b4db" }}>{name}</span>}
+          </Typography>
+        </Grid>
       </Main>
     </Box>
   );
-}
+};
 
-export default Operador;
+export default Customer;

@@ -1,6 +1,6 @@
 //Navbar used MDB Bootstrap
 import React, { useState } from "react";
-import Img1 from "../LandingPage/Images/logo3.png";
+import Img1 from "../../LandingPage/Images/logo3.png";
 import { animateScroll as scroll } from "react-scroll";
 import {
   MDBContainer,
@@ -22,7 +22,7 @@ export default function App() {
   };
   return (
     // MDB NAVBAR
-    <div style={{ marginBottom: "90px" }}>
+    <div style={{ marginBottom: "80px" }}>
       <MDBNavbar className="navbar fixed-top" expand="lg">
         <MDBContainer>
           {/* Scroll yo top */}
@@ -50,12 +50,32 @@ export default function App() {
           <MDBCollapse navbar show={showNav}>
             <MDBNavbarNav className="d-flex justify-content-end">
               <MDBNavbarItem className="p-3">
-                <NavLink to="/OpRegister" className="navText">
+                <NavLink to="/Dashboard" className="navText">
+                  <button
+                    className="btn btn-outline-secondary btn-rounded ps-30 pe-30"
+                    style={{ background: "aliceblue", borderColor: "white" }}
+                  >
+                    Dashboard
+                  </button>
+                </NavLink>
+              </MDBNavbarItem>
+              <MDBNavbarItem className="p-3">
+                <NavLink to="/Register" className="navText">
                   <button
                     className="btn btn-outline-secondary btn-rounded ps-10 pe-30"
                     style={{ background: "aliceblue", borderColor: "white" }}
                   >
-                    Registrar Clientes
+                    Registrar Usuarios
+                  </button>
+                </NavLink>
+              </MDBNavbarItem>
+              <MDBNavbarItem className="p-3">
+                <NavLink to="/UserList" className="navText">
+                  <button
+                    className="btn btn-outline-secondary btn-rounded ps-30 pe-30"
+                    style={{ background: "aliceblue", borderColor: "white" }}
+                  >
+                    Gestionar Usuarios
                   </button>
                 </NavLink>
               </MDBNavbarItem>
@@ -66,18 +86,6 @@ export default function App() {
                     style={{ background: "aliceblue", borderColor: "white" }}
                   >
                     Logout
-                  </button>
-                </NavLink>
-              </MDBNavbarItem>
-              <MDBNavbarItem className="m-2">
-                <NavLink to="/Operador" onClick={toggleHome}>
-                  <button
-                    type="button"
-                    className="btn btn-outline-secondary btn-rounded ps-5 pe-5"
-                    data-mdb-ripple-color="dark"
-                    style={{ background: "aliceblue", borderColor: "white", marginTop: "6px", marginLeft: "3px"}}
-                  >
-                    <HomeIcon fontSize="small"/>
                   </button>
                 </NavLink>
               </MDBNavbarItem>

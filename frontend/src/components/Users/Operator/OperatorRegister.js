@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../Operador/NavbarOp.js'
+import Navbar from './NavbarOp.js'
 import {
   MDBBtn,
   MDBContainer,
@@ -8,8 +8,8 @@ import {
   MDBInput
 }
 from 'mdb-react-ui-kit';
-import logo from "../LandingPage/Images/logo2.png";
-import {getUser, registerUser} from '../UserList/UserAPI';
+import logo from "../../LandingPage/Images/logo2.png";
+import {getUser, registerUser} from '../../UserList/UserAPI';
 import {useState} from 'react';
 
 function ClientRegister() {
