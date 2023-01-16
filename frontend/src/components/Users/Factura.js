@@ -30,16 +30,17 @@ const Factura = () => {
     >
       <Grid container justifyContent="center">
         <Grid
-          backgroundColor="gray"
+          backgroundColor="#4A4A4A"
           paddingX="20px"
           borderRadius="10px"
-          height="35em"
+          height="36em"
         >
           <IconButton
             md={8}
             variant="outlined"
             onClick={pdfDownload}
             sx={{ py: 1.5, color: "white" }}
+            disableRipple
           >
             <Download />
           </IconButton>
