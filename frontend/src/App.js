@@ -20,9 +20,9 @@ import Cliente from "./components/Users/Customer/Cliente";
 import Operador from "./components/Users/Operator/Operador";
 import Gerente from "./components/Users/Gerente/Gerente";
 
-import PageNotFound from "./components/PageNotFound/PageNotFound";
 
 import ContextProvider from "./context/Context";
+import Factura from './components/Users/Factura';
 
 function App() {
   return (
@@ -31,7 +31,6 @@ function App() {
         <Router>
           <Navbar />
           <Routes>
-            <Route path="*" element={<PageNotFound/>} />
             <Route path="/Login" element={<Login />} />
             <Route path="/Dashboard" element={<Dashboard />} />
             <Route path="/Register" element={<Register />} />
@@ -45,6 +44,7 @@ function App() {
             <Route path="/Cliente" element={<Cliente />} />
             <Route path="/Operador" element={<Operador />} />
             <Route path="/OpRegister" element={<OpRegister />} />
+            <Route path="/factura" element={<Factura />} />
           </Routes>
         </Router>
       </ContextProvider>

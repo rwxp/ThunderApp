@@ -94,10 +94,11 @@ const Customer = () => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} sx={{
+            backgroundColor: "#124265",
+          }}>
         <Toolbar
           sx={{
-            backgroundColor: "#124265",
             display: "flex",
             justifyContent: "space-between",
           }}

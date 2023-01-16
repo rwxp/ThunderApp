@@ -35,4 +35,3 @@ const Home = () => {
 };
 
 export default Home;
-// CODE BY GRACY PATEL

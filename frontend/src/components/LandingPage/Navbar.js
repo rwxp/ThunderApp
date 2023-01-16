@@ -87,6 +87,7 @@ function Navbar() {
       path === "/Dashboard" ||
       path === "/Operador" ||
       path === "/Gerente" ||
+      path === "/factura" ||
       isNavbar !== true ? (
         <></>
       ) : (

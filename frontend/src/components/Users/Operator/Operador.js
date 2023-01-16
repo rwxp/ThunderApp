@@ -15,15 +15,9 @@ import {
   ListItemIcon,
   ListItemText,
   Grid,
-  Tooltip,
-  Avatar,
-  Menu,
-  MenuItem,
 } from "@mui/material";
 
 import MuiAppBar from "@mui/material/AppBar";
-import Logout from "@mui/icons-material/Logout";
-import Settings from "@mui/icons-material/Settings";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -31,9 +25,6 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import AssignmentLateOutlined from "@mui/icons-material/AssignmentLateOutlined";
 import ReceiptOutlined from "@mui/icons-material/ReceiptOutlined";
 import MonetizationOnOutlined from "@mui/icons-material/MonetizationOnOutlined";
-import { useNavigate } from "react-router-dom";
-
-import Swal from "sweetalert2";
 
 import { useAuth } from "../../../context/Context";
 import UserMenu from "../UserMenu";
@@ -49,7 +40,6 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: `-${drawerWidth}px`,
-    marginRight: `${drawerWidth / 3}px`,
     ...(open && {
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.easeOut,
@@ -189,15 +179,16 @@ const Operador = () => {
       </Drawer>
 
       <Main open={open}>
-        <DrawerHeader />
-        <Typography
-          variant="h4"
-          textAlign={"justify"}
-          fontWeight={600}
-          mt="12px"
-        >
-          Bienvenido <span style={{ color: "#33b4db" }}>{name}</span>
-        </Typography>
+        <Grid sx={{display:"grid", placeItems:"center", height:"100vh"}}>
+          <Typography
+            variant="h4"
+            textAlign={"justify"}
+            fontWeight={600}
+            mt="12px"
+          >
+            Bienvenido {<span style={{ color: "#33b4db" }}>{name}</span>}
+          </Typography>
+        </Grid>
       </Main>
     </Box>
   );
