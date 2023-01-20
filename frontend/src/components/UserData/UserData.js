@@ -73,7 +73,7 @@ const Form = () => {
     if (params.id) {
       loadUser(params.id);
     }
-  }, []);
+  });
 
   return (
     <Box>
@@ -144,6 +144,7 @@ const Form = () => {
               type="text"
               value={user.role}
               onChange={handleInputChange}
+              disabled={true}
               
             />
           </Grid>
@@ -160,7 +161,7 @@ const Form = () => {
               label={JSON.stringify(user.isActive)}
             />
           </Grid>
-          <Grid item>
+          <Grid item sx={{mb:10}}>
             <Button variant="contained" onClick={handleSubmit}>
               Save
             </Button>

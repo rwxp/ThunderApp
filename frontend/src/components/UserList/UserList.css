@@ -19,12 +19,3 @@
     background-color: rgb(44, 134, 150);
     margin:0;
 }
-  
-@keyframes App-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-}

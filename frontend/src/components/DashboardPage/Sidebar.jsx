@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState } from "react";
+import React from "react";
+import { useState, useContext } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -20,9 +20,12 @@ import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import Img1 from "../LandingPage/Images/logo.png";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 
+import { useAuth } from "../../context/Context";
+
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
     <MenuItem
       active={selected === title}
@@ -43,6 +46,8 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+
+  const { name } = useAuth();
 
   return (
     <Box
@@ -110,7 +115,7 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Sebastian Caicedo
+                  {name}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
                   ThunderApp Admin

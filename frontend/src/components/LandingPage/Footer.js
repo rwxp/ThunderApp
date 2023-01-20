@@ -1,88 +1,227 @@
 import React from "react";
 import "../../App.css";
-import Img1 from "./Images/logo.png";
-import Img2 from "./Images/facebook-icon.png";
-import Img3 from "./Images/twitter-3.png";
-import Img4 from "./Images/instagram-2016.png";
-import { TableRow } from "@mui/material";
-import { MDBRow } from "mdb-react-ui-kit";
+
+import logo from "./Images/whiteLogo.png";
+
+import {
+  Box,
+  Card,
+  CardContent,
+  Container,
+  Grid,
+  IconButton,
+  TextField,
+  Typography,
+  useMediaQuery,
+  useTheme,
+  Link,
+} from "@mui/material";
+
+import { makeStyles } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
+
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import InstagramIcon from "@mui/icons-material/Instagram";
+
+import { Send } from "@mui/icons-material";
+
 const Footer = () => {
+  const productsRows = [
+    "Connections",
+    "Protocols",
+    "Personas",
+    "Integrations",
+    "Catalog",
+    "Pricing",
+    "Security",
+  ];
+
+  const forDevRows = ["Docs", "API", "Open Source", "Engineering Team"];
+
+  const supportRows = [
+    "Help Center",
+    "Contact Us",
+    "Security Bulletins",
+    "Documentation",
+    "Partner Portal",
+  ];
+
+  const classes = useStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const navigate = useNavigate();
+
   return (
-    <div className="mainPage">
-      <div className="footer d-flex justify-content-evenly flex-wrap p-5">
-        {/* Div with Icon and Data */}
-        <div>
-          <div className="logo-img-footer">
-            <img className="d-block" src={Img1} alt="Image1" />
-          </div>
-          <div className="paraFooter">
-            <p>
-               Una App que ofrece el servicio de gestión de usuario con gráficas y 
-              estadísticas que muestran el consumo de sus clientes y toda la información relevante 
-              que su empresa necesite, también permite asignar roles para cada trabajador de su empresa.
-            </p>
-            <div className="footer d-flex justify-content-evenly flex-wrap p-5">
-              <div >
-                <a href="https://www.facebook.com/"> <img className="d-block2" src={Img2} alt="icon" /></a>
-              </div>
-              <div >
-                <a href="https://twitter.com/"> <img className="d-block2" src={Img3} alt="icon" /></a>
-              </div>
-              <div >
-                <a href="https://www.instagram.com/"> <img className="d-block2" src={Img4} alt="icon" /></a>
-              </div>
-            </div>
-            
-          </div>
-        </div>
-        <div className="alignDiv">
-          <h3 className="footerDiv">Products</h3>
-          <p>Connections</p>
-          <p>Protocols</p>
-          <p>Personas</p>
-          <p>Integrations</p>
-          <p>Catalog</p>
-          <p>Pricing</p>
-          <p>Security</p>
-        </div>
-        <div>
-          <h3 className="footerDiv">For Developers</h3>
-          <p>Docs</p>
-          <p>API</p>
-          <p>Open Source</p>
-          <p>Engineering Team</p>
-        </div>
-        <div>
-          <h3 className="footerDiv">Company</h3>
-          <p>Careers</p>
-          <p>Blog</p>
-          <p>Press</p>
-        </div>
-        <div>
-          <h3 className="footerDiv">Support</h3>
-          <p>Help Center</p>
-          <p>Contact Us</p>
-          <p>Security Bulletins</p>
-          <p>Documentation</p>
-          <p>Partner Portal</p>
-        </div>
-        <div className="pb-5">
-          <h3 className="footerDiv">Newsletter</h3>
-          <div className="form-outline">
-            <i className="fas fa-angle-double-right trailing iconFooter1"></i>
-            {/* Email Input */}
-            <input
-              type="text"
-              id="form1"
-              className="form-control form-icon-trailing"
-            />
-            <label className="form-label">Email</label>
-          </div>
-        </div>
-      </div>
-    </div>
+    <>
+      <Box className="Footer" sx={{ pt: 4, pb: 4, mt: 12 }}>
+        <Container maxWidth="lg">
+          <Grid
+            container
+            spacing={isMobile ? 1 : 4}
+            sx={{ justifyContent: "center", alignItems: "top", paddingX: 2 }}
+          >
+            <Grid item xs={12} sm={4} md={3}>
+              <Card
+                variant="contained"
+                className={isMobile ? classes.cardsMobile : classes.cards}
+                sx={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
+              >
+                <CardContent sx={{ textAlign: "center", position: "relative" }}>
+                  <Grid container>
+                    <Link href="https://www.facebook.com/" target="_blank">
+                      <FacebookIcon sx={{ fontSize: 36, color: "aliceblue" }} />
+                    </Link>
+                    <Link href="https://twitter.com/" target="_blank">
+                      <TwitterIcon sx={{ fontSize: 36, color: "aliceblue" }} />
+                    </Link>
+                    <Link href="https://www.instagram.com/" target="_blank">
+                      <InstagramIcon
+                        sx={{ fontSize: 36, color: "aliceblue" }}
+                      />
+                    </Link>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} sm={4} md={6}>
+              <Card
+                variant="contained"
+                className={isMobile ? classes.cardsMobile : classes.cards}
+                sx={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
+              >
+                <CardContent sx={{ textAlign: "center" }}>
+                  <img src={logo} alt="Logo" width="100px"></img>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            {isMobile ? undefined : (
+              <Grid item xs={12} sm={4} md={3}>
+                <Card />
+              </Grid>
+            )}
+
+            <Grid item xs={isMobile ? 6 : 12} sm={4} md={3}>
+              <Card
+                variant="contained"
+                className={isMobile ? classes.cardsMobile : classes.cards}
+                sx={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
+              >
+                <CardContent>
+                  <h3>Products</h3>
+                  {productsRows.map((product) => (
+                    <Typography key={product} sx={{ fontSize: 14, py: 0.2 }}>
+                      {product}
+                    </Typography>
+                  ))}
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item xs={isMobile ? 6 : 12} sm={4} md={3}>
+              <Card
+                variant="contained"
+                className={isMobile ? classes.cardsMobile : classes.cards}
+                sx={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
+              >
+                <CardContent>
+                  <h3>For developers</h3>
+                  {forDevRows.map((item) => (
+                    <Typography key={item} sx={{ fontSize: 14, py: 0.2 }}>
+                      {item}
+                    </Typography>
+                  ))}
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item xs={isMobile ? 6 : 12} sm={4} md={3}>
+              <Card
+                variant="contained"
+                className={isMobile ? classes.cardsMobile : classes.cards}
+                sx={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
+              >
+                <CardContent>
+                  <h3>Support</h3>
+                  {supportRows.map((item) => (
+                    <Typography key={item} sx={{ fontSize: 14, py: 0.2 }}>
+                      {item}
+                    </Typography>
+                  ))}
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item xs={isMobile ? 6 : 12} sm={4} md={3}>
+              <Card
+                variant="contained"
+                className={isMobile ? classes.cardsMobile : classes.cards}
+                sx={{
+                  backgroundColor: "rgba(255, 255, 255, 0)",
+                }}
+              >
+                <CardContent>
+                  <h3>Newsletter</h3>
+                  <Grid container display="row" paddingX="2px" spacing={1}>
+                    <Grid item xs={8}>
+                      <TextField variant="standard" placeholder="Email" />
+                    </Grid>
+                    <Grid item>
+                      <IconButton variant="filled">
+                        <Send sx={{ color: "aliceblue" }} />
+                      </IconButton>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item xs={isMobile ? 8 : 12} sm={4} md={8}>
+              <Card
+                variant="contained"
+                className={isMobile ? classes.cardsMobile : classes.cards}
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "rgba(255, 255, 255, 0)",
+                }}
+              >
+                <Typography
+                  fontSize={isMobile ? "14px" : "16px"}
+                  variant="body"
+                  textAlign="center"
+                  fontFamily="montserrat"
+                >
+                  Una App que ofrece el servicio de gestión de usuario con
+                  gráficas y estadísticas que muestran el consumo de sus
+                  clientes y toda la información relevante que su empresa
+                  necesite, también permite asignar roles para cada trabajador
+                  de su empresa.
+                </Typography>
+              </Card>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+    </>
   );
 };
 export default Footer;
-// CODE BY GRACY PATEL
 
+const useStyles = makeStyles((theme) => ({
+  cards: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    padding: 10,
+  },
+
+  cardsMobile: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    padding: 10,
+    alignItems: "center",
+  },
+}));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens, ColorModeContext, useMode } from "../Theme";
 import { mockTransactions } from "../data/mockData";
@@ -13,12 +13,10 @@ import GeographyChart from "../ComponentsDashboard/GeographyChart";
 import BarChart from "../ComponentsDashboard/BarChart";
 import StatBox from "../ComponentsDashboard/StatBox";
 import ProgressCircle from "../ComponentsDashboard/ProgressCircle";
-import Sidebar from '../Sidebar';
-import Topbar from '../Topbar';
+import Sidebar from "../Sidebar";
+import Topbar from "../Topbar";
 import { useState } from "react";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-
-
 
 const Dashboard = () => {
   const [theme, colorMode] = useMode();
@@ -30,31 +28,39 @@ const Dashboard = () => {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        
 
-        <Box display="flex" >
+        <Box display="flex" justifyContent="flex-end" position="relative">
           <Box
-            marginLeft={'0px'}
-            marginRight={'30px'}
+            marginLeft={"0px"}
+            marginRight={"30px"}
             display="flex"
-            alignItems="left"
             justifyContent="left"
+            position="absolute"
+            sx={{ left: 0, top: 0, bottom: 0 }}
           >
             <Sidebar isSidebar={isSidebar} />
           </Box>
 
-
-          <Box marginRight={'15px'} display="grid">
+          <Box
+            backgroundColor="rgba(255,255,255,0)"
+            display="grid"
+            pb={4}
+            marginRight={10}
+          >
             <Topbar setIsSidebar={setIsSidebar} />
 
-            <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
               <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
 
               <Box>
                 <Button
                   sx={{
                     backgroundColor: colors.blueAccent[400],
-                    color: 'white',
+                    color: "white",
                     fontSize: "14px",
                     fontWeight: "bold",
                     padding: "10px 20px",
@@ -66,19 +72,13 @@ const Dashboard = () => {
               </Box>
             </Box>
 
-
-
             {/* GRID & CHARTS */}
             <Box
-           
               display="grid"
               gridTemplateColumns="repeat(12, 1fr)"
               gridAutoRows="140px"
               gap="20px"
             >
-
-
-
               {/* ROW 1 */}
               <Box
                 gridColumn="span 3"
@@ -189,7 +189,10 @@ const Dashboard = () => {
                   <Box>
                     <IconButton>
                       <DownloadOutlinedIcon
-                        sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
+                        sx={{
+                          fontSize: "26px",
+                          color: colors.greenAccent[500],
+                        }}
                       />
                     </IconButton>
                   </Box>
@@ -212,7 +215,11 @@ const Dashboard = () => {
                   colors={colors.grey[100]}
                   p="15px"
                 >
-                  <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
+                  <Typography
+                    color={colors.grey[100]}
+                    variant="h5"
+                    fontWeight="600"
+                  >
                     Recent Transactions
                   </Typography>
                 </Box>
@@ -273,7 +280,9 @@ const Dashboard = () => {
                   >
                     $48,352 revenue generated
                   </Typography>
-                  <Typography>Includes extra misc expenditures and costs</Typography>
+                  <Typography>
+                    Includes extra misc expenditures and costs
+                  </Typography>
                 </Box>
               </Box>
               <Box
@@ -311,13 +320,9 @@ const Dashboard = () => {
               </Box>
             </Box>
           </Box>
-
         </Box>
-
-
       </ThemeProvider>
     </ColorModeContext.Provider>
-
   );
 };
 
