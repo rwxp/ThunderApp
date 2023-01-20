@@ -46,6 +46,7 @@ const Login = () => {
       var res = await ans.json();
       console.log(res);
       setRespuesta(res.message);
+      window.localStorage.setItem('loggedInUser', JSON.stringify(user))
     } catch (error) {
       Swal.fire({
         title: "Error",

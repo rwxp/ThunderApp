@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import "../../App.css";
 
 import { Box } from "@mui/material";
-import Contact2 from './Contact2';
+import Contact2 from './Contact';
 
 const Home = () => {
   useEffect(() => {

@@ -24,15 +24,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import { useAuth } from "../../context/Context";
 
-
 import HomeIcon from "@mui/icons-material/Home";
 import MenuIcon from "@mui/icons-material/Menu";
 import InfoIcon from "@mui/icons-material/Info";
 import EmailIcon from "@mui/icons-material/Email";
 import LoginIcon from "@mui/icons-material/Login";
 
-function Navbar() {
-
+function Navbar({ pageNotFound }) {
   const { isNavbar } = useAuth();
 
   const navigate = useNavigate();
@@ -87,8 +85,7 @@ function Navbar() {
       path === "/Dashboard" ||
       path === "/Operador" ||
       path === "/Gerente" ||
-      path === "/factura" ||
-      isNavbar !== true ? (
+      path === "/factura" ? (
         <></>
       ) : (
         <AppBar>

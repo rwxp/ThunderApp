@@ -20,7 +20,10 @@ import { useAuth } from "../../context/Context";
 import Swal from "sweetalert2";
 
 const UserMenu = () => {
-  const { name } = useAuth();
+  const loggedInUser = window.localStorage.getItem("loggedInUser");
+  const userJson = JSON.parse(loggedInUser);
+  const name = userJson.firstName + " " + userJson.lastName;
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -45,6 +48,9 @@ const UserMenu = () => {
       confirmButtonColor: "#E05454",
     }).then((result) => {
       if (result.isConfirmed) {
+        window.localStorage.removeItem("loggedInUser");
+        const us = window.localStorage.getItem("loggedInUser");
+        console.log(us);
         navigate("/");
       }
     });

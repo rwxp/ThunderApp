@@ -1,13 +1,12 @@
 import React from "react";
 import Navbar from "../LandingPage/Navbar.js";
-import {
-  MDBInput,
-} from "mdb-react-ui-kit";
+import { MDBInput } from "mdb-react-ui-kit";
 import logo from "../LandingPage/Images/logo2.png";
 import { getUser, registerUser } from "../UserList/UserAPI";
 import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
+
 import {
   Box,
   Button,
@@ -50,6 +49,18 @@ function AdminRegister() {
     setRespuesta(res.message);
   }
 
+  const loggedInUser = window.localStorage.getItem("loggedInUser");
+  const userJson = JSON.parse(loggedInUser);
+  const userRole = userJson.role;
+
+  const handleChangePassword = ({ target }) => {
+    setPassword(target.value);
+    if(userRole !== "Admin") {
+      setRole("Cliente")
+    }
+  }
+
+
   return (
     <Box sx={{ mt: "80px" }}>
       <form onSubmit={handleSubmit}>
@@ -74,10 +85,14 @@ function AdminRegister() {
                     fontWeight: 800,
                     color: "#124265",
                     textAlign: "center",
-                    fontFamily: "Arial",
+                    fontFamily: "Montserrat",
                   }}
                 >
-                  Registrar usuario
+                  {userRole === "Admin" ? (
+                    <>Registrar usuario</>
+                  ) : (
+                    <>Registrar Cliente</>
+                  )}
                 </h3>
               </div>
             </div>
@@ -141,28 +156,33 @@ function AdminRegister() {
                 label="Password"
                 id="password"
                 type="password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => handleChangePassword(e)}
               />
             </Grid>
-            <Grid item marginBottom={5}>
-              <select
-                className="w-100 select"
-                id="role"
-                onChange={(e) => setRole(e.target.value)}
-              >
-                <option selected="true" disabled="disabled">
-                  {isMobile ? (
-                    <>Seleccione el rol</>
-                  ) : (
-                    <>Seleccione el rol a desempeñar</>
-                  )}
-                </option>
-                <option value="Cliente">Cliente</option>
-                <option value="Gerente">Gerente </option>
-                <option value="Operador">Operador</option>
-                <option value="Admin">Administrador</option>
-              </select>
-            </Grid>
+
+            {userRole !== "Admin" ? (
+              <br></br>
+            ) : (
+              <Grid item marginBottom={5}>
+                <select
+                  className="w-100 select"
+                  id="role"
+                  onChange={(e) => setRole(e.target.value)}
+                >
+                  <option selected="true" disabled="disabled">
+                    {isMobile ? (
+                      <>Seleccione el rol</>
+                    ) : (
+                      <>Seleccione el rol a desempeñar</>
+                    )}
+                  </option>
+                  <option value="Cliente">Cliente</option>
+                  <option value="Gerente">Gerente </option>
+                  <option value="Operador">Operador</option>
+                  <option value="Admin">Administrador</option>
+                </select>
+              </Grid>
+            )}
 
             <Grid
               container
@@ -202,24 +222,33 @@ function AdminRegister() {
             <></>
           ) : (
             <Grid item md={6}>
-              <div className="d-flex flex-column gradient-custom-2 h-100">
-                <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-                  <Typography
-                    sx={{ pt: 14 }}
-                    variant="h5"
-                    fontFamily="Montserrat"
-                    fontWeight="bold"
-                    mb={3}
+              <div
+                className="d-flex flex-column gradient-custom-2"
+                style={{ position: "absolute", height: "150%" }}
+              >
+                <Typography
+                  className="Small"
+                  color="white"
+                  sx={{ position: "sticky", bottom: 0, top: "40%", px: 8 }}
+                >
+                  <span
+                    style={{
+                      fontSize: "26px",
+                      fontFamily: "Montserrat",
+                      fontWeight: "bold",
+                    }}
                   >
                     Somos más que sólo una compañía
-                  </Typography>
-                  <Typography className="small" fontFamily="Montserrat">
+                  </span>
+                  <br />
+                  <br />
+                  <span style={{ fontFamily: "Montserrat" }}>
                     Una empresa de energía eléctrica que desarrolla un sistema
                     para gestionar la información de sus clientes ya sean
                     corporativos o personas naturales, su consumo y la
                     facturación.
-                  </Typography>
-                </div>
+                  </span>
+                </Typography>
               </div>
             </Grid>
           )}

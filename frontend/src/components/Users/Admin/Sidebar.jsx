@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useContext } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Avatar, Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "./Theme";
@@ -17,10 +17,8 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-import Img1 from "../LandingPage/Images/logo.png";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 
-import { useAuth } from "../../context/Context";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -47,7 +45,9 @@ const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
 
-  const { name } = useAuth();
+  const loggedInUser = window.localStorage.getItem("loggedInUser");
+  const userJson = JSON.parse(loggedInUser);
+  const name = userJson.firstName + " " + userJson.lastName;
 
   return (
     <Box
@@ -87,8 +87,8 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h3" color={colors.blueAccent}>
-                  ADMIN
+                <Typography variant="h3" color={colors.blueAccent} fontWeight="bold">
+                  Admin
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -100,13 +100,14 @@ const Sidebar = () => {
           {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                <img
+                {/*<img
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={Img1}
+                  src={logo}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
-                />
+          />*/}
+                <Avatar sx={{ width: "60px", height: "60px" }} />
               </Box>
               <Box textAlign="center">
                 <Typography
