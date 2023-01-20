@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import logo from "../LandingPage/Images/logo2.png";
 
 // mui material components
+
 import {
   Box,
   TableContainer,
@@ -64,7 +65,10 @@ const UserList = () => {
 
   return (
     <Box className="User-list">
-      <Box component={Paper} sx={{ background: "aliceblue", borderRadius: 5, mt:3, mb:3}}>
+      <Box
+        component={Paper}
+        sx={{ background: "aliceblue", borderRadius: 5, mt: 3, mb: 3 }}
+      >
         <Grid container sx={{ mb: 3, mt: 3, ml: 3, alignItems: "center" }}>
           <img src={logo} alt="logo" height={90} width={90}></img>
           <Grid item sx={{ ml: 4 }}>
@@ -73,7 +77,6 @@ const UserList = () => {
             </h1>
           </Grid>
         </Grid>
-
         <TableContainer>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>

@@ -18,6 +18,7 @@ import Topbar from "../Topbar";
 import { useState } from "react";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
+
 const Dashboard = () => {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -28,7 +29,6 @@ const Dashboard = () => {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-
         <Box display="flex" justifyContent="flex-end" position="relative">
           <Box
             marginLeft={"0px"}
@@ -94,7 +94,10 @@ const Dashboard = () => {
                   increase="+14%"
                   icon={
                     <EmailIcon
-                      sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+                      sx={{
+                        color: colors.greenAccent[600],
+                        fontSize: "26px",
+                      }}
                     />
                   }
                 />
@@ -113,7 +116,10 @@ const Dashboard = () => {
                   increase="+21%"
                   icon={
                     <PointOfSaleIcon
-                      sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+                      sx={{
+                        color: colors.greenAccent[600],
+                        fontSize: "26px",
+                      }}
                     />
                   }
                 />
@@ -132,7 +138,10 @@ const Dashboard = () => {
                   increase="+5%"
                   icon={
                     <PersonAddIcon
-                      sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+                      sx={{
+                        color: colors.greenAccent[600],
+                        fontSize: "26px",
+                      }}
                     />
                   }
                 />
@@ -151,7 +160,10 @@ const Dashboard = () => {
                   increase="+43%"
                   icon={
                     <TrafficIcon
-                      sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+                      sx={{
+                        color: colors.greenAccent[600],
+                        fontSize: "26px",
+                      }}
                     />
                   }
                 />

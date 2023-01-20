@@ -1,4 +1,4 @@
-import { Box, IconButton, useTheme, Button } from "@mui/material";
+import { Box, IconButton, useTheme, Button, Grid } from "@mui/material";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +12,8 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import { lightBlue } from "@mui/material/colors";
 
+import logo from "../../LandingPage/Images/logo3.png";
+
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -19,21 +21,39 @@ const Topbar = () => {
 
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    window.localStorage.removeItem("loggedInUser");
+    navigate("/");
+  };
+
   return (
-    <Box display="flex" justifyContent="space-between" py={4}>
+    <Box display="flex" justifyContent="space-between" py={4} alignItems="center">
       {/* SEARCH BAR */}
-      <Box display="flex" alignItems={"center"}>
-        <Box
-          display="flex"
-          backgroundColor={colors.primary[400]}
-          borderRadius="3px"
-        >
-          <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
-          <IconButton type="button" sx={{ p: 1 }}>
-            <SearchIcon />
-          </IconButton>
+      <Box>
+        <Box display="flex" alignItems={"center"}>
+          <Grid>
+            <img
+              src={logo}
+              alt="logo"
+              style={{ width: "80px", height: "auto", marginRight: "3em"}}
+            />
+          </Grid>
+          <Grid
+            item
+            sx={{
+              height: "36px",
+              backgroundColor: colors.primary[400],
+              display: "flex",
+              alignItems: "center",
+              borderRadius: "3px",
+            }}
+          >
+            <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
+            <IconButton type="button" sx={{ p: 1 }}>
+              <SearchIcon />
+            </IconButton>
+          </Grid>
         </Box>
-        
       </Box>
 
       {/* ICONS */}
@@ -62,7 +82,7 @@ const Topbar = () => {
               color: "black",
               ":hover": { background: "lightBlue" },
             }}
-            onClick={() => navigate("/")}
+            onClick={handleLogout}
           >
             Log out
           </Button>

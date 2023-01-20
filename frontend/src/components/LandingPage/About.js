@@ -6,24 +6,19 @@ import "../../App.css";
 import About2 from "./About2";
 import { useEffect } from "react";
 
-
-import {
-  Container,
-  Grid,
-  Card,
-  CardContent,
-  Typography,
-} from "@mui/material";
+import { Container, Grid, Card, CardContent, Typography } from "@mui/material";
 import {
   AccountTree,
   BarChart,
   IntegrationInstructions,
 } from "@mui/icons-material";
 
+
 const About = () => {
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
+
   return (
     <div className="mainPage">
       <Container sx={{ py: 8, mt: 8, px: 6 }} maxWidth="lg">
@@ -127,9 +122,8 @@ const About = () => {
           </Grid>
         </Grid>
       </Container>
-      <About2/>
+      <About2 />
     </div>
   );
 };
 export default About;
-// CODE BY GRACY PATEL

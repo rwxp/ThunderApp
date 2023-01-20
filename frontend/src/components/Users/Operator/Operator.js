@@ -26,8 +26,6 @@ import AssignmentLateOutlined from "@mui/icons-material/AssignmentLateOutlined";
 import ReceiptOutlined from "@mui/icons-material/ReceiptOutlined";
 import MonetizationOnOutlined from "@mui/icons-material/MonetizationOnOutlined";
 
-import { useAuth } from "../../../context/Context";
-
 import UserMenu from "../UserMenu";
 
 const drawerWidth = 240;
@@ -77,7 +75,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-const Customer = () => {
+
+const Operador = () => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -89,16 +88,17 @@ const Customer = () => {
     setOpen(false);
   };
 
-  const { name } = useAuth();
+  const loggedInUser = window.localStorage.getItem("loggedInUser");
+  const userJson = JSON.parse(loggedInUser);
+  const name = userJson.firstName + " " + userJson.lastName;
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} sx={{
-            backgroundColor: "#124265",
-          }}>
+      <AppBar position="fixed" open={open}>
         <Toolbar
           sx={{
+            backgroundColor: "#124265",
             display: "flex",
             justifyContent: "space-between",
           }}
@@ -121,7 +121,7 @@ const Customer = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Cliente
+              Operador
             </Typography>
           </Grid>
           <UserMenu />
@@ -193,6 +193,6 @@ const Customer = () => {
       </Main>
     </Box>
   );
-};
+}
 
-export default Customer;
+export default Operador;

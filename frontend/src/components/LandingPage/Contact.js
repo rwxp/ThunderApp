@@ -48,7 +48,7 @@ const MyPaper = ({ children, landing }) => {
   );
 };
 
-const Contact2 = ({ landing }) => {
+const Contact = ({ landing }) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -190,4 +190,4 @@ const Contact2 = ({ landing }) => {
   );
 };
 
-export default Contact2;
+export default Contact;

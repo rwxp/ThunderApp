@@ -15,6 +15,8 @@ import {
   useMediaQuery,
   useTheme,
   Link,
+  Tooltip,
+  Paper,
 } from "@mui/material";
 
 import { makeStyles } from "@material-ui/core";
@@ -59,7 +61,14 @@ const Footer = () => {
           <Grid
             container
             spacing={isMobile ? 1 : 4}
-            sx={{ justifyContent: "center", alignItems: "top", paddingX: 2 }}
+            sx={{
+              justifyContent: "center",
+              alignItems: "top",
+              paddingX: 2,
+              "& .MuiTypography-root": {
+                fontFamily: "Montserrat",
+              },
+            }}
           >
             <Grid item xs={12} sm={4} md={3}>
               <Card
@@ -67,20 +76,14 @@ const Footer = () => {
                 className={isMobile ? classes.cardsMobile : classes.cards}
                 sx={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
               >
-                <CardContent sx={{ textAlign: "center", position: "relative" }}>
-                  <Grid container>
-                    <Link href="https://www.facebook.com/" target="_blank">
-                      <FacebookIcon sx={{ fontSize: 36, color: "aliceblue" }} />
-                    </Link>
-                    <Link href="https://twitter.com/" target="_blank">
-                      <TwitterIcon sx={{ fontSize: 36, color: "aliceblue" }} />
-                    </Link>
-                    <Link href="https://www.instagram.com/" target="_blank">
-                      <InstagramIcon
-                        sx={{ fontSize: 36, color: "aliceblue" }}
-                      />
-                    </Link>
-                  </Grid>
+                <CardContent
+                  sx={{
+                    textAlign: "center",
+                    position: "relative",
+                    width: "500px",
+                  }}
+                >
+                  <SocialNetwork isMobile={isMobile}/>
                 </CardContent>
               </Card>
             </Grid>
@@ -90,8 +93,26 @@ const Footer = () => {
                 className={isMobile ? classes.cardsMobile : classes.cards}
                 sx={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
               >
-                <CardContent sx={{ textAlign: "center" }}>
-                  <img src={logo} alt="Logo" width="100px"></img>
+                <CardContent sx={{ display: "flex", justifyContent: "center" }}>
+                  <Paper
+                    variant="contained"
+                    sx={{
+                      width: "100px",
+                      height: "100px",
+                      backgroundColor: "rgba(255, 255, 255,0)",
+                      transition: "300ms",
+                      backgroundImage: `url(${logo})`,
+                      backgroundSize: "contain",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center center",
+                      "&:hover": {
+                        cursor: "pointer",
+                        width: "140px",
+                        height: "140px",
+                        transition: "300ms",
+                      },
+                    }}
+                  ></Paper>
                 </CardContent>
               </Card>
             </Grid>
@@ -109,7 +130,9 @@ const Footer = () => {
                 sx={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
               >
                 <CardContent>
-                  <h3>Products</h3>
+                  <Typography fontSize="26px" fontWeight={500} mb={0.5}>
+                    Products
+                  </Typography>
                   {productsRows.map((product) => (
                     <Typography key={product} sx={{ fontSize: 14, py: 0.2 }}>
                       {product}
@@ -126,7 +149,9 @@ const Footer = () => {
                 sx={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
               >
                 <CardContent>
-                  <h3>For developers</h3>
+                  <Typography fontSize="26px" fontWeight={500} mb={0.5}>
+                    For developers
+                  </Typography>
                   {forDevRows.map((item) => (
                     <Typography key={item} sx={{ fontSize: 14, py: 0.2 }}>
                       {item}
@@ -143,7 +168,7 @@ const Footer = () => {
                 sx={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
               >
                 <CardContent>
-                  <h3>Support</h3>
+                <Typography fontSize="26px" fontWeight={500} mb={0.5}>Support</Typography>
                   {supportRows.map((item) => (
                     <Typography key={item} sx={{ fontSize: 14, py: 0.2 }}>
                       {item}
@@ -162,10 +187,10 @@ const Footer = () => {
                 }}
               >
                 <CardContent>
-                  <h3>Newsletter</h3>
+                <Typography fontSize="26px" fontWeight={500} mb={0.5}>Newsletter</Typography>
                   <Grid container display="row" paddingX="2px" spacing={1}>
                     <Grid item xs={8}>
-                      <TextField variant="standard" placeholder="Email" />
+                      <TextField variant="standard" placeholder="Email"/>
                     </Grid>
                     <Grid item>
                       <IconButton variant="filled">
@@ -191,7 +216,6 @@ const Footer = () => {
                   fontSize={isMobile ? "14px" : "16px"}
                   variant="body"
                   textAlign="center"
-                  fontFamily="montserrat"
                 >
                   Una App que ofrece el servicio de gestión de usuario con
                   gráficas y estadísticas que muestran el consumo de sus
@@ -225,3 +249,125 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
 }));
+
+const SocialNetwork = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const sizeOfFont = 36;
+
+  return (
+    <Grid container={isMobile ? false : true}>
+      <Tooltip
+        arrow
+        title="Facebook"
+        enterDelay={100}
+        leaveDelay={200}
+        placement="top"
+        PopperProps={{
+          sx: {
+            "& .MuiTooltip-tooltip": {
+              color: "aliceblue",
+              backgroundColor: "#3b5998",
+              fontFamily: "Montserrat",
+            },
+            "& .MuiTooltip-arrow": {
+              color: "#3b5998",
+            },
+          },
+        }}
+      >
+        <Link href="https://www.facebook.com/" target="_blank">
+          <FacebookIcon
+            sx={{
+              fontSize: sizeOfFont,
+              color: "aliceblue",
+              "&:hover": {
+                color: "#3b5998",
+                transition: "200ms",
+              },
+            }}
+          />
+        </Link>
+      </Tooltip>
+
+      <Tooltip
+        arrow
+        title="Twitter"
+        enterDelay={100}
+        leaveDelay={200}
+        placement="top"
+        marginX={3.5}
+        PopperProps={{
+          sx: {
+            "& .MuiTooltip-tooltip": {
+              color: "aliceblue",
+              backgroundColor: "#00acee",
+              fontFamily: "Montserrat",
+            },
+            "& .MuiTooltip-arrow": {
+              color: "#00acee",
+            },
+          },
+        }}
+      >
+        <Link href="https://twitter.com/" target="_blank">
+          <TwitterIcon
+            sx={{
+              fontSize: sizeOfFont,
+              color: "aliceblue",
+              "&:hover": {
+                color: "#00acee",
+                transition: "200ms",
+              },
+            }}
+          />
+        </Link>
+      </Tooltip>
+
+      <Tooltip
+        arrow
+        title="Instagram"
+        enterDelay={100}
+        leaveDelay={200}
+        placement="top"
+        PopperProps={{
+          sx: {
+            "& .MuiTooltip-tooltip": {
+              color: "aliceblue",
+              backgroundImage:
+                "linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)",
+              fontFamily: "Montserrat",
+            },
+            "& .MuiTooltip-arrow": {
+              color: "#DF3A41",
+            },
+          },
+        }}
+      >
+        <Link href="https://www.instagram.com/" target="_blank">
+          <svg width={0} height={0}>
+            <radialGradient id="instagram-gradient" r="150%" cx="30%" cy="107%">
+              <stop stopColor="#fdf497" offset="0" />
+              <stop stopColor="#fdf497" offset="0.02" />
+              <stop stopColor="#fd5949" offset="0.45" />
+              <stop stopColor="#d6249f" offset="0.6" />
+              <stop stopColor="#285AEB" offset="0.9" />
+            </radialGradient>
+          </svg>
+          <InstagramIcon
+            fontSize="large"
+            sx={{
+              fontSize: sizeOfFont,
+              color: "aliceblue",
+              "&:hover": {
+                fill: "url(#instagram-gradient)",
+                transition: "200ms",
+              },
+            }}
+          />
+        </Link>
+      </Tooltip>
+    </Grid>
+  );
+};
