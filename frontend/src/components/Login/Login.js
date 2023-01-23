@@ -27,15 +27,28 @@ import { EmailIcon } from "@mui/icons-material/Email";
 
 import Swal from "sweetalert2";
 
+import * as FacturaAPI from "../Bill/FacturaAPI";
 import { useAuth } from "../../context/Context";
 
 const Login = () => {
   const { setName } = useAuth();
+  const [bill, setBill] = useState();
 
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [respuesta, setRespuesta] = useState("");
   const [role, setRole] = useState("");
+
+  const getBill = async (userID) => {
+    try {
+      const res = await FacturaAPI.getBill(userID);
+      const data = await res.json();
+      setBill(data.bill);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   const navigate = useNavigate();
 
@@ -46,7 +59,8 @@ const Login = () => {
       var res = await ans.json();
       console.log(res);
       setRespuesta(res.message);
-      window.localStorage.setItem('loggedInUser', JSON.stringify(user))
+      window.localStorage.setItem("loggedInUser", JSON.stringify(user));
+      window.localStorage.setItem("clientBill", JSON.stringify(bill));
     } catch (error) {
       Swal.fire({
         title: "Error",
@@ -107,7 +121,7 @@ const Login = () => {
   const saveValues = () => {
     console.log(user.firstName);
     setMenuOpen(true);
-    setName(user.firstName+" "+user.lastName);
+    setName(user.firstName + " " + user.lastName);
     setAll();
     handleClose();
   };
@@ -117,6 +131,7 @@ const Login = () => {
   };
 
   const getCliente = () => {
+    getBill((users.filter((user) => user.role === "Cliente")[0]).id);
     setUser(users.filter((user) => user.role === "Cliente")[0]);
   };
 
@@ -128,7 +143,8 @@ const Login = () => {
     setUser(users.filter((user) => user.role === "Gerente")[0]);
   };
 
-  const setUsuario = () => {
+  const setUsuario = async () => {
+    await getBill(user.id);
     console.log(id);
     setUser(users.filter((user) => user.id === parseInt(id)));
   };
@@ -294,7 +310,11 @@ const Login = () => {
           onClick={handleClick}
           endIcon={<KeyboardArrowDownIcon />}
         >
-          <Typography fontSize={12}>Ingreso<br/>rápido</Typography>
+          <Typography fontSize={12}>
+            Ingreso
+            <br />
+            rápido
+          </Typography>
         </Button>
         <Menu
           id="demo-customized-menu"

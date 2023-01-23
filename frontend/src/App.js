@@ -13,9 +13,9 @@ import Form from "./components/UserData/UserData";
 import UserList from "./components/UserList/UserList";
 import Dashboard from "./components/Users/Admin/Dashboard/Dashboard";
 
-import Customer from "./components/Users/Customer/Customer";
-import Operator from "./components/Users/Operator/Operator";
-import Gerente from "./components/Users/Gerente/Gerente";
+import Customer from "./components/Users/Customer";
+import Operator from "./components/Users/Operator";
+import Gerente from "./components/Users/Gerente";
 
 import ContextProvider from "./context/Context";
 import Factura from "./components/Bill/Factura";
@@ -23,18 +23,102 @@ import PageNotFound from "./components/PageNotFound";
 
 const OptionalComp = ({ children }) => {
   const loggedUser = window.localStorage.getItem("loggedInUser");
+  const userJson = JSON.parse(loggedUser);
+
   return (
-    <div>{loggedUser === null ? <PageNotFound /> : <div>{children}</div>}</div>
+    <div>
+      {loggedUser === null ? (
+        <PageNotFound active={true} />
+      ) : userJson.isActive ? (
+        <div>{children}</div>
+      ) : (
+        <PageNotFound active={false} />
+      )}
+    </div>
+  );
+};
+
+const ShowBill = () => {
+  const loggedUser = window.localStorage.getItem("loggedInUser");
+  const userJson = JSON.parse(loggedUser);
+
+  return (
+    <div>
+      {userJson && userJson.role === "Cliente" ? (
+        <Factura />
+      ) : (
+        <PageNotFound active={true} />
+      )}
+    </div>
+  );
+};
+
+const AdminIF = ({ children }) => {
+  const loggedUser = window.localStorage.getItem("loggedInUser");
+  const userJson = JSON.parse(loggedUser);
+  return (
+    <div>
+      {userJson && userJson.role === "Admin" ? (
+        <div>{children}</div>
+      ) : (
+        <PageNotFound active={true} />
+      )}
+    </div>
+  );
+};
+
+const CustomerIF = ({ children }) => {
+  const loggedUser = window.localStorage.getItem("loggedInUser");
+  const userJson = JSON.parse(loggedUser);
+  return (
+    <div>
+      {userJson && userJson.role === "Cliente" ? (
+        <div>{children}</div>
+      ) : (
+        <PageNotFound active={true} />
+      )}
+    </div>
+  );
+};
+
+const OperatorIF = ({ children }) => {
+  const loggedUser = window.localStorage.getItem("loggedInUser");
+  const userJson = JSON.parse(loggedUser);
+  return (
+    <div>
+      {userJson && userJson.role === "Operador" ? (
+        <div>{children}</div>
+      ) : (
+        <PageNotFound active={true} />
+      )}
+    </div>
+  );
+};
+
+const GerenteIF = ({ children }) => {
+  const loggedUser = window.localStorage.getItem("loggedInUser");
+  const userJson = JSON.parse(loggedUser);
+  return (
+    <div>
+      {userJson && userJson.role === "Gerente" ? (
+        <div>{children}</div>
+      ) : (
+        <PageNotFound active={true} />
+      )}
+    </div>
   );
 };
 
 const App = () => {
-
   return (
     <div>
       <ContextProvider>
         <Router>
-          <Navbar />
+          <Navbar
+            loggedUser={
+              window.localStorage.getItem("loggedInUser") ? true : false
+            }
+          />
           <Routes>
             <Route path="*" element={<PageNotFound />} />
             <Route path="/Login" element={<Login />} />
@@ -43,7 +127,9 @@ const App = () => {
               path="/Dashboard"
               element={
                 <OptionalComp>
-                  <Dashboard />
+                  <AdminIF>
+                    <Dashboard />
+                  </AdminIF>
                 </OptionalComp>
               }
             />
@@ -77,7 +163,9 @@ const App = () => {
               path="/Gerente"
               element={
                 <OptionalComp>
-                  <Gerente />
+                  <GerenteIF>
+                    <Gerente />
+                  </GerenteIF>
                 </OptionalComp>
               }
             />
@@ -85,7 +173,9 @@ const App = () => {
               path="/Cliente"
               element={
                 <OptionalComp>
-                  <Customer />
+                  <CustomerIF>
+                    <Customer />
+                  </CustomerIF>
                 </OptionalComp>
               }
             />
@@ -93,11 +183,13 @@ const App = () => {
               path="/Operador"
               element={
                 <OptionalComp>
-                  <Operator />
+                  <OperatorIF>
+                    <Operator />
+                  </OperatorIF>
                 </OptionalComp>
               }
             />
-            <Route path="/factura" element={<Factura />} />
+            <Route path="/factura" element={<ShowBill />} />
           </Routes>
         </Router>
       </ContextProvider>

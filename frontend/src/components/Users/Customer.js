@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {
   styled,
   useTheme,
@@ -26,8 +26,8 @@ import AssignmentLateOutlined from "@mui/icons-material/AssignmentLateOutlined";
 import ReceiptOutlined from "@mui/icons-material/ReceiptOutlined";
 import MonetizationOnOutlined from "@mui/icons-material/MonetizationOnOutlined";
 
-
-import UserMenu from "../UserMenu";
+import UserMenu from "./UserMenu";
+import Factura from "../Bill/Factura";
 
 const drawerWidth = 240;
 
@@ -78,7 +78,11 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const Customer = () => {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
+  const [viewStatus, setviewStatus] = useState(false);
+  const [payment, setPayment] = useState(false);
+  const [billView, setbillView] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -88,6 +92,24 @@ const Customer = () => {
     setOpen(false);
   };
 
+  const handleViewStatus = () => {
+    setviewStatus(true);
+    setPayment(false);
+    setbillView(false);
+  };
+
+  const handlePayment = () => {
+    setPayment(true);
+    setviewStatus(false);
+    setbillView(false);
+  };
+
+  const handleBillView = () => {
+    setbillView(true);
+    setviewStatus(false);
+    setPayment(false);
+  };
+
   const loggedInUser = window.localStorage.getItem("loggedInUser");
   const userJson = JSON.parse(loggedInUser);
   const name = userJson.firstName + " " + userJson.lastName;
@@ -95,9 +117,13 @@ const Customer = () => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} sx={{
-            backgroundColor: "#124265",
-          }}>
+      <AppBar
+        position="fixed"
+        open={open}
+        sx={{
+          backgroundColor: "#124265",
+        }}
+      >
         <Toolbar
           sx={{
             display: "flex",
@@ -122,7 +148,7 @@ const Customer = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Cliente
+              {userJson.role}
             </Typography>
           </Grid>
           <UserMenu />
@@ -161,7 +187,17 @@ const Customer = () => {
         <List>
           {["Consultar estado", "Pagar factura", "Ver factura"].map(
             (text, index) => (
-              <ListItem key={text} disablePadding>
+              <ListItem
+                key={text}
+                disablePadding
+                onClick={
+                  index === 0
+                    ? handleViewStatus
+                    : index === 1
+                    ? handlePayment
+                    : handleBillView
+                }
+              >
                 <ListItemButton>
                   <ListItemIcon>
                     {index === 0 ? (
@@ -181,15 +217,25 @@ const Customer = () => {
       </Drawer>
 
       <Main open={open}>
-        <Grid sx={{display:"grid", placeItems:"center", height:"100vh"}}>
-          <Typography
-            variant="h4"
-            textAlign={"justify"}
-            fontWeight={600}
-            mt="12px"
-          >
-            Bienvenido {<span style={{ color: "#33b4db" }}>{name}</span>}
-          </Typography>
+        <Grid sx={{ display: "grid", placeItems: "center", height: "100vh" }}>
+          {viewStatus ? (
+            <h1>VISTA ESTADO</h1>
+          ) : payment ? (
+            <h1>VISTA PAGO</h1>
+          ) : billView ? (
+            <Box sx={{mt: 3}}>
+              <Factura />
+            </Box>
+          ) : (
+            <Typography
+              variant="h4"
+              textAlign={"justify"}
+              fontWeight={600}
+              mt="12px"
+            >
+              Bienvenido {<span style={{ color: "#33b4db" }}>{name}</span>}
+            </Typography>
+          )}
         </Grid>
       </Main>
     </Box>

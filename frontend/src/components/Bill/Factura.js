@@ -21,11 +21,11 @@ import Download from "@mui/icons-material/Download";
 
 const Factura = () => {
   const [bill, setBill] = useState([]);
-  const [isLoading, setisLoading] = useState(false);
+  const [isLoading, setisLoading] = useState(true);
 
   const getBill = async () => {
+    setisLoading(true);
     try {
-      setisLoading(true);
       const res = await FacturaAPI.getBill(userID);
       const data = await res.json();
       setBill(data.bill);
@@ -55,20 +55,9 @@ const Factura = () => {
   const address = userJson.address;
   const userID = userJson.id;
 
-  return (
-    <IntlProvider>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          height: "100vh",
-          width: "auto",
-          paddingY: 5,
-          backgroundImage: bill.isGenerated
-            ? undefined
-            : "linear-gradient(to right bottom,#90bfe3,#9dc4e7,#aacaeb,#b6cfef,#c1d5f2,#c6dbf4,#cce1f6,#d3e7f8,#daeef9,#e2f4fa,#edfafc,#f8ffff)",
-        }}
-      >
+  const Bill = () => {
+    return (
+      <div>
         {bill.isGenerated === false ? (
           <div
             style={{
@@ -85,16 +74,6 @@ const Factura = () => {
             <h3 style={{ color: "rgb(0, 122, 165)" }}>
               La próxima factura será generada el {bill.billingDate}
             </h3>
-          </div>
-        ) : isLoading ? (
-          <div
-            style={{
-              height: "80%",
-              display: "grid",
-              placeItems: "center",
-            }}
-          >
-            <h2>Cargando...</h2>
           </div>
         ) : (
           <Grid container justifyContent="center">
@@ -142,7 +121,10 @@ const Factura = () => {
                   >
                     <Grid
                       container
-                      sx={{ display: "flex", justifyContent: "space-between" }}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
                     >
                       <Grid item md={4} textAlign="center">
                         <img
@@ -201,7 +183,7 @@ const Factura = () => {
                       >
                         <Grid item md={5}>
                           <Typography fontSize={14} pl={1}>
-                            Energía:{" "}
+                            Energía:
                             <FormattedNumber
                               value={bill.amount}
                               style="currency"
@@ -209,7 +191,7 @@ const Factura = () => {
                               minimumFractionDigits={0}
                             />
                             <br />
-                            IVA (19%): {" "}
+                            IVA (19%):{" "}
                             <FormattedNumber
                               value={bill.amount * 0.19}
                               style="currency"
@@ -218,7 +200,7 @@ const Factura = () => {
                             />
                             <br />
                             <MuiDivider sx={{ my: 1 }} />
-                            TOTAL: {" "}
+                            TOTAL:{" "}
                             <FormattedNumber
                               value={bill.amount * 1.19}
                               style="currency"
@@ -281,6 +263,34 @@ const Factura = () => {
               </Grid>
             </Grid>
           </Grid>
+        )}
+      </div>
+    );
+  };
+
+  return (
+    <IntlProvider>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          height: "100vh",
+          width: "auto",
+          paddingY: 5,
+        }}
+      >
+        {isLoading ? (
+          <div
+            style={{
+              height: "100%",
+              display: "grid",
+              placeItems: "center",
+            }}
+          >
+            <h2>Cargando...</h2>
+          </div>
+        ) : (
+          <Bill isGen={bill.isGenerated} />
         )}
       </Box>
     </IntlProvider>

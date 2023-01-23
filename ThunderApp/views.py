@@ -109,21 +109,21 @@ class BillsView(View):
                 billingDate = billing[0]['billingDate']
 
                 fechaActual = datetime.datetime.now()
-                status = (list(Bills.objects.filter(userID=id).values('status')))[
-                    0]['status']
+                isGen = (list(Bills.objects.filter(userID=id).values('isGenerated')))[
+                    0]['isGenerated']
 
-                if (billingDate <= fechaActual.date()):
+                if (billingDate <= fechaActual.date() and isGen != True):
                     Bills.objects.filter(userID=id).update(isGenerated=True)
+                    energyConsumption = random.randrange(100, 200)
+                    amountCalc = 500*energyConsumption
+                    Bills.objects.filter(userID=id).update(amount=amountCalc)
 
-                    if (dueDate <= fechaActual.date() and status != 'mora'):
-                        energyConsumption = random.randrange(100, 200)
-                        amountCalc = 500*energyConsumption
+                elif (dueDate <= fechaActual.date()):
                         Bills.objects.filter(userID=id).update(status='mora')
-                        Bills.objects.filter(userID=id).update(
-                            amount=amountCalc)
                         billData = {'message': 'Success', 'bill': bill}
-                    else:
-                        billData = {'message': 'Success', 'bill': bill}
+                
+                else:
+                    billData = {'message': 'Success', 'bill': bill}
 
             else:
                 billData = {'message': 'Bill not found!'}

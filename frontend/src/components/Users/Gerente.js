@@ -26,7 +26,7 @@ import AssignmentLateOutlined from "@mui/icons-material/AssignmentLateOutlined";
 import ReceiptOutlined from "@mui/icons-material/ReceiptOutlined";
 import MonetizationOnOutlined from "@mui/icons-material/MonetizationOnOutlined";
 
-import UserMenu from "../UserMenu";
+import UserMenu from "./UserMenu";
 
 const drawerWidth = 240;
 

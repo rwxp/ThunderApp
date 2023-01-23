@@ -78,7 +78,7 @@ const Form = () => {
   });
 
   return (
-    <Box>
+    <Box sx={{mt: 15}}>
       <form onSubmit={handleSubmit}>
         <Grid
           container
