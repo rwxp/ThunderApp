@@ -36,19 +36,27 @@ const Login = () => {
 
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  const [respuesta, setRespuesta] = useState("");
   const [role, setRole] = useState("");
+  const [respuesta, setRespuesta] = useState("");
 
   const getBill = async (userID) => {
     try {
       const res = await FacturaAPI.getBill(userID);
       const data = await res.json();
+      console.log("YEAHH", data.bill)
       setBill(data.bill);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const handleRole = ({ target }) => {
+    setRole(target.value);
+    const usuario = (users.filter(user => user.id === parseInt(id)))[0];
+    console.log(usuario);
+    setUser(usuario);
+    getBill(usuario.id);
+  };
 
   const navigate = useNavigate();
 
@@ -57,7 +65,6 @@ const Login = () => {
       event.preventDefault();
       var ans = await verifyUser(id, password, role);
       var res = await ans.json();
-      console.log(res);
       setRespuesta(res.message);
       window.localStorage.setItem("loggedInUser", JSON.stringify(user));
       window.localStorage.setItem("clientBill", JSON.stringify(bill));
@@ -131,7 +138,7 @@ const Login = () => {
   };
 
   const getCliente = () => {
-    getBill((users.filter((user) => user.role === "Cliente")[0]).id);
+    getBill(users.filter((user) => user.role === "Cliente")[0].id);
     setUser(users.filter((user) => user.role === "Cliente")[0]);
   };
 
@@ -145,7 +152,6 @@ const Login = () => {
 
   const setUsuario = async () => {
     await getBill(user.id);
-    console.log(id);
     setUser(users.filter((user) => user.id === parseInt(id)));
   };
 
@@ -230,7 +236,7 @@ const Login = () => {
               <select
                 className="w-100 mb-2 select"
                 id="role"
-                onChange={(e) => setRole(e.target.value)}
+                onChange={(e) => handleRole(e)}
               >
                 {/*isMobile ? (
                       <>Seleccione el rol</>

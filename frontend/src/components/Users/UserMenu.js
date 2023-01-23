@@ -51,6 +51,7 @@ const UserMenu = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         window.localStorage.removeItem("loggedInUser");
+        window.localStorage.removeItem("clientBill");
         if (window.location.pathname !== "/") {
           navigate("/");
         } else {
