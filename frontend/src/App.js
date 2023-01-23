@@ -18,7 +18,7 @@ import Operator from "./components/Users/Operator/Operator";
 import Gerente from "./components/Users/Gerente/Gerente";
 
 import ContextProvider from "./context/Context";
-import Factura from "./components/Users/Factura";
+import Factura from "./components/Bill/Factura";
 import PageNotFound from "./components/PageNotFound";
 
 const OptionalComp = ({ children }) => {
