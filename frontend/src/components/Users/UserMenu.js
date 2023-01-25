@@ -14,6 +14,8 @@ import {
 
 import Logout from "@mui/icons-material/Logout";
 import Settings from "@mui/icons-material/Settings";
+import DashboardRounded from "@mui/icons-material/DashboardRounded";
+import Person from "@mui/icons-material/Person";
 
 import { useNavigate } from "react-router-dom";
 
@@ -173,12 +175,19 @@ const UserMenu = () => {
               }
             </MenuItem>
             <Divider />
+            <MenuItem onClick={() => navigate(`/${userJson.role}`)}>
+              <ListItemIcon>
+                <DashboardRounded fontSize="small" />
+              </ListItemIcon>
+              Dashboard
+            </MenuItem>
             <MenuItem>
               <ListItemIcon>
-                <Avatar sx={{ width: 28, height: 28 }} />
+                <Person fontSize="small"/>
               </ListItemIcon>
               Mi cuenta
             </MenuItem>
+            <Divider />
             <MenuItem>
               <ListItemIcon>
                 <Settings fontSize="small" />
