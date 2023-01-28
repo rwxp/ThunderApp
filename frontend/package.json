@@ -21,6 +21,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "create-react-class": "^15.7.0",
+    "jspdf": "^2.5.1",
     "mdb-react-ui-kit": "^5.0.0",
     "mdb-ui-kit": "^6.0.1",
     "mdbreact": "^4.6.1",
