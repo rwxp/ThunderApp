@@ -57,6 +57,7 @@
   width: auto;
   height: 650px;
   z-index: -3;
+  clip-path: ellipse(1400px 420px at 50vw 200px);
 }
 
 .mainPage {

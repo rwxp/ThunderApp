@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'thunder.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES  = {
-    "default": dj_database_url.config(default='postgresql://postgres:3oKwX2XxuGp9tBieuBIO@containers-us-west-46.railway.app:6210/railway', conn_max_age=1800)
+    "default": dj_database_url.config(default='postgres://thunder:PNdlkRxIYllLESYXkagbpLXRCWBaOVYQ@dpg-cf6skfcgqg47vk1av2m0-a.ohio-postgres.render.com/thunderappdb', conn_max_age=1800)
 }
 
 

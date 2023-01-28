@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {
   styled,
   useTheme,
@@ -26,7 +26,7 @@ import AssignmentLateOutlined from "@mui/icons-material/AssignmentLateOutlined";
 import ReceiptOutlined from "@mui/icons-material/ReceiptOutlined";
 import MonetizationOnOutlined from "@mui/icons-material/MonetizationOnOutlined";
 
-import UserMenu from "../UserMenu";
+import UserMenu from "./UserMenu";
 
 const drawerWidth = 240;
 
@@ -75,10 +75,9 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-
 const Operador = () => {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -180,7 +179,7 @@ const Operador = () => {
       </Drawer>
 
       <Main open={open}>
-        <Grid sx={{display:"grid", placeItems:"center", height:"100vh"}}>
+        <Grid sx={{ display: "grid", placeItems: "center", height: "100vh" }}>
           <Typography
             variant="h4"
             textAlign={"justify"}
@@ -193,6 +192,6 @@ const Operador = () => {
       </Main>
     </Box>
   );
-}
+};
 
 export default Operador;

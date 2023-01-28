@@ -1,6 +1,9 @@
 from django.db import models
+import datetime
+
 
 # Create your models here.
+
 
 class Users(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -13,18 +16,26 @@ class Users(models.Model):
     role = models.CharField(max_length=24)
     isActive = models.BooleanField()
 
+    def save(self, *args, **kwargs):
+        super(Users, self).save(Bills.objects.create(
+            billingDate = datetime.datetime.now() + datetime.timedelta(days=30),
+            dueDate = datetime.datetime.now() + datetime.timedelta(days=30) + datetime.timedelta(days=10),
+            amount=0,
+            status="null",
+            payMethod="null",
+            userID=self.id,
+            isGenerated=False))
+
+
 class Bills(models.Model):
+    userID = models.BigIntegerField()
     billID = models.BigAutoField(primary_key=True)
-    date = models.DateField()
+    billingDate = models.DateField()  # fecha de generación de la factura
+    dueDate = models.DateField()  # fecha de vencimiento de la factura
     amount = models.BigIntegerField()
     status = models.CharField(max_length=24)
-    idUser = models.ForeignKey(Users, on_delete=models.CASCADE)
+    payMethod = models.CharField(max_length=24)
+    isGenerated = models.BooleanField(default=False)
+
+
     
-
-class Admin(models.Model):
-    id = models.OneToOneField(Users, primary_key=True, on_delete=models.CASCADE)
-
-
-class Operadores(models.Model):
-    id = models.OneToOneField(Users, primary_key=True, on_delete=models.CASCADE)
-

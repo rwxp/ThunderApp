@@ -27,15 +27,36 @@ import { EmailIcon } from "@mui/icons-material/Email";
 
 import Swal from "sweetalert2";
 
+import * as FacturaAPI from "../Bill/FacturaAPI";
 import { useAuth } from "../../context/Context";
 
 const Login = () => {
   const { setName } = useAuth();
+  const [bill, setBill] = useState();
 
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  const [respuesta, setRespuesta] = useState("");
   const [role, setRole] = useState("");
+  const [respuesta, setRespuesta] = useState("");
+
+  const getBill = async (userID) => {
+    try {
+      const res = await FacturaAPI.getBill(userID);
+      const data = await res.json();
+      console.log("YEAHH", data.bill)
+      setBill(data.bill);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRole = ({ target }) => {
+    setRole(target.value);
+    const usuario = (users.filter(user => user.id === parseInt(id)))[0];
+    console.log(usuario);
+    setUser(usuario);
+    getBill(usuario.id);
+  };
 
   const navigate = useNavigate();
 
@@ -44,9 +65,9 @@ const Login = () => {
       event.preventDefault();
       var ans = await verifyUser(id, password, role);
       var res = await ans.json();
-      console.log(res);
       setRespuesta(res.message);
-      window.localStorage.setItem('loggedInUser', JSON.stringify(user))
+      window.localStorage.setItem("loggedInUser", JSON.stringify(user));
+      window.localStorage.setItem("clientBill", JSON.stringify(bill));
     } catch (error) {
       Swal.fire({
         title: "Error",
@@ -107,7 +128,7 @@ const Login = () => {
   const saveValues = () => {
     console.log(user.firstName);
     setMenuOpen(true);
-    setName(user.firstName+" "+user.lastName);
+    setName(user.firstName + " " + user.lastName);
     setAll();
     handleClose();
   };
@@ -117,6 +138,7 @@ const Login = () => {
   };
 
   const getCliente = () => {
+    getBill(users.filter((user) => user.role === "Cliente")[0].id);
     setUser(users.filter((user) => user.role === "Cliente")[0]);
   };
 
@@ -128,8 +150,8 @@ const Login = () => {
     setUser(users.filter((user) => user.role === "Gerente")[0]);
   };
 
-  const setUsuario = () => {
-    console.log(id);
+  const setUsuario = async () => {
+    await getBill(user.id);
     setUser(users.filter((user) => user.id === parseInt(id)));
   };
 
@@ -214,7 +236,7 @@ const Login = () => {
               <select
                 className="w-100 mb-2 select"
                 id="role"
-                onChange={(e) => setRole(e.target.value)}
+                onChange={(e) => handleRole(e)}
               >
                 {/*isMobile ? (
                       <>Seleccione el rol</>
@@ -294,7 +316,11 @@ const Login = () => {
           onClick={handleClick}
           endIcon={<KeyboardArrowDownIcon />}
         >
-          <Typography fontSize={12}>Ingreso<br/>rápido</Typography>
+          <Typography fontSize={12}>
+            Ingreso
+            <br />
+            rápido
+          </Typography>
         </Button>
         <Menu
           id="demo-customized-menu"
