@@ -103,14 +103,15 @@ class BillsView(View):
         jd = json.loads(request.body)
         datos = {'message': 'Success'}
         try:
-            Bills.objects.create(billingDate=datetime.datetime.now() + datetime.timedelta(days=30),
-                                 dueDate=datetime.datetime.now() + datetime.timedelta(days=30) +
-                                 datetime.timedelta(days=10),
-                                 amount=0,
-                                 status="null",
-                                 payMethod="null",
-                                 userID=jd['id'],
-                                 isGenerated=False,)
+            if(jd['role'] == "Cliente"):
+                Bills.objects.create(billingDate=datetime.datetime.now() + datetime.timedelta(days=30),
+                                    dueDate=datetime.datetime.now() + datetime.timedelta(days=30) +
+                                    datetime.timedelta(days=10),
+                                    amount=0,
+                                    status="null",
+                                    payMethod="null",
+                                    userID=jd['id'],
+                                    isGenerated=False,)
         except Exception as e:
             print("Falló la inserción")
             datos = {'message': 'Fail'}

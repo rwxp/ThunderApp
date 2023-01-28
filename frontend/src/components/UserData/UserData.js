@@ -50,26 +50,19 @@ const UserForm = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const loadUser = async (id) => {
-    const res = await fetch(`http://localhost:8000/api/users/${id}`);
-    const data = await res.json();
-    setUser({
-      id: data.user.id,
-      lastName: data.user.lastName,
-      firstName: data.user.firstName,
-      birthDate: data.user.birthDate,
-      address: data.user.address,
-      phone: data.user.phone,
-      role: data.user.role,
-      isActive: data.user.isActive,
-    });
+  const loadUser = async () => {
+    try {
+      const res = await UserAPI.getUser(params.id);
+      const data = await res.json();
+      setUser(data.user);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    if (params.id) {
-      loadUser(params.id);
-    }
-  }, [params.id]);
+    loadUser();
+  }, []);
 
   return (
     <Box sx={{ mt: 15 }}>

@@ -75,6 +75,7 @@ function Navbar({ loggedUser }) {
   };
 
   const path = location.pathname;
+  console.log(path)
 
   return (
     <Box sx={{ flexGrow: 1 }}>
