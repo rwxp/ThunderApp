@@ -51,6 +51,7 @@ class UsersView(View):
     def post(self, request):
         jd = json.loads(request.body)
         datos = {'message': 'Success'}
+
         if (jd['isActive'] == 'true'):
             boolean = True
         else:
@@ -58,14 +59,17 @@ class UsersView(View):
         try:
             Users.objects.create(id=jd['id'], lastName=jd['lastName'], firstName=jd['firstName'],
                                  birthDate=jd['birthDate'], password=jd['password'], address=jd['address'], phone=jd['phone'], role=jd['role'], isActive=boolean)
+
         except Exception as e:
             print("Falló la inserción")
             datos = {'message': 'Fail'}
             return JsonResponse(datos)
-        return JsonResponse(datos)
+
+        return BillsView.as_view()(self.request)
 
     def put(self, request, id):
-        jd = json.loads(request.body)
+        jdu = json.loads(request.body)
+        jd = jdu['user']
         users = list(Users.objects.filter(id=id).values())
         if len(users) > 0:
             user = Users.objects.get(id=id)
@@ -95,6 +99,25 @@ class UsersView(View):
 
 class BillsView(View):
 
+    def post(self, request):
+        jd = json.loads(request.body)
+        datos = {'message': 'Success'}
+        try:
+            Bills.objects.create(billingDate=datetime.datetime.now() + datetime.timedelta(days=30),
+                                 dueDate=datetime.datetime.now() + datetime.timedelta(days=30) +
+                                 datetime.timedelta(days=10),
+                                 amount=0,
+                                 status="null",
+                                 payMethod="null",
+                                 userID=jd['id'],
+                                 isGenerated=False,)
+        except Exception as e:
+            print("Falló la inserción")
+            datos = {'message': 'Fail'}
+            return JsonResponse(datos)
+
+        return JsonResponse(datos)
+
     def get(self, request, id=0):
         if (id > 0):
             bills = list(Bills.objects.filter(userID=id).values())
@@ -119,9 +142,9 @@ class BillsView(View):
                     Bills.objects.filter(userID=id).update(amount=amountCalc)
 
                 elif (dueDate <= fechaActual.date()):
-                        Bills.objects.filter(userID=id).update(status='mora')
-                        billData = {'message': 'Success', 'bill': bill}
-                
+                    Bills.objects.filter(userID=id).update(status='mora')
+                    billData = {'message': 'Success', 'bill': bill}
+
                 else:
                     billData = {'message': 'Success', 'bill': bill}
 
