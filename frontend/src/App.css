@@ -51,13 +51,68 @@
     #edfafc,
     #f8ffff
   );
-  top: -280px;
+  top: -100px;
   right: 0;
   left: 0;
   width: auto;
-  height: 650px;
+  height: 810px;
   z-index: -3;
-  clip-path: ellipse(1400px 420px at 50vw 200px);
+  clip-path: polygon(
+    100% 0%,
+    0% 0%,
+    0% 56%,
+    2% 55.98%,
+    4% 55.93%,
+    6% 55.85%,
+    8% 55.73%,
+    10% 55.58%,
+    12% 55.4%,
+    14% 55.18%,
+    16% 54.94%,
+    18% 54.67%,
+    20% 54.37%,
+    22% 54.05%,
+    24% 53.71%,
+    26% 53.34%,
+    28% 52.96%,
+    30% 52.55%,
+    32% 52.14%,
+    34% 51.71%,
+    36% 51.27%,
+    38% 50.83%,
+    40% 50.38%,
+    42% 49.92%,
+    44% 49.47%,
+    46% 49.02%,
+    48% 48.58%,
+    50% 48.15%,
+    52% 47.72%,
+    54% 47.31%,
+    56% 46.91%,
+    58% 46.53%,
+    60% 46.18%,
+    62% 45.84%,
+    64% 45.52%,
+    66% 45.24%,
+    68% 44.97%,
+    70% 44.74%,
+    72% 44.54%,
+    74% 44.37%,
+    76% 44.23%,
+    78% 44.12%,
+    80% 44.05%,
+    82% 44.01%,
+    84% 44%,
+    86% 44.03%,
+    88% 44.09%,
+    90% 44.19%,
+    92% 44.32%,
+    94% 44.48%,
+    96% 44.67%,
+    98% 44.89%,
+    100% 45.15%
+  );
+  /*clip-path: ellipse(1400px 420px at 50vw 200px);*/
 }
 
 .mainPage {
@@ -89,17 +144,7 @@
   font-size: 20px;
   color: rgb(155, 155, 155);
 }
-.navText {
-  color: white;
-  font-size: large;
-}
-.navbar-brand {
-  width: 50px;
-  height: 50px;
-}
-.navText:hover {
-  color: #9bf6ff;
-}
+
 .h1head {
   font-size: 2.5rem;
   font-weight: 900;
@@ -197,7 +242,6 @@
   text-decoration: underline;
 }
 .footer {
-
   height: 90vh;
   margin-top: 100px;
   justify-content: center;
@@ -300,57 +344,6 @@
   text-align: center;
 }
 
-.custom-shape-divider-bottom-1672727590 {
-    position: absolute;
-    width: 100%;
-    top:45vh;
-    bottom:0;
-    overflow: hidden;
-    line-height: 0;
-    z-index: -3;
-}
-
-.custom-shape-divider-bottom-1672727591 {
-    position: absolute;
-    width: 100%;
-    top:30vh;
-    bottom:0;
-    overflow: hidden;
-    line-height: 0;
-    z-index: -3;
-}
-
-.custom-shape-divider-bottom-1672727591 svg {
-    position: relative;
-    display: block;
-    width: calc(145% + 1.3px);
-    height: 129px;
-}
-
-.custom-shape-divider-bottom-1672727590 svg {
-    position: relative;
-    display: block;
-    width: calc(145% + 1.3px);
-    height: 129px;
-}
-
-.custom-shape-divider-bottom-1672727590 .shape-fill {
-    fill: #FFFFFF;
-}
-
-.custom-shape-divider-bottom-1672727591 .shape-fill {
-    fill: #FFFFFF;
-}
-
 .Footer {
   background-color: #bdbdda;
-}
-
-.my-fixed-item {
-  position: fixed;
-  min-height: 120px;
-  text-align: center;
-  word-wrap: break-word;
-  width: 252px;
-  background-color: aquamarine;
 }

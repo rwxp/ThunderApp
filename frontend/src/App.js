@@ -20,6 +20,7 @@ import Gerente from "./components/Users/Gerente";
 import ContextProvider from "./context/Context";
 import Factura from "./components/Bill/Factura";
 import PageNotFound from "./components/PageNotFound";
+import { Helmet } from "react-helmet";
 
 const OptionalComp = ({ children }) => {
   const loggedUser = window.localStorage.getItem("loggedInUser");

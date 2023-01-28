@@ -16,6 +16,9 @@ import {
   ListItemText,
   Grid,
   useMediaQuery,
+  Menu,
+  MenuItem,
+  Button,
 } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
@@ -42,16 +45,16 @@ const drawerWidth = 240;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
     flexGrow: 1,
-
-    transition: theme.transitions.create("margin", {
+    transition: theme.transitions.create("padding", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+      duration: 300,
     }),
     marginLeft: `-${drawerWidth}px`,
     ...(open && {
-      transition: theme.transitions.create("margin", {
+      paddingLeft: `${drawerWidth}px`,
+      transition: theme.transitions.create("padding", {
         easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
+        duration: 300,
       }),
     }),
   })
@@ -88,6 +91,15 @@ const Customer = () => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const openMenu = Boolean(anchorEl);
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [viewStatus, setviewStatus] = useState(false);
@@ -106,18 +118,21 @@ const Customer = () => {
     setviewStatus(true);
     setPayment(false);
     setbillView(false);
+    handleClose();
   };
 
   const handlePayment = () => {
     setPayment(true);
     setviewStatus(false);
     setbillView(false);
+    handleClose();
   };
 
   const handleBillView = () => {
     setbillView(true);
     setviewStatus(false);
     setPayment(false);
+    handleClose();
   };
 
   const loggedInUser = window.localStorage.getItem("loggedInUser");
@@ -142,7 +157,7 @@ const Customer = () => {
     <Box
       sx={{
         display: "flex",
-        backgroundColor: isMobile ? "gray" : "white",
+        backgroundColor: isMobile && billView ? "gray" : "white",
         height: isMobile ? "62em" : "100%",
       }}
     >
@@ -171,12 +186,49 @@ const Customer = () => {
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={handleDrawerOpen}
+              onClick={isMobile ? handleMenu : handleDrawerOpen}
               edge="start"
               sx={{ mr: 2, ...(open && { display: "none" }) }}
             >
               <MenuIcon />
             </IconButton>
+            <Box>
+              <Menu
+                id="fade-menu"
+                MenuListProps={{
+                  "aria-labelledby": "fade-button",
+                }}
+                anchorEl={anchorEl}
+                open={openMenu}
+                onClose={handleClose}
+                sx={{
+                  "& .MuiPaper-root": { backgroundColor: "#33b4db" },
+                  "& .MuiMenuItem-root": { color: "white" },
+                  "& .MuiDivider-root": { backgroundColor: "white" },
+                }}
+              >
+                <MenuItem onClick={handleViewStatus}>
+                  <ListItemIcon>
+                    <AssignmentLateOutlined sx={{ color: "white" }} />
+                  </ListItemIcon>
+                  Consultar estado
+                </MenuItem>
+                <Divider />
+                <MenuItem onClick={handlePayment}>
+                  <ListItemIcon>
+                    <MonetizationOnOutlined sx={{ color: "white" }} />
+                  </ListItemIcon>
+                  Pagar factura
+                </MenuItem>
+                <Divider />
+                <MenuItem onClick={handleBillView}>
+                  <ListItemIcon>
+                    <ReceiptOutlined sx={{ color: "white" }} />
+                  </ListItemIcon>
+                  Ver factura
+                </MenuItem>
+              </Menu>
+            </Box>
             <Typography variant="h6" noWrap component="div">
               {userJson.role}
             </Typography>
@@ -259,20 +311,21 @@ const Customer = () => {
               <h1>VISTA PAGO</h1>
             </Box>
           ) : billView ? (
-            <Box sx={{ backgroundColor: "white", mt: 14 }}>
-              <IconButton
-                sx={{ position: "absolute", top: 62, right: 20 }}
-                onClick={() =>
-                  window.open(
-                    "/factura",
-                    "Download PDF",
-                    "height=500,width=900"
-                  )
-                }
-              >
-                <Download />
-              </IconButton>
-
+            <Box sx={{ backgroundColor: "white", mt: isMobile ? 14 : 4 }}>
+              {isMobile ? (
+                <IconButton
+                  sx={{ position: "absolute", top: 62, right: 20 }}
+                  onClick={() =>
+                    window.open(
+                      "/factura",
+                      "Download PDF",
+                      "height=500,width=900"
+                    )
+                  }
+                >
+                  <Download />
+                </IconButton>
+              ) : null}
               <Factura />
             </Box>
           ) : (

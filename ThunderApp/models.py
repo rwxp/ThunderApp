@@ -17,14 +17,15 @@ class Users(models.Model):
     isActive = models.BooleanField()
 
     def save(self, *args, **kwargs):
-        super(Users, self).save(Bills.objects.create(
-            billingDate = datetime.datetime.now() + datetime.timedelta(days=30),
-            dueDate = datetime.datetime.now() + datetime.timedelta(days=30) + datetime.timedelta(days=10),
-            amount=0,
-            status="null",
-            payMethod="null",
-            userID=self.id,
-            isGenerated=False))
+            super(Users, self).save(self.role=="Cliente" and (Bills.objects.create(
+                billingDate=datetime.datetime.now() + datetime.timedelta(days=30),
+                dueDate=datetime.datetime.now() + datetime.timedelta(days=30) +
+                datetime.timedelta(days=10),
+                amount=0,
+                status="null",
+                payMethod="null",
+                userID=self.id,
+                isGenerated=False)))
 
 
 class Bills(models.Model):
@@ -36,6 +37,3 @@ class Bills(models.Model):
     status = models.CharField(max_length=24)
     payMethod = models.CharField(max_length=24)
     isGenerated = models.BooleanField(default=False)
-
-
-    
