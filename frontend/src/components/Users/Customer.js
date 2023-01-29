@@ -16,6 +16,11 @@ import {
   ListItemText,
   Grid,
   useMediaQuery,
+  TextField, 
+  FormControlLabel,
+  Checkbox,
+  Avatar,
+  ListItemAvatar
 } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
@@ -90,6 +95,7 @@ const Customer = () => {
 
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+  const [Updateprofile, setUpdateprofile] = useState(false);
   const [viewStatus, setviewStatus] = useState(false);
   const [payment, setPayment] = useState(false);
   const [billView, setbillView] = useState(false);
@@ -102,20 +108,32 @@ const Customer = () => {
     setOpen(false);
   };
 
+  const handleUpdateprofile = () => {
+    setUpdateprofile(true);
+    setviewStatus(false);
+    setPayment(false);
+    setbillView(false);
+  };
+
+
   const handleViewStatus = () => {
+
     setviewStatus(true);
+    setUpdateprofile(false);
     setPayment(false);
     setbillView(false);
   };
 
   const handlePayment = () => {
     setPayment(true);
+    setUpdateprofile(false);
     setviewStatus(false);
     setbillView(false);
   };
 
   const handleBillView = () => {
     setbillView(true);
+    setUpdateprofile(false);
     setviewStatus(false);
     setPayment(false);
   };
@@ -130,10 +148,12 @@ const Customer = () => {
     }
 
     if (index === 0) {
+      handleUpdateprofile();
+    }else if (index === 1) {
       handleViewStatus();
-    } else if (index === 1) {
-      handlePayment();
     } else if (index === 2) {
+      handlePayment();
+    } else if (index === 3) {
       handleBillView();
     }
   };
@@ -223,7 +243,7 @@ const Customer = () => {
           <img src={logo} alt="logo" width="100px" height="auto" />
         </Grid>
         <List>
-          {["Consultar estado", "Pagar factura", "Ver factura"].map(
+          {["update profile","Consultar estado", "Pagar factura", "Ver factura"].map(
             (text, index) => (
               <ListItem
                 key={text}
@@ -233,8 +253,10 @@ const Customer = () => {
                 <ListItemButton>
                   <ListItemIcon>
                     {index === 0 ? (
+                      <UserMenu sx={{ color: "white" }} />
+                    ): index === 1 ? (
                       <AssignmentLateOutlined sx={{ color: "white" }} />
-                    ) : index === 1 ? (
+                    ) : index === 2 ? (
                       <MonetizationOnOutlined sx={{ color: "white" }} />
                     ) : (
                       <ReceiptOutlined sx={{ color: "white" }} />
@@ -250,13 +272,80 @@ const Customer = () => {
 
       <Main open={open}>
         <Grid sx={{ display: "grid", placeItems: "center", height: "100vh" }}>
-          {viewStatus ? (
+          {Updateprofile ? (
+            <Box>
+              <h1>Update your profile</h1>
+            </Box>
+          ) :viewStatus ? (
             <Box>
               <h1>VISTA ESTADO</h1>
             </Box>
           ) : payment ? (
-            <Box>
-              <h1>VISTA PAGO</h1>
+            <Box sx={{ backgroundColor: "white", mt: 14 }}>
+                <Typography variant="h6" gutterBottom>
+                   Payment method
+                </Typography>
+                <ListItemAvatar>
+                  <Box>
+                  <Avatar alt="Remy Sharp" 
+                  src="https://s3.pagegear.co/121/75/imagenes-editor/2021/12/1209_psen_lxemd3.png" 
+                   />
+                  <Avatar alt="Remy Sharp" 
+                  src="https://e7.pngegg.com/pngimages/910/492/png-clipart-mastercard-logo-credit-card-visa-brand-mastercard-text-label.png" /> 
+                  <Avatar alt="Remy Sharp" 
+                  src="https://e7.pngegg.com/pngimages/83/811/png-clipart-mastercard-visa-payment-business-credit-card-mastercard-text-trademark.png
+                  "/>
+                
+                  </Box>
+                  </ListItemAvatar>
+                  <Grid item xs={12} md={6}>
+                    <TextField
+                      required
+                      id="cardName"
+                      label="Name on card"
+                      fullWidth
+                      autoComplete="cc-name"
+                      variant="standard"
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <TextField
+                      required
+                      id="cardNumber"
+                      label="Card number"
+                      fullWidth
+                      autoComplete="cc-number"
+                      variant="standard"
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <TextField
+                      required
+                      id="expDate"
+                      label="Expiry date"
+                      fullWidth
+                      autoComplete="cc-exp"
+                      variant="standard"
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <TextField
+                      required
+                      id="cvv"
+                      label="CVV"
+                      helperText="Last three digits on signature strip"
+                      fullWidth
+                      autoComplete="cc-csc"
+                      variant="standard"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControlLabel
+                      control={<Checkbox color="secondary" name="saveCard" value="yes" />}
+                      label="Remember credit card details for next time"
+                    />
+                  </Grid>
+                
             </Box>
           ) : billView ? (
             <Box sx={{ backgroundColor: "white", mt: 14 }}>
