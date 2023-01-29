@@ -90,6 +90,8 @@ const Bill = ({ bill, name, address }) => {
     var doc = new jsPDF("p", "pt", "Letter");
     doc.html(document.getElementById("pdf-view"), {
       callback: () => {
+        var pageCount = doc.internal.getNumberOfPages();
+        doc.deletePage(pageCount);
         doc.save("test.pdf");
         if (window.location.pathname === "/factura") {
           window.close();

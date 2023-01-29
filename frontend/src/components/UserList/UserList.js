@@ -20,7 +20,12 @@ import {
   Button,
   Grid,
   TableSortLabel,
+  IconButton,
 } from "@mui/material";
+
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import DeleteIcon from '@mui/icons-material/Delete';
+import LocationOn from '@mui/icons-material/LocationOn';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -111,9 +116,8 @@ const UserList = () => {
                 <TableCell align="center">
                   <strong>Is Active</strong>
                 </TableCell>
-                <TableCell align="center">
-                  <strong>Change State</strong>
-                </TableCell>
+                <TableCell />
+                <TableCell />
                 <TableCell />
               </TableRow>
             </TableHead>
@@ -140,52 +144,47 @@ const UserList = () => {
                     {JSON.stringify(user.isActive)}
                   </TableCell>
                   <TableCell component="td" align="center">
-                    {user.isActive === true ? (
-                      <Button
-                        variant="contained"
-                        size="small"
-                        sx={{
-                          ":hover": {
-                            bgcolor: "lightblue",
-                            color: "white",
-                          },
-                        }}
-                        onClick={() => navigate(`/update/${user.id}`)}
-                      >
-                        Deactivate
-                      </Button>
-                    ) : (
-                      <Button
-                        variant="contained"
-                        size="small"
-                        sx={{
-                          ":hover": {
-                            bgcolor: "lightblue",
-                            color: "white",
-                          },
-                        }}
-                        onClick={() => navigate(`/update/${user.id}`)}
-                      >
-                        Activate
-                      </Button>
-                    )}
-                  </TableCell>
-                  <TableCell component="td" align="center">
-                    <Button
-                      variant="contained"
+                    <IconButton
+                      disableRipple
                       size="small"
                       sx={{
-                        color: "white",
-                        backgroundColor: "#C93456",
                         ":hover": {
-                          bgcolor: "pink",
-                          color: "white",
+                          color: "#2E5894",
+                        },
+                      }}
+                      onClick={() => navigate(`/update/${user.id}`)}
+                    >
+                      <ModeEditIcon/>
+                    </IconButton>
+                  </TableCell>
+                  <TableCell component="td" align="center">
+                    <IconButton
+                      disableRipple
+                      size="small"
+                      sx={{
+                        ":hover": {
+                          color: "#E30022",
                         },
                       }}
                       onClick={() => deleteConfirmation(user.id)}
                     >
-                      DELETE
-                    </Button>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+
+                  <TableCell component="td" align="center">
+                    <IconButton
+                      disableRipple
+                      size="small"
+                      sx={{
+                        ":hover": {
+                          color: "#008000",
+                        },
+                      }}
+                      onClick={() => navigate(`/profile/${user.id}`)}
+                    >
+                      <LocationOn />
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               ))}

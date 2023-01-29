@@ -12,9 +12,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import * as UserAPI from "../UserList/UserAPI.js";
 
-import PageNotFound from "./../PageNotFound";
-
-const Form = () => {
+const UserForm = () => {
   const initialState = {
     id: 0,
     lastName: "",
@@ -49,36 +47,25 @@ const Form = () => {
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUser({
-      ...user,
-      [name]: value,
-    });
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const loadUser = async (id) => {
-    const res = await fetch(`http://localhost:8000/api/users/${id}`);
-    const data = await res.json();
-    setUser({
-      id: data.user.id,
-      lastName: data.user.lastName,
-      firstName: data.user.firstName,
-      birthDate: data.user.birthDate,
-      address: data.user.address,
-      phone: data.user.phone,
-      role: data.user.role,
-      isActive: data.user.isActive,
-    });
+  const loadUser = async () => {
+    try {
+      const res = await UserAPI.getUser(params.id);
+      const data = await res.json();
+      setUser(data.user);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    if (params.id) {
-      loadUser(params.id);
-    }
-  });
+    loadUser();
+  }, []);
 
   return (
-    <Box sx={{mt: 15}}>
+    <Box sx={{ mt: 15 }}>
       <form onSubmit={handleSubmit}>
         <Grid
           container
@@ -93,7 +80,7 @@ const Form = () => {
           </Grid>
           <Grid item>
             <TextField
-              id="fname-input"
+              label="First Name"
               name="firstName"
               type="text"
               value={user.firstName}
@@ -103,6 +90,7 @@ const Form = () => {
           <Grid item>
             <TextField
               id="lname-input"
+              label="Last Name"
               name="lastName"
               type="text"
               value={user.lastName}
@@ -112,6 +100,7 @@ const Form = () => {
           <Grid item>
             <TextField
               id="bdate-input"
+              label="Birth Date"
               name="birthDate"
               type="text"
               value={user.birthDate}
@@ -121,6 +110,7 @@ const Form = () => {
           <Grid item>
             <TextField
               id="address-input"
+              label="Address"
               name="address"
               type="text"
               value={user.address}
@@ -130,6 +120,7 @@ const Form = () => {
           <Grid item>
             <TextField
               id="phone-input"
+              label="Phone Number"
               name="phone"
               type="text"
               value={user.phone}
@@ -139,6 +130,7 @@ const Form = () => {
           <Grid item>
             <TextField
               id="role-input"
+              label="Role"
               name="role"
               type="text"
               value={user.role}
@@ -169,4 +161,4 @@ const Form = () => {
     </Box>
   );
 };
-export default Form;
+export default UserForm;

@@ -10,6 +10,7 @@ import Navbar from "./components/LandingPage/Navbar";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Form from "./components/UserData/UserData";
+import Map from "./components/UserData/Map";
 import UserList from "./components/UserList/UserList";
 import Dashboard from "./components/Users/Admin/Dashboard/Dashboard";
 
@@ -20,6 +21,7 @@ import Gerente from "./components/Users/Gerente";
 import ContextProvider from "./context/Context";
 import Factura from "./components/Bill/Factura";
 import PageNotFound from "./components/PageNotFound";
+import { Helmet } from "react-helmet";
 
 const OptionalComp = ({ children }) => {
   const loggedUser = window.localStorage.getItem("loggedInUser");
@@ -157,8 +159,18 @@ const App = () => {
                 </OptionalComp>
               }
             />
+            <Route
+              path="/profile/:id"
+              element={
+                <OptionalComp>
+                  <Map />
+                </OptionalComp>
+              }
+            />
+
             <Route path="/About" element={<About />} />
             <Route path="/Contact" element={<Contact />} />
+
             <Route
               path="/Gerente"
               element={
