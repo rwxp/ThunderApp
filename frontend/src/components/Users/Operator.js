@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
+import { useNavigate } from "react-router-dom";
+import "./Operator/OperatorList.css"
 import {
+  Table, TableCell,TableHead, TableContainer, TableRow, TableSortLabel, TableBody, Paper ,
   styled,
   useTheme,
   Box,
@@ -27,6 +30,7 @@ import ReceiptOutlined from "@mui/icons-material/ReceiptOutlined";
 import MonetizationOnOutlined from "@mui/icons-material/MonetizationOnOutlined";
 
 import UserMenu from "./UserMenu";
+import logo from ".././LandingPage/Images/logo3.png";
 
 const drawerWidth = 240;
 
@@ -78,6 +82,10 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 const Operador = () => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const [pagos, setPagos] = useState(false);
+  const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -86,6 +94,14 @@ const Operador = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const handleDrawerItem = ({ index }) => {
+    if (index === 0) {
+      handlePagos();
+    }
+  };
+  const handlePagos = ()=>{
+    navigate("/OperatorList")
+  }
 
   const loggedInUser = window.localStorage.getItem("loggedInUser");
   const userJson = JSON.parse(loggedInUser);
@@ -151,15 +167,18 @@ const Operador = () => {
             )}
           </IconButton>
         </DrawerHeader>
+        <Grid sx={{ py: 3, display: "grid", justifyContent: "center" }}>
+          <img src={logo} alt="logo" width="100px" height="auto" />
+        </Grid>
         <Divider
           sx={{
             border: "1px solid white",
           }}
         />
         <List>
-          {["Consultar estado", "Pagar factura", "Ver factura"].map(
+          {["Registrar pagos", "Pagar factura", "Ver factura"].map(
             (text, index) => (
-              <ListItem key={text} disablePadding>
+              <ListItem key={text} onClick={()=>handleDrawerItem({index})}disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
                     {index === 0 ? (
@@ -180,15 +199,7 @@ const Operador = () => {
 
       <Main open={open}>
         <Grid sx={{ display: "grid", placeItems: "center", height: "100vh" }}>
-          <Typography
-            variant="h4"
-            textAlign={"justify"}
-            fontWeight={600}
-            mt="12px"
-          >
-            Bienvenido {<span style={{ color: "#33b4db" }}>{name}</span>}
-          </Typography>
-        </Grid>
+      </Grid>
       </Main>
     </Box>
   );
