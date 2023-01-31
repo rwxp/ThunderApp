@@ -36,12 +36,12 @@ class UsersView(View):
     @method_decorator(csrf_exempt)
     def verifyUser(request):
         data = json.loads(request.body)
-        id = int(data["id"])
+        email = data["email"]
         if (id == 0):
             datos = {'message': 'User not found!'}
         else:
             user = list(Users.objects.filter(
-                id=id, password=data["password"], role=data["role"]).values())
+                email=email, password=data["password"], role=data["role"]).values())
             if (len(user) > 0):
                 datos = {'message': 'Success', 'user': user}
             else:
@@ -58,7 +58,7 @@ class UsersView(View):
             boolean = False
         try:
             Users.objects.create(id=jd['id'], lastName=jd['lastName'], firstName=jd['firstName'],
-                                 birthDate=jd['birthDate'], password=jd['password'], address=jd['address'], phone=jd['phone'], role=jd['role'], isActive=boolean)
+                                 birthDate=jd['birthDate'], password=jd['password'], email=jd['email'], address=jd['address'], phone=jd['phone'], role=jd['role'], isActive=boolean)
 
         except Exception as e:
             print("Falló la inserción")
@@ -77,6 +77,7 @@ class UsersView(View):
             user.lastName = jd['lastName']
             user.firstName = jd['firstName']
             user.birthDate = jd['birthDate']
+            user.email = jd['email']
             user.address = jd['address']
             user.phone = jd['phone']
             user.role = jd['role']

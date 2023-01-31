@@ -9,12 +9,12 @@ class Users(models.Model):
     lastName = models.CharField(max_length=62, default="")
     firstName = models.CharField(max_length=62)
     birthDate = models.DateField()
+    email = models.CharField(max_length=62, null=True)
     password = models.CharField(max_length=50)
     address = models.CharField(max_length=24)
     phone = models.CharField(max_length=24)
     role = models.CharField(max_length=24)
     isActive = models.BooleanField()
-
 
 
 class Bills(models.Model):
