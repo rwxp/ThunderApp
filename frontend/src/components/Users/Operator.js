@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import efecto from "./Operator/OperatorList.css"
 import {
   Table, TableCell,TableHead, TableContainer, TableRow, TableSortLabel, TableBody, Paper ,
@@ -18,8 +18,11 @@ import {
   ListItemIcon,
   ListItemText, 
   Grid,
+  Button,
+  useMediaQuery,
+  TextField,
 } from "@mui/material";
-
+import * as UserAPI from "../UserList/UserAPI.js";
 import MuiAppBar from "@mui/material/AppBar";
 
 import MenuIcon from "@mui/icons-material/Menu";
@@ -82,12 +85,14 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const Operador = () => {
+  const params = useParams();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [pagos, setPagos] = useState(false);
-  const [users, setUsers] = useState([]);
+  const [users, setUser] = useState([]);
   const navigate = useNavigate();
 
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -98,7 +103,13 @@ const Operador = () => {
   };
   const handleDrawerItem = ({ index }) => {
     if (index === 0) {
-      handlePagos();
+      
+      navigate("/OperatorList")
+      
+
+    }if (index == 1){
+      navigate("/Operatorpago")
+              
     }
   };
   const handlePagos = ()=>{
@@ -109,6 +120,21 @@ const Operador = () => {
   const loggedInUser = window.localStorage.getItem("loggedInUser");
   const userJson = JSON.parse(loggedInUser);
   const name = userJson.firstName + " " + userJson.lastName;
+
+  const handleSubmit = async () => {
+    console.log( userJson );
+    try {
+      await UserAPI.updateUser(params.id,  userJson );
+      setTimeout(navigate("/Cliente"), 3000);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setUser({ ... userJson , [e.target.name]: e.target.value });
+  };
+ 
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -185,7 +211,9 @@ const Operador = () => {
                 <ListItemButton>
                   <ListItemIcon>
                     {index === 0 ? (
+                      
                       <AssignmentLateOutlined sx={{ color: "white" }} />
+                      
                     ) : index === 1 ? (
                       <MonetizationOnOutlined sx={{ color: "white" }} />
                     ) : (
@@ -202,6 +230,14 @@ const Operador = () => {
 
       <Main open={open}>
         <Grid sx={{ display: "grid", placeItems: "center", height: "100vh" }}>
+        <Typography
+              variant="h4"
+              textAlign={"justify"}
+              fontWeight={800}
+              mt="12px"
+            >
+              Bienvenido {<span style={{ color: "#33b4db" }}>{name}</span>}
+            </Typography>
       </Grid>
       </Main>
     </Box>
