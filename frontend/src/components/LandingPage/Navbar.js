@@ -75,7 +75,6 @@ function Navbar({ loggedUser }) {
   };
 
   const path = location.pathname;
-  console.log(path)
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -83,6 +82,7 @@ function Navbar({ loggedUser }) {
       path === "/Dashboard" ||
       path === "/Operador" ||
       path === "/Gerente" ||
+      path === "/UserList" ||
       path === "/factura" ? (
         <></>
       ) : (
