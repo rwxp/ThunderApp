@@ -73,144 +73,130 @@ const OperatorList = () => {
   };
 
   return (
-    <Box className="User-list">
-      <Box
-        component={Paper}
-        sx={{ background: "aliceblue", borderRadius: 5, mt: 3, mb: 3 }}
-      >
-        <Grid container sx={{ mb: 3, mt: 3, ml: 3, alignItems: "center" }}>
-          <img src={logo} alt="logo" height={90} width={90}></img>
-          <Grid item sx={{ ml: 4 }}>
-            <h1 style={{ color: "#124265" }}>
-              <strong>Ingrese ID para registrar pago</strong>
-            </h1>
-          </Grid>
-          <Grid item sx={{ ml: 4 }}>
-          <SearchBar 
-          onChange={(searchVal) => listUsers  (searchVal)}/>
-          </Grid>
-
+    true ? (<Box className="User-list">
+    <Box
+      component={Paper}
+      sx={{ background: "aliceblue", borderRadius: 5, mt: 3, mb: 3 }}
+    >
+      <Grid container sx={{ mb: 3, mt: 3, ml: 3, alignItems: "center" }}>
+        <img src={logo} alt="logo" height={90} width={90}></img>
+        <Grid item sx={{ ml: 4 }}>
+          <h1 style={{ color: "#124265" }}>
+            <strong>Ingrese ID para registrar pago</strong>
+          </h1>
         </Grid>
-        <TableContainer>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">
-                  <TableSortLabel>
-                    <strong>User ID</strong>
-                  </TableSortLabel>
+        <Grid item sx={{ ml: 4 }}>
+        <SearchBar 
+        onChange={(searchVal) => listUsers  (searchVal)}/>
+        </Grid>
+
+      </Grid>
+      <TableContainer>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">
+                <TableSortLabel>
+                  <strong>User ID</strong>
+                </TableSortLabel>
+              </TableCell>
+              <TableCell align="center">
+                <strong>First Name</strong>
+              </TableCell>
+              <TableCell align="center">
+                <strong>Last Name</strong>
+              </TableCell>
+              <TableCell align="center">
+                <strong>
+                  Date of Birth
+                  <br />
+                  (YYYY-MM-DD)
+                </strong>
+              </TableCell>
+              <TableCell align="center">
+                <strong>Address</strong>
+              </TableCell>
+              <TableCell align="center">
+                <strong>Phone</strong>
+              </TableCell>
+              <TableCell align="center">
+                <strong>Role</strong>
+              </TableCell>
+              <TableCell align="center">
+                <strong>Is Active</strong>
+              </TableCell>
+              <TableCell />
+              <TableCell />
+              <TableCell />
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {users.map((user) => (
+              <TableRow
+                key={user.id}
+                sx={{
+                  "&:last-child td, &:last-child th": {
+                    border: 0,
+                  },
+                }}
+              >
+                <TableCell align="center" component="th" scope="row">
+                  {user.id}
                 </TableCell>
+                <TableCell align="center">{user.firstName}</TableCell>
+                <TableCell align="center">{user.lastName}</TableCell>
+                <TableCell align="center">{user.birthDate}</TableCell>
+                <TableCell align="center">{user.address}</TableCell>
+                <TableCell align="center">{user.phone}</TableCell>
+                <TableCell align="center">{user.role}</TableCell>
                 <TableCell align="center">
-                  <strong>First Name</strong>
+                  {JSON.stringify(user.isActive)}
                 </TableCell>
-                <TableCell align="center">
-                  <strong>Last Name</strong>
+                <TableCell component="td" align="center">
+                  <IconButton
+                    disableRipple
+                    size="small"
+                    sx={{
+                      ":hover": {
+                        color: "#2E5894",
+                      },
+                    }}
+                    onClick={() => navigate(`/update/${user.id}`)}
+                  >
+                    <ModeEditIcon/>
+                  </IconButton>
                 </TableCell>
-                <TableCell align="center">
-                  <strong>
-                    Date of Birth
-                    <br />
-                    (YYYY-MM-DD)
-                  </strong>
+                <TableCell component="td" align="center">
+                  <IconButton
+                    disableRipple
+                    size="small"
+                    sx={{
+                      ":hover": {
+                        color: "#E30022",
+                      },
+                    }}
+                    onClick={() => deleteConfirmation(user.id)}
+                  >
+                    <AttachMoneyIcon />
+                  </IconButton>
                 </TableCell>
-                <TableCell align="center">
-                  <strong>Address</strong>
-                </TableCell>
-                <TableCell align="center">
-                  <strong>Phone</strong>
-                </TableCell>
-                <TableCell align="center">
-                  <strong>Role</strong>
-                </TableCell>
-                <TableCell align="center">
-                  <strong>Is Active</strong>
-                </TableCell>
-                <TableCell />
-                <TableCell />
-                <TableCell />
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {users.map((user) => (
-                <TableRow
-                  key={user.id}
-                  sx={{
-                    "&:last-child td, &:last-child th": {
-                      border: 0,
-                    },
-                  }}
-                >
-                  <TableCell align="center" component="th" scope="row">
-                    {user.id}
-                  </TableCell>
-                  <TableCell align="center">{user.firstName}</TableCell>
-                  <TableCell align="center">{user.lastName}</TableCell>
-                  <TableCell align="center">{user.birthDate}</TableCell>
-                  <TableCell align="center">{user.address}</TableCell>
-                  <TableCell align="center">{user.phone}</TableCell>
-                  <TableCell align="center">{user.role}</TableCell>
-                  <TableCell align="center">
-                    {JSON.stringify(user.isActive)}
-                  </TableCell>
-                  <TableCell component="td" align="center">
-                    <IconButton
-                      disableRipple
-                      size="small"
-                      sx={{
-                        ":hover": {
-                          color: "#2E5894",
-                        },
-                      }}
-                      onClick={() => navigate(`/update/${user.id}`)}
-                    >
-                      <ModeEditIcon/>
-                    </IconButton>
-                  </TableCell>
-                  <TableCell component="td" align="center">
-                    <IconButton
-                      disableRipple
-                      size="small"
-                      sx={{
-                        ":hover": {
-                          color: "#E30022",
-                        },
-                      }}
-                      onClick={() => deleteConfirmation(user.id)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-
-                  {/* <TableCell component="td" align="center">
-                    <IconButton
-                      disableRipple
-                      size="small"
-                      sx={{
-                        ":hover": {
-                          color: "#008000",
-                        },
-                      }}
-                      onClick={() => navigate(`/profile/${user.id}`)}
-                    >
-                      <LocationOn />
-                    </IconButton>
-                  </TableCell> */}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Grid container justifyContent={"center"}>
-          <Button
-            variant="contained"
-            sx={{ mt: 2.5, mb: 2.5 }}
-            onClick={() => navigate("/Dashboard")}
-          >
-            Go back
-          </Button>
-        </Grid>
-      </Box>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Grid container justifyContent={"center"}>
+        <Button
+          variant="contained"
+          sx={{ mt: 2.5, mb: 2.5 }}
+          onClick={() => navigate("/Dashboard")}
+        >
+          Go back
+        </Button>
+      </Grid>
     </Box>
+  </Box>): <div>esdfsdf</div>
+    
   );
 };
 
