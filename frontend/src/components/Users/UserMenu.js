@@ -21,7 +21,7 @@ import { useNavigate } from "react-router-dom";
 
 import Swal from "sweetalert2";
 
-const UserMenu = () => {
+const UserMenu = ({ bgcolor }) => {
   const loggedInUser = window.localStorage.getItem("loggedInUser");
   const userJson = JSON.parse(loggedInUser);
   const name = loggedInUser
@@ -63,6 +63,14 @@ const UserMenu = () => {
     });
   };
 
+  const handleDashboard = () => {
+    if (userJson.role === "Admin") {
+      navigate("/Dashboard");
+    } else {
+      navigate(`/${userJson.role}`);
+    }
+  };
+
   return (
     <React.Fragment>
       {!loggedInUser ? (
@@ -74,7 +82,7 @@ const UserMenu = () => {
                 color: "white",
                 fontWeight: 550,
                 fontFamily: "Montserrat",
-                mt: 2,
+                mt: window.location.pathname === "/Dashboard" ? 0 : 2,
                 ":hover": {
                   bgcolor: "lightblue",
                   color: "white",
@@ -96,7 +104,8 @@ const UserMenu = () => {
               pt:
                 window.location.pathname === "/Cliente" ||
                 window.location.pathname === "/Operador" ||
-                window.location.pathname === "/Gerente"
+                window.location.pathname === "/Gerente" ||
+                window.location.pathname === "/Dashboard"
                   ? 0
                   : 2,
             }}
@@ -109,6 +118,7 @@ const UserMenu = () => {
                 aria-controls={open ? "account-menu" : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
+                disableRipple
               >
                 <Avatar sx={{ width: 36, height: 36, bgcolor: "#33b4db" }}>
                   <span
@@ -130,14 +140,10 @@ const UserMenu = () => {
             open={open}
             onClose={handleClose}
             onClick={handleClose}
-            sx={{
-              "& .MuiPaper-root": {
-                backgroundColor: "aliceblue",
-              },
-            }}
             PaperProps={{
               elevation: 0,
               fontFamily: "Montserrat",
+              backgroundColor: bgcolor,
               sx: {
                 overflow: "hidden",
                 filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
@@ -163,8 +169,14 @@ const UserMenu = () => {
                 },
               },
             }}
-            transformOrigin={{ horizontal: "right", vertical: "bottom" }}
-            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
           >
             <MenuItem>
               <Avatar sx={{ bgcolor: "#33b4db", width: 32, height: 32 }} />
@@ -175,7 +187,7 @@ const UserMenu = () => {
               }
             </MenuItem>
             <Divider />
-            <MenuItem onClick={() => navigate(`/${userJson.role}`)}>
+            <MenuItem onClick={handleDashboard}>
               <ListItemIcon>
                 <DashboardRounded fontSize="small" />
               </ListItemIcon>
@@ -183,7 +195,7 @@ const UserMenu = () => {
             </MenuItem>
             <MenuItem>
               <ListItemIcon>
-                <Person fontSize="small"/>
+                <Person fontSize="small" />
               </ListItemIcon>
               Mi cuenta
             </MenuItem>

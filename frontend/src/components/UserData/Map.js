@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   GoogleMap,
   useJsApiLoader,
@@ -8,7 +8,10 @@ import {
   useLoadScript,
 } from "@react-google-maps/api";
 
-import Geocode from "react-geocode";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
 
 import { useNavigate } from "react-router-dom";
 
@@ -16,55 +19,62 @@ import { Box, Button, Grid, IconButton, TextField } from "@mui/material";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 
 const googleApi = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-
-const testAddress = "Univalle";
-
-Geocode.setApiKey(googleApi);
+const libraries = ["places"];
 
 const Map = () => {
+  const testAddress = window.localStorage.getItem("userAddress");
+  const address = JSON.parse(testAddress);
   const navigate = useNavigate();
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
 
-  const [latitude, setLatitude] = useState();
-  const [longitude, setLongitude] = useState();
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
 
-  Geocode.fromAddress(testAddress).then(
-    (response) => {
-      const { lat, lng } = response.results[0].geometry.location;
-      setLatitude(lat);
-      setLongitude(lng);
-      console.log(lat, lng);
-    },
-    (error) => {
-      console.error(error);
-    }
-  );
-
-  const google = window.google;
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: googleApi,
-    libraries: ["places"],
+    libraries,
   });
 
   const containerStyle = {
     width: "450px",
     height: "450px",
   };
-  const pos = [41.38096843088273, 2.122841255241081];
-  const center = {
-    lat: latitude,
-    lng: longitude,
+
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      location: { lat: () => 43.6532, lng: () => -79.3832 },
+      radius: 100 * 1000,
+    },
+  });
+
+  const loadInfo = async (address) => {
+    try {
+      const results = await getGeocode({ address });
+      const { lat, lng } = getLatLng(results[0]);
+      setLatitude(lat);
+      setLongitude(lng);
+    } catch (error) {
+      console.log("😱 Error: ", error);
+    }
   };
 
+  useEffect(() => {
+    isLoaded && loadInfo(address);
+  });
+
   return (
-    <div style={{overflow:"hidden"}}>
+    <div style={{ overflow: "hidden" }}>
       {isLoaded ? (
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
             height: "100vh",
             width: "100vw",
             mt: 6,
@@ -80,7 +90,7 @@ const Map = () => {
             }}
           >
             <GoogleMap
-              center={center}
+              center={{ lat: latitude, lng: longitude }}
               zoom={18}
               mapContainerStyle={containerStyle}
               onLoad={(map) => {
@@ -88,7 +98,7 @@ const Map = () => {
               }}
               options={{ disableDefaultUI: true }}
             >
-              <MarkerF position={center} />
+              <MarkerF position={{ lat: latitude, lng: longitude }} />
             </GoogleMap>
 
             <Box sx={{ position: "absolute", bottom: 30, right: 30 }}>
@@ -99,13 +109,19 @@ const Map = () => {
                   color: "white",
                   "&:hover": { backgroundColor: "#AB274F", color: "white" },
                 }}
-                onClick={() => map.panTo(center)}
+                onClick={() => map.panTo({ lat: latitude, lng: longitude })}
               >
                 <MyLocationIcon />
               </IconButton>
             </Box>
           </Box>
-          <Button variant="contained" onClick={()=>navigate('/UserList')}> Go back </Button>
+          <Button
+            variant="contained"
+            onClick={() => navigate("/Dashboard#users")}
+          >
+            {" "}
+            Go back{" "}
+          </Button>
         </Box>
       ) : (
         <Box
@@ -117,7 +133,7 @@ const Map = () => {
             backgroundColor: "rgba(114, 160, 193, 0.5)",
           }}
         >
-          <h1>Loading....</h1>
+          <h1>Cargando...</h1>
         </Box>
       )}
     </div>

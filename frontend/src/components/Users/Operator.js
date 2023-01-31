@@ -1,6 +1,6 @@
 import React, { useState} from "react";
 import { useNavigate } from "react-router-dom";
-import "./Operator/OperatorList.css"
+import efecto from "./Operator/OperatorList.css"
 import {
   Table, TableCell,TableHead, TableContainer, TableRow, TableSortLabel, TableBody, Paper ,
   styled,
@@ -33,6 +33,8 @@ import UserMenu from "./UserMenu";
 import logo from ".././LandingPage/Images/logo3.png";
 
 const drawerWidth = 240;
+
+
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
@@ -100,6 +102,7 @@ const Operador = () => {
     }
   };
   const handlePagos = ()=>{
+    
     navigate("/OperatorList")
   }
 
