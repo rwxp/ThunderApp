@@ -166,7 +166,7 @@ const OperatorList = () => {
                       <ModeEditIcon/>
                     </IconButton>
                   </TableCell>
-                  {/* <TableCell component="td" align="center">
+                  <TableCell component="td" align="center">
                     <IconButton
                       disableRipple
                       size="small"
@@ -179,7 +179,7 @@ const OperatorList = () => {
                     >
                       <DeleteIcon />
                     </IconButton>
-                  </TableCell> */}
+                  </TableCell>
 
                   {/* <TableCell component="td" align="center">
                     <IconButton
