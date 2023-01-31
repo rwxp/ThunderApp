@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import * as UserAPI from "../../UserList/UserAPI";
 import "./OperatorList.css";
 import Swal from "sweetalert2";
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 import logo from "../../LandingPage/Images/logo2.png";
 
@@ -30,7 +31,6 @@ import LocationOn from '@mui/icons-material/LocationOn';
 
 const OperatorList = () => {
   const [users, setUsers] = useState([]);
-  const [id, setId] = useState();
 
   const navigate = useNavigate();
 
@@ -50,27 +50,21 @@ const OperatorList = () => {
     });
   };
 
-  const listUsers = async (id) => {
+  const listUsers = async (searchVal) => {
     try {
       const res = await UserAPI.listUsers();
       const data = await res.json();
       for(let i = 0; i < data.users.length; i++){
-        console.log("La id que entro es", this.id)
-        if (data.users[i].id == id){
-
-            setUsers(data.users[i]);
-            console.log(users)
+        if (data.users[i].id == searchVal && data.users[i].role == "Cliente"){
+            console.log(data.users[i]);
+            setUsers([data.users[i]])
         }
       }
-      console.log(data.users[0].id)
       
     } catch (error) {
       console.log(error);
     }
   };
-//   useEffect(() => {
-//     listUsers();
-//   }, []);
 
   // eslint-disable-next-line
   const handleDelete = async (userId) => {
@@ -88,11 +82,12 @@ const OperatorList = () => {
           <img src={logo} alt="logo" height={90} width={90}></img>
           <Grid item sx={{ ml: 4 }}>
             <h1 style={{ color: "#124265" }}>
-              <strong>Ingrese ID para cancelar factura</strong>
+              <strong>Ingrese ID para registrar pago</strong>
             </h1>
           </Grid>
           <Grid item sx={{ ml: 4 }}>
-          <SearchBar  onChange={(event)=>{setId(event.target.value)}} onKeyPress={()=>{listUsers(id)}}/>
+          <SearchBar 
+          onChange={(searchVal) => listUsers  (searchVal)}/>
           </Grid>
 
         </Grid>
@@ -186,7 +181,7 @@ const OperatorList = () => {
                     </IconButton>
                   </TableCell>
 
-                  <TableCell component="td" align="center">
+                  {/* <TableCell component="td" align="center">
                     <IconButton
                       disableRipple
                       size="small"
@@ -199,7 +194,7 @@ const OperatorList = () => {
                     >
                       <LocationOn />
                     </IconButton>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>
