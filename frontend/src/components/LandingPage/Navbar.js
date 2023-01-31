@@ -83,7 +83,7 @@ function Navbar({ loggedUser }) {
       path === "/Dashboard" ||
       path === "/Operador" ||
       path === "/Gerente" ||
-      path === "/factura" ? (
+      path === "/factura"? (
         <></>
       ) : (
         <AppBar>
