@@ -26,6 +26,7 @@ const Topbar = ({ isMobile }) => {
       justifyContent="space-between"
       py={4}
       alignItems="center"
+      mt={isMobile ? 3.5 : 0}
     >
       {/* SEARCH BAR */}
       <Box>

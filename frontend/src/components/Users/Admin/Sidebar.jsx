@@ -1,16 +1,16 @@
 import React from "react";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import {
   Avatar,
   Box,
-  Divider,
   IconButton,
   ListItemIcon,
   Typography,
   useTheme,
   Menu as MuiMenu,
   MenuItem as MuiMenuItem,
+  Divider,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
@@ -57,7 +57,6 @@ const Sidebar = ({ handleDashboard, handleUserList, handleRegister }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const [selected, setSelected] = useState("Dashboard");
 
   const { setIsSidebar } = useAuth();
 
@@ -144,7 +143,7 @@ const Sidebar = ({ handleDashboard, handleUserList, handleRegister }) => {
                   {name}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  ThunderApp Admin
+                  Thunder Admin
                 </Typography>
               </Box>
             </Box>
@@ -153,25 +152,15 @@ const Sidebar = ({ handleDashboard, handleUserList, handleRegister }) => {
           <Box paddingLeft={isCollapsed ? undefined : "4%"}>
             <MenuItem
               icon={<HomeOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
               onClick={handleDashboard}
             >
               Dashboard
             </MenuItem>
 
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Data
-            </Typography>
+            <Divider sx={{my:2, mx: 1, border:"1px solid", width: "80%"}} />
 
             <MenuItem
               icon={<ReceiptOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
               onClick={handleUserList}
             >
               Manage users
@@ -179,16 +168,12 @@ const Sidebar = ({ handleDashboard, handleUserList, handleRegister }) => {
 
             <MenuItem
               icon={<PersonAddAltIcon />}
-              selected={selected}
-              setSelected={setSelected}
               onClick={handleRegister}
             >
               Add new user
             </MenuItem>
             <MenuItem
               icon={<ContactsOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
             >
               Contacts Info
             </MenuItem>

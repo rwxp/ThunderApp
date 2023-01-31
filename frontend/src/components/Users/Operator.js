@@ -1,8 +1,7 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import efecto from "./Operator/OperatorList.css"
+import efecto from "./Operator/OperatorList.css";
 import {
-  Table, TableCell,TableHead, TableContainer, TableRow, TableSortLabel, TableBody, Paper ,
   styled,
   useTheme,
   Box,
@@ -32,9 +31,9 @@ import MonetizationOnOutlined from "@mui/icons-material/MonetizationOnOutlined";
 import UserMenu from "./UserMenu";
 import logo from ".././LandingPage/Images/logo3.png";
 
+import OperatorList from "./Operator/OperatorList";
+
 const drawerWidth = 240;
-
-
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
@@ -83,11 +82,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const Operador = () => {
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
-  const [pagos, setPagos] = useState(false);
-  const [users, setUsers] = useState([]);
+  const [open, setOpen] = useState(true);
   const navigate = useNavigate();
-
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -101,14 +97,15 @@ const Operador = () => {
       handlePagos();
     }
   };
-  const handlePagos = ()=>{
-    
-    navigate("/OperatorList")
-  }
+  const handlePagos = () => {
+    navigate("/Operador#registerpay");
+  };
 
   const loggedInUser = window.localStorage.getItem("loggedInUser");
   const userJson = JSON.parse(loggedInUser);
   const name = userJson.firstName + " " + userJson.lastName;
+
+  const hashLoc = window.location.hash;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -179,9 +176,13 @@ const Operador = () => {
           }}
         />
         <List>
-          {["Registrar pagos", "Pagar factura", "Ver factura"].map(
+          {["Registrar pagos"].map(
             (text, index) => (
-              <ListItem key={text} onClick={()=>handleDrawerItem({index})}disablePadding>
+              <ListItem
+                key={text}
+                onClick={() => handleDrawerItem({ index })}
+                disablePadding
+              >
                 <ListItemButton>
                   <ListItemIcon>
                     {index === 0 ? (
@@ -201,8 +202,23 @@ const Operador = () => {
       </Drawer>
 
       <Main open={open}>
-        <Grid sx={{ display: "grid", placeItems: "center", height: "100vh" }}>
-      </Grid>
+        <Grid
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            mt: 14,
+            height: "100vh",
+            width: "100vw",
+          }}
+        >
+          {hashLoc === "" ? (
+            <h1>
+              Bienvenido <span style={{color:"#33b4db"}}>{name}</span>
+            </h1>
+          ) : hashLoc === "#registerpay" ? (
+            <OperatorList />
+          ) : null}
+        </Grid>
       </Main>
     </Box>
   );

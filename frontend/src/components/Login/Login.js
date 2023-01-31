@@ -34,7 +34,8 @@ const Login = () => {
   const { setName } = useAuth();
   const [bill, setBill] = useState();
 
-  const [id, setId] = useState("");
+  const [id, setID] = useState();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
   const [respuesta, setRespuesta] = useState("");
@@ -63,7 +64,7 @@ const Login = () => {
   async function handleSubmit(event) {
     try {
       event.preventDefault();
-      var ans = await verifyUser(id, password, role);
+      var ans = await verifyUser(email, password, role);
       var res = await ans.json();
       setRespuesta(res.message);
       window.localStorage.setItem("loggedInUser", JSON.stringify(user));
@@ -103,6 +104,7 @@ const Login = () => {
     firstName: "",
     birthDate: "",
     password: "",
+    email: "",
     address: "",
     phone: "",
     role: "",
@@ -156,7 +158,8 @@ const Login = () => {
   };
 
   const setAll = () => {
-    setId(user.id);
+    setID(user.id);
+    setEmail(user.email);
     setPassword(user.password);
     setRole(user.role);
   };
@@ -219,10 +222,10 @@ const Login = () => {
                 marginBottom={isMobile ? 3 : 1}
               >
                 <TextField
-                  placeholder="ID"
-                  value={isMenuOpen ? user.id : id}
+                  placeholder="Email Address"
+                  value={isMenuOpen ? user.email : email}
                   size="small"
-                  onChange={(event) => setId(event.target.value)}
+                  onChange={(event) => setEmail(event.target.value)}
                 />
                 <TextField
                   placeholder="Password"
