@@ -17,6 +17,7 @@ import Dashboard from "./components/Users/Admin/Dashboard/Dashboard";
 import Customer from "./components/Users/Customer";
 import Operator from "./components/Users/Operator";
 import Gerente from "./components/Users/Gerente";
+import OperatorList from "./components/Users/Operator/OperatorList";
 
 import ContextProvider from "./context/Context";
 import Factura from "./components/Bill/Factura";
@@ -148,6 +149,14 @@ const App = () => {
               element={
                 <OptionalComp>
                   <UserList />
+                </OptionalComp>
+              }
+            />
+            <Route
+              path="/OperatorList"
+              element={
+                <OptionalComp>
+                  <OperatorList />
                 </OptionalComp>
               }
             />
