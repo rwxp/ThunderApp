@@ -5,6 +5,7 @@ import {
   Box,
   FormControlLabel,
   Switch,
+  Typography,
 } from "@mui/material";
 
 import { useParams, useNavigate } from "react-router-dom";
@@ -26,14 +27,14 @@ const UserForm = () => {
 
   const navigate = useNavigate();
   const [user, setUser] = useState(initialState);
-
+  const [isLoading, setisLoading] = useState(false);
   const params = useParams();
 
   const handleSubmit = async () => {
     console.log(user);
     try {
       await UserAPI.updateUser(params.id, user);
-      setTimeout(navigate("/UserList"), 3000);
+      setTimeout(navigate("/Dashboard#users"), 2000);
     } catch (error) {
       console.log(error);
     }
@@ -51,10 +52,12 @@ const UserForm = () => {
   };
 
   const loadUser = async () => {
+    setisLoading(true);
     try {
       const res = await UserAPI.getUser(params.id);
       const data = await res.json();
       setUser(data.user);
+      setisLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -65,100 +68,121 @@ const UserForm = () => {
   }, []);
 
   return (
-    <Box sx={{ mt: 15 }}>
-      <form onSubmit={handleSubmit}>
-        <Grid
-          container
-          alignItems="center"
-          justify="center"
-          direction="column"
-          spacing="12px"
-          sx={{ mt: 8 }}
-        >
-          <Grid item>
-            <h1>{params.id}</h1>
-          </Grid>
-          <Grid item>
-            <TextField
-              label="First Name"
-              name="firstName"
-              type="text"
-              value={user.firstName}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              id="lname-input"
-              label="Last Name"
-              name="lastName"
-              type="text"
-              value={user.lastName}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              id="bdate-input"
-              label="Birth Date"
-              name="birthDate"
-              type="text"
-              value={user.birthDate}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              id="address-input"
-              label="Address"
-              name="address"
-              type="text"
-              value={user.address}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              id="phone-input"
-              label="Phone Number"
-              name="phone"
-              type="text"
-              value={user.phone}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              id="role-input"
-              label="Role"
-              name="role"
-              type="text"
-              value={user.role}
-              onChange={handleInputChange}
-              disabled={true}
-            />
-          </Grid>
-          <Grid item>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={user.isActive}
-                  onChange={handleChange}
-                  name="isActive"
-                  inputProps={{ "aria-label": "controlled" }}
+    <div>
+      <Box
+        component="form"
+        sx={{
+          mt: 10,
+          display: isLoading ? "grid" : "flex",
+          flexDirection: "column",
+          rowGap: 3,
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          height: "100vh",
+        }}
+      >
+        {isLoading ? (
+          <h1>Cargando...</h1>
+        ) : (
+          <>
+            <Typography variant="h4">Editar usuario</Typography>
+            <Grid container width="30%" justifyContent="center" rowGap={2}>
+              <TextField
+                fullWidth
+                label="ID"
+                name="id"
+                type="text"
+                value={params.id}
+                disabled
+              />
+              <Grid container display="flex" justifyContent="space-between">
+                <Grid item md={5.8}>
+                  <TextField
+                    label="Nombre"
+                    name="firstName"
+                    type="text"
+                    value={user.firstName}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+                <Grid item md={5.8}>
+                  <TextField
+                    id="lname-input"
+                    label="Apellido"
+                    name="lastName"
+                    type="text"
+                    value={user.lastName}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+              </Grid>
+              <TextField
+                fullWidth
+                id="bdate-input"
+                label="Fecha de nacimiento (YYYY-MM-DD)"
+                name="birthDate"
+                type="text"
+                value={user.birthDate}
+                onChange={handleInputChange}
+              />
+              <Grid container display="flex" justifyContent="space-between">
+                <Grid item md={7}>
+                  <TextField
+                    id="address-input"
+                    label="Address"
+                    name="address"
+                    type="text"
+                    value={user.address}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+                <Grid item md={5}>
+                  <TextField
+                    id="phone-input"
+                    label="Phone Number"
+                    name="phone"
+                    type="text"
+                    value={user.phone}
+                    onChange={handleInputChange}
+                  />
+                </Grid>
+              </Grid>
+              <TextField
+                fullWidth
+                id="role-input"
+                label="Role"
+                name="role"
+                type="text"
+                value={user.role}
+                onChange={handleInputChange}
+                disabled={true}
+              />
+              <Grid textAlign="center">
+                <Typography variant="h6" fontWeight="bold">
+                  {" "}
+                  Estado{" "}
+                </Typography>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={user.isActive}
+                      onChange={handleChange}
+                      name="isActive"
+                      inputProps={{ "aria-label": "controlled" }}
+                    />
+                  }
+                  label={user.isActive ? "Activo" : "Inactivo"}
                 />
-              }
-              label={JSON.stringify(user.isActive)}
-            />
-          </Grid>
-          <Grid item sx={{ mb: 10 }}>
+              </Grid>
+            </Grid>
             <Button variant="contained" onClick={handleSubmit}>
               Save
             </Button>
-          </Grid>
-        </Grid>
-      </form>
-    </Box>
+          </>
+        )}
+      </Box>
+    </div>
   );
 };
 export default UserForm;

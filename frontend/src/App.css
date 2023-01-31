@@ -264,6 +264,7 @@
   margin-right: 20px;
 }
 
+/*
 .User-list {
   background-image: linear-gradient(
     to right bottom,
@@ -273,7 +274,7 @@
     #2a96be,
     #33b4db
   );
-}
+}*/
 
 .About2 {
   direction: column;
