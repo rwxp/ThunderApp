@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import * as UserAPI from "../../UserList/UserAPI";
 import "./OperatorList.css";
 import Swal from "sweetalert2";
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 
 import logo from "../../LandingPage/Images/logo2.png";
+import * as FacturaAPI from "../../Bill/FacturaAPI";
 
 // mui material components
 import {
@@ -24,10 +25,17 @@ import {
 } from "@mui/material";
 import SearchBar from "material-ui-search-bar";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
+<<<<<<< HEAD
 import DeleteIcon from '@mui/icons-material/Delete';
+=======
+import DeleteIcon from "@mui/icons-material/Delete";
+import LocationOn from "@mui/icons-material/LocationOn";
+>>>>>>> d35d30c30909869aa24d43887ec0fb170c91bdd7
 
 const OperatorList = () => {
   const [users, setUsers] = useState([]);
+  const [isLoading, setisLoading] = useState(false);
+  const [bill, setBill] = useState();
 
   const navigate = useNavigate();
 
@@ -47,20 +55,40 @@ const OperatorList = () => {
     });
   };
 
-  const listUsers = async (searchVal) => {
+  const getBill = async (searchVal) => {
+    setisLoading(true);
     try {
-      const res = await UserAPI.listUsers();
+      const res = await FacturaAPI.getBill(searchVal);
       const data = await res.json();
-      for(let i = 0; i < data.users.length; i++){
-        if (data.users[i].id == searchVal && data.users[i].role == "Cliente"){
-            console.log(data.users[i]);
-            setUsers([data.users[i]])
-        }
-      }
-      
+      console.log(data.bill);
+      setBill(data.bill);
     } catch (error) {
       console.log(error);
     }
+    setisLoading(false);
+  };
+
+  const listUsers = async (searchVal) => {
+    console.log(searchVal);
+    try {
+      const res = await UserAPI.listUsers();
+      const data = await res.json();
+      console.log(data.users);
+      for (let i = 0; i < data.users.length; i++) {
+        // eslint-disable-next-line
+        if (data.users[i].id == searchVal && data.users[i].role == "Cliente") {
+          console.log(data.users[i]);
+          setUsers([data.users[i]]);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSearch = (searchVal) => {
+    listUsers(searchVal);
+    getBill(searchVal);
   };
 
   // eslint-disable-next-line
@@ -70,130 +98,94 @@ const OperatorList = () => {
   };
 
   return (
-    true ? (<Box className="User-list">
-    <Box
-      component={Paper}
-      sx={{ background: "aliceblue", borderRadius: 5, mt: 3, mb: 3 }}
-    >
-      <Grid container sx={{ mb: 3, mt: 3, ml: 3, alignItems: "center" }}>
-        <img src={logo} alt="logo" height={90} width={90}></img>
-        <Grid item sx={{ ml: 4 }}>
-          <h1 style={{ color: "#124265" }}>
-            <strong>Ingrese ID para registrar pago</strong>
-          </h1>
+    <Box>
+      <Box
+        component={Paper}
+        sx={{ background: "aliceblue", borderRadius: 5, mt: 3, mb: 3 }}
+      >
+        <Grid container sx={{ mb: 3, mt: 3, ml: 3, alignItems: "center" }}>
+          <Grid item>
+            <h3 style={{ color: "#124265" }}>
+              <strong>Ingrese ID para registrar pago</strong>
+            </h3>
+          </Grid>
+          <Grid item sx={{ ml: 4 }}>
+            <SearchBar onChange={(searchVal) => handleSearch(searchVal)} />
+          </Grid>
         </Grid>
-        <Grid item sx={{ ml: 4 }}>
-        <SearchBar 
-        onChange={(searchVal) => listUsers  (searchVal)}/>
-        </Grid>
-
-      </Grid>
-      <TableContainer>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="center">
-                <TableSortLabel>
-                  <strong>User ID</strong>
-                </TableSortLabel>
-              </TableCell>
-              <TableCell align="center">
-                <strong>First Name</strong>
-              </TableCell>
-              <TableCell align="center">
-                <strong>Last Name</strong>
-              </TableCell>
-              <TableCell align="center">
-                <strong>
-                  Date of Birth
-                  <br />
-                  (YYYY-MM-DD)
-                </strong>
-              </TableCell>
-              <TableCell align="center">
-                <strong>Address</strong>
-              </TableCell>
-              <TableCell align="center">
-                <strong>Phone</strong>
-              </TableCell>
-              <TableCell align="center">
-                <strong>Role</strong>
-              </TableCell>
-              <TableCell align="center">
-                <strong>Is Active</strong>
-              </TableCell>
-              <TableCell />
-              <TableCell />
-              <TableCell />
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users.map((user) => (
-              <TableRow
-                key={user.id}
-                sx={{
-                  "&:last-child td, &:last-child th": {
-                    border: 0,
-                  },
-                }}
-              >
-                <TableCell align="center" component="th" scope="row">
-                  {user.id}
-                </TableCell>
-                <TableCell align="center">{user.firstName}</TableCell>
-                <TableCell align="center">{user.lastName}</TableCell>
-                <TableCell align="center">{user.birthDate}</TableCell>
-                <TableCell align="center">{user.address}</TableCell>
-                <TableCell align="center">{user.phone}</TableCell>
-                <TableCell align="center">{user.role}</TableCell>
-                <TableCell align="center">
-                  {JSON.stringify(user.isActive)}
-                </TableCell>
-                <TableCell component="td" align="center">
-                  <IconButton
-                    disableRipple
-                    size="small"
+        {isLoading ? (
+          <h1>Cargando...</h1>
+        ) : (
+          <TableContainer>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow sx={{ ".MuiTableCell-root": { fontSize: 14 } }}>
+                  {[
+                    "ID",
+                    "Nombre",
+                    "Apellido",
+                    "Email",
+                    "Rol",
+                    "ID Factura",
+                    "Valor",
+                  ].map((name) => (
+                    <TableCell align="center" key={name}>
+                      <strong>{name}</strong>
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {users.map((user) => (
+                  <TableRow
+                    key={user.id}
                     sx={{
-                      ":hover": {
-                        color: "#2E5894",
+                      "&:last-child td, &:last-child th": {
+                        border: 0,
                       },
                     }}
-                    onClick={() => navigate(`/update/${user.id}`)}
                   >
-                    <ModeEditIcon/>
-                  </IconButton>
-                </TableCell>
-                <TableCell component="td" align="center">
-                  <IconButton
-                    disableRipple
-                    size="small"
-                    sx={{
-                      ":hover": {
-                        color: "#E30022",
-                      },
-                    }}
-                    onClick={() => deleteConfirmation(user.id)}
-                  >
-                    <AttachMoneyIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Grid container justifyContent={"center"}>
-        <Button
-          variant="contained"
-          sx={{ mt: 2.5, mb: 2.5 }}
-          onClick={() => navigate("/Dashboard")}
-        >
-          Go back
-        </Button>
-      </Grid>
+                    <TableCell align="center" component="th" scope="row">
+                      {user.id}
+                    </TableCell>
+                    <TableCell align="center">{user.firstName}</TableCell>
+                    <TableCell align="center">{user.lastName}</TableCell>
+                    <TableCell align="center">{user.email}</TableCell>
+                    <TableCell align="center">{user.role}</TableCell>
+                    <TableCell align="center">{bill.billID}</TableCell>
+                    <TableCell align="center">{bill.amount}</TableCell>
+                    <TableCell component="td" align="center">
+                      <Button
+                        disableRipple
+                        size="small"
+                        variant="contained"
+                        sx={{
+                          ":hover": {
+                            bgcolor: "#008000",
+                          },
+                        }}
+                        onClick={() => navigate()}
+                      >
+                        Pagar
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
+        <Grid container justifyContent={"center"}>
+          <Button
+            variant="contained"
+            sx={{ mt: 2.5, mb: 2.5 }}
+            onClick={() => navigate("/Dashboard")}
+          >
+            Go back
+          </Button>
+        </Grid>
+      </Box>
     </Box>
-  </Box>): <div>esdfsdf</div>
-    
   );
 };
 

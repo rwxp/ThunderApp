@@ -17,7 +17,6 @@ import {
 } from "@mui/material";
 import { tokens, ColorModeContext, useMode } from "../Theme";
 import Header from "../ComponentsDashboard/Header";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 
 import Sidebar from "../Sidebar";
 import Topbar from "../Topbar";
@@ -31,21 +30,22 @@ import HomeIcon from "@mui/icons-material/Home";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import UserList from "./../../../UserList/UserList";
+import UserForm from "../../../UserData/UserData";
 
 const sidebarWidth = 240;
 
 const PageContent = styled(Box, {
   shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open, isMobile }) => ({
+})(({ theme, open }) => ({
   flexGrow: 1,
   transition: theme.transitions.create("padding", {
     easing: theme.transitions.easing.easeIn,
     duration: 300,
   }),
-  ...(!isMobile && { paddingLeft: `80px` }),
+  ...(!useMediaQuery(theme.breakpoints.down("sm")) && { paddingLeft: `80px` }),
   ...(open && {
     paddingLeft: `${sidebarWidth}px`,
     transition: theme.transitions.create("padding", {
@@ -65,10 +65,6 @@ const Dashboard = () => {
   const userJson = JSON.parse(loggedInUser);
   const name = userJson.firstName + " " + userJson.lastName;
 
-  const [dashboard, setDashboard] = useState(true);
-  const [userList, setuserList] = useState();
-  const [registerUser, setregisterUser] = useState();
-
   const { isSidebar } = useAuth();
 
   const colors = tokens(theme.palette.mode);
@@ -81,12 +77,6 @@ const Dashboard = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const disableOthers = () => {
-    setDashboard(false);
-    setuserList(false);
-    setregisterUser(false);
   };
 
   const hashLoc = window.location.hash;
@@ -124,6 +114,8 @@ const Dashboard = () => {
     },
   };
 
+  getUpdateID(hashLoc);
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
@@ -139,43 +131,7 @@ const Dashboard = () => {
             zIndex: 1,
           }}
         >
-          {isMobile ? (
-            <Box sx={{ ml: 5, mt: 2 }}>
-              <IconButton
-                id="fade-button"
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleMenu}
-                disableRipple
-              >
-                <MenuIcon />
-              </IconButton>
-
-              <Menu
-                id="fade-menu"
-                MenuListProps={{
-                  "aria-labelledby": "fade-button",
-                }}
-                PaperProps={{ backgroundColor: colors.primary[300] }}
-                anchorEl={anchorEl}
-                open={openMenu}
-                onClose={handleClose}
-                sx={{
-                  "& .MuiDivider-root": { backgroundColor: "white" },
-                }}
-              >
-                {Object.values(buttons).map((button, index) => (
-                  <>
-                    <MenuItem value={index} onClick={button.onclick}>
-                      <ListItemIcon>{button.icon}</ListItemIcon>
-                      {button.name}
-                    </MenuItem>
-                    {index === 0 && <Divider role="presentation"> </Divider>}
-                  </>
-                ))}
-              </Menu>
-            </Box>
-          ) : (
+          {isMobile ? null : (
             <Sidebar
               handleDashboard={handleDashboard}
               handleUserList={handleUserList}
@@ -193,7 +149,6 @@ const Dashboard = () => {
         >
           <PageContent
             open={isSidebar}
-            isMobile={isMobile}
             sx={{ width: "100vw", height: "100vh" }}
           >
             <Grid
@@ -203,13 +158,45 @@ const Dashboard = () => {
               px={isMobile ? 6 : 14}
               pb={6}
             >
+              {!isMobile ? null : (<Box sx={{ position: "absolute", top: 15, left: 30}}>
+                <IconButton
+                  id="fade-button"
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={handleMenu}
+                  disableRipple
+                >
+                  <MenuIcon />
+                </IconButton>
+
+                <Menu
+                  id="fade-menu"
+                  MenuListProps={{
+                    "aria-labelledby": "fade-button",
+                  }}
+                  PaperProps={{ backgroundColor: colors.primary[300] }}
+                  anchorEl={anchorEl}
+                  open={openMenu}
+                  onClose={handleClose}
+                  sx={{
+                    "& .MuiDivider-root": { backgroundColor: "white" },
+                  }}
+                >
+                  {Object.values(buttons).map((button, index) => (
+                    <MenuItem value={index} onClick={button.onclick}>
+                      <ListItemIcon>{button.icon}</ListItemIcon>
+                      {button.name}
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>)}
               <Topbar isMobile={isMobile} />
               <Box
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
               >
-                <Header title={'Bienvenido'} subtitle={name}/>
+                <Header title={"Bienvenido"} subtitle={name} />
               </Box>
               <Box
                 sx={{
@@ -226,6 +213,11 @@ const Dashboard = () => {
                   <UserList />
                 ) : hashLoc === "#register" ? (
                   <h1>Register User</h1>
+                ) : getUpdateID(hashLoc)[0] === "#users" ? (
+                  <UserForm
+                    idUser={getUpdateID(hashLoc)[1]}
+                    isMobile={isMobile}
+                  />
                 ) : null}
               </Box>
             </Grid>
@@ -237,3 +229,8 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+const getUpdateID = (path) => {
+  const id = path.split("/");
+  return id;
+};
