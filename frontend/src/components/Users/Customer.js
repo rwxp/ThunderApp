@@ -139,6 +139,11 @@ const Customer = () => {
     navigate("/Cliente#bill");
     handleClose();
   };
+  
+  const handlePagar = () =>{
+
+
+  }
 
   const loggedInUser = window.localStorage.getItem("loggedInUser");
   const userJson = JSON.parse(loggedInUser);
@@ -763,7 +768,7 @@ const Payment = ({ isMobile }) => {
         />
       </Grid>
       <Box component="form" sx={{ py: 2 }}>
-        <Button variant="contained" sx={{ mt: 2 }}>
+        <Button variant="contained" sx={{ mt: 2 }} >
           pagar
         </Button>
       </Box>
