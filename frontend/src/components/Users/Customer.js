@@ -323,6 +323,7 @@ const Customer = () => {
                 mt: 10,
                 py: 5,
                 px: 8,
+                width: "500px",
                 borderRadius: "16px",
               }}
             >
@@ -349,13 +350,13 @@ const Customer = () => {
               >
                 Hola {name} recuerda que debes estar al día con el pago de tus
                 facturas, en caso de que tu estado no esté activado, dirigete a
-                la pestaña de pagos. Tu estado es: {estadostr}
+                la pestaña de pagos. Tu estado es: {estadostr? "activo":"inactivo"}
               </Typography>
             </Box>
           ) : hashLoc === "#payment" ? (
             <Payment  />
 
-          ) : hashLoc === "#bill" ? (
+          ) : hashLoc === "#bill" ?   (
             <Box sx={{ backgroundColor: "white", mt: isMobile ? 14 : 4 }}>
               {isMobile ? (
                 <IconButton

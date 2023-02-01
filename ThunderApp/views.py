@@ -99,7 +99,7 @@ class UsersView(View):
 
 
 class BillsView(View):
-        
+
     @method_decorator(csrf_exempt)
     def activateBill(request):
         data = json.loads(request.body)
@@ -108,28 +108,31 @@ class BillsView(View):
         if (id == 0):
             datos = {'message': 'Bill not found!'}
         else:
-            datos = list(Bills.objects.filter(userID=id).values())
-            if (len(datos) > 0):
+            datos = (list(Bills.objects.filter(userID=id).values('isGenerated')))[0]['isGenerated']
+            print(datos)
+            if (datos == True):
+                Bills.objects.filter(userID=id).update(isGenerated=False)
+            elif(datos == False):
                 Bills.objects.filter(userID=id).update(isGenerated=True)
                 datos = {'message': 'Activation Successful'}
             else:
+                print("hola")
                 datos = {'message': 'Bill not found'}
         return JsonResponse(datos)
-        
 
     def post(self, request):
         jd = json.loads(request.body)
         datos = {'message': 'Success'}
         try:
-            if(jd['role'] == "Cliente"):
+            if (jd['role'] == "Cliente"):
                 Bills.objects.create(billingDate=datetime.datetime.now() + datetime.timedelta(days=30),
-                                    dueDate=datetime.datetime.now() + datetime.timedelta(days=30) +
-                                    datetime.timedelta(days=10),
-                                    amount=0,
-                                    status="null",
-                                    payMethod="null",
-                                    userID=jd['id'],
-                                    isGenerated=False,)
+                                     dueDate=datetime.datetime.now() + datetime.timedelta(days=30) +
+                                     datetime.timedelta(days=10),
+                                     amount=0,
+                                     status="null",
+                                     payMethod="null",
+                                     userID=jd['id'],
+                                     isGenerated=False,)
         except Exception as e:
             print("Falló la inserción")
             datos = {'message': 'Fail'}
@@ -177,4 +180,3 @@ class BillsView(View):
             else:
                 billData = {'message': 'Bill not found'}
             return JsonResponse(billData)
- 
