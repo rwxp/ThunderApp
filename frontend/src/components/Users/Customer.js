@@ -141,7 +141,8 @@ const Customer = () => {
   };
   
   const handlePagar = () =>{
-
+    navigate("/Cliente#pagoexitoso");
+    handleClose();
 
   }
 
@@ -321,7 +322,52 @@ const Customer = () => {
         <Grid sx={{ display: "grid", placeItems: "center", height: "100vh" }}>
           {hashLoc === "#profile" ? (
             <UpdateProfile isMobile={isMobile} />
-          ) : hashLoc === "#status" ? (
+          ) : hashLoc === "#pagoexitoso" ? (
+            <Box
+            sx={{
+              backgroundColor: "#E6E6FA",
+              mt: 10,
+              py: 5,
+              px: 8,
+              width: "500px",
+              borderRadius: "16px",
+            }}
+          >
+            <Typography
+              fontSize={isMobile ? 22 : 40}
+              sx={{
+                fontWeight: 800,
+                color: "#124265",
+                textAlign: "center",
+                fontFamily: "Montserrat",
+
+              }}
+            >
+              Pago exitoso
+            </Typography>
+            <Typography
+              fontSize={isMobile ? 20 : 25}
+              sx={{
+                fontWeight: 200,
+                color: "#124265",
+                textAlign: "center",
+                fontFamily: "Montserrat",
+              }}
+            >
+              Usted acaba de registrar el pago de manera exitosa 
+            </Typography>
+            <Grid container justifyContent={"center"}>
+              <Button
+                variant="contained"
+                sx={{ mt: 2.5, mb: 2.5 }}
+                onClick={() => navigate("")}
+              >
+                Go back
+              </Button>
+            </Grid>
+          </Box>
+
+          ): hashLoc === "#status" ? (
             <Box
               sx={{
                 backgroundColor: "#E6E6FA",
@@ -673,6 +719,19 @@ const UpdateProfile = ({ isMobile }) => {
 
 const Payment = ({ isMobile }) => {
 
+  const navigate = useNavigate();
+  const handlePagar = () =>{
+    navigate("/Cliente#pagoexitoso");
+    handleClose();
+
+  }
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  
+  
 
   return (
 
@@ -768,7 +827,7 @@ const Payment = ({ isMobile }) => {
         />
       </Grid>
       <Box component="form" sx={{ py: 2 }}>
-        <Button variant="contained" sx={{ mt: 2 }} >
+        <Button variant="contained" sx={{ mt: 2 }} onClick={handlePagar} >
           pagar
         </Button>
       </Box>

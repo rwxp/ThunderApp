@@ -139,7 +139,7 @@ const Login = () => {
 
   return (
     <Box sx={{ mt: "80px" }}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} >
         <Grid container>
           <Grid item md={6} sx={{ px: 12 }}>
             <div className="d-flex flex-column ms-3">
@@ -195,9 +195,10 @@ const Login = () => {
                   size="small"
                   onChange={(event) => setEmail(event.target.value)}
                 />
-                <TextField
+                <TextField 
                   placeholder="Password"
                   id="form2"
+                  type="Password"
                   value={password}
                   size="small"
                   onFocus={setUsuario}
