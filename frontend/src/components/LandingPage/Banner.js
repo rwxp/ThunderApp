@@ -58,14 +58,14 @@ const Banner = () => {
                   fontFamily: "montserrat",
                 }}
               >
-                Una aplicación para generar facturas automáticas del consumo
+                Una aplicación segura y práctica para generar facturas automáticas del consumo
                 energético de sus clientes
               </p>
             </Grid>
             <Grid container spacing={2} mt={4}>
               <Grid item>
                 <Button variant="contained" onClick={() => navigate("/Login")}>
-                  Comenzar prueba gratuita
+                  Inicia con nosotros
                 </Button>
               </Grid>
               <Grid item>
