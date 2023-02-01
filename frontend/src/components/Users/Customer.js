@@ -353,7 +353,8 @@ const Customer = () => {
               </Typography>
             </Box>
           ) : hashLoc === "#payment" ? (
-            <Payment />
+            <Payment  />
+
           ) : hashLoc === "#bill" ? (
             <Box sx={{ backgroundColor: "white", mt: isMobile ? 14 : 4 }}>
               {isMobile ? (
@@ -571,6 +572,10 @@ const UpdateProfile = ({ isMobile }) => {
 };
 
 const Payment = ({isMobile}) => {
+  
+  
+  return (
+    
   <Box
     sx={{
       backgroundColor: "#E6E6FA",
@@ -667,5 +672,7 @@ const Payment = ({isMobile}) => {
         pagar
       </Button>
     </Box>
-  </Box>;
+  </Box>
+  );
+
 };

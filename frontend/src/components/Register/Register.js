@@ -62,6 +62,15 @@ function AdminRegister() {
 
 
   return (
+    <Box
+    sx={{
+      backgroundColor: "#E6E6FA",
+      mt: 10,
+      py: 5,
+      px: 8,
+      borderRadius: "16px",
+    }}
+  >
     <Box sx={{ mt: "80px" }}>
       <form onSubmit={handleSubmit}>
         <Grid container sx={{ justifyContent: "center" }}>
@@ -218,42 +227,10 @@ function AdminRegister() {
             </Grid>
           </Grid>
 
-          {isMobile ? (
-            <></>
-          ) : (
-            <Grid item md={6}>
-              <div
-                className="d-flex flex-column gradient-custom-2"
-                style={{ position: "absolute", height: "150%" }}
-              >
-                <Typography
-                  className="Small"
-                  color="white"
-                  sx={{ position: "sticky", bottom: 0, top: "40%", px: 8 }}
-                >
-                  <span
-                    style={{
-                      fontSize: "26px",
-                      fontFamily: "Montserrat",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Somos más que sólo una compañía
-                  </span>
-                  <br />
-                  <br />
-                  <span style={{ fontFamily: "Montserrat" }}>
-                    Una empresa de energía eléctrica que desarrolla un sistema
-                    para gestionar la información de sus clientes ya sean
-                    corporativos o personas naturales, su consumo y la
-                    facturación.
-                  </span>
-                </Typography>
-              </div>
-            </Grid>
-          )}
+          
         </Grid>
       </form>
+    </Box>
     </Box>
   );
 }

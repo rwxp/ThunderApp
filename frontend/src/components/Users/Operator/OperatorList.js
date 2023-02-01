@@ -25,12 +25,8 @@ import {
 } from "@mui/material";
 import SearchBar from "material-ui-search-bar";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-<<<<<<< HEAD
-import DeleteIcon from '@mui/icons-material/Delete';
-=======
 import DeleteIcon from "@mui/icons-material/Delete";
 import LocationOn from "@mui/icons-material/LocationOn";
->>>>>>> d35d30c30909869aa24d43887ec0fb170c91bdd7
 
 const OperatorList = () => {
   const [users, setUsers] = useState([]);
