@@ -37,6 +37,7 @@ import AssignmentLateOutlined from "@mui/icons-material/AssignmentLateOutlined";
 import ReceiptOutlined from "@mui/icons-material/ReceiptOutlined";
 import MonetizationOnOutlined from "@mui/icons-material/MonetizationOnOutlined";
 
+import * as FacturaAPI from "../Bill/FacturaAPI.js";
 import UserMenu from "./UserMenu";
 import Factura from "../Bill/Factura";
 import Home from "@mui/icons-material/Home";
@@ -139,12 +140,6 @@ const Customer = () => {
     navigate("/Cliente#bill");
     handleClose();
   };
-  
-  const handlePagar = () =>{
-
-
-  }
-
   const loggedInUser = window.localStorage.getItem("loggedInUser");
   const userJson = JSON.parse(loggedInUser);
   const name = userJson.firstName + " " + userJson.lastName;
@@ -672,7 +667,13 @@ const UpdateProfile = ({ isMobile }) => {
 };
 
 const Payment = ({ isMobile }) => {
-
+  const handlePagar = () =>{
+    const loggedInUser = localStorage.getItem("clientBill")
+    console.log("El logged in User", loggedInUser)
+    const userJson = JSON.parse(loggedInUser);
+    console.log("El usarID es", userJson.userID)
+    FacturaAPI.payBill(userJson.userID)
+  }
 
   return (
 
@@ -768,7 +769,7 @@ const Payment = ({ isMobile }) => {
         />
       </Grid>
       <Box component="form" sx={{ py: 2 }}>
-        <Button variant="contained" sx={{ mt: 2 }} >
+        <Button variant="contained" sx={{ mt: 2 }} onClick={handlePagar}>
           pagar
         </Button>
       </Box>
