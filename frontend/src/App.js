@@ -8,7 +8,6 @@ import Contact from "./components/LandingPage/Contact";
 import Navbar from "./components/LandingPage/Navbar";
 
 import Login from "./components/Login/Login";
-import Register from "./components/Register/Register";
 import Form from "./components/UserData/UserData";
 import Map from "./components/UserData/Map";
 import UserList from "./components/UserList/UserList";
@@ -136,14 +135,7 @@ const App = () => {
                 </OptionalComp>
               }
             />
-            <Route
-              path="/Register"
-              element={
-                <OptionalComp>
-                  <Register />
-                </OptionalComp>
-              }
-            />
+        
             <Route
               path="/UserList"
               element={
@@ -165,14 +157,6 @@ const App = () => {
               element={
                 <OptionalComp>
                   <Form />
-                </OptionalComp>
-              }
-            />
-            <Route
-              path="/profile/:id"
-              element={
-                <OptionalComp>
-                  <Map />
                 </OptionalComp>
               }
             />

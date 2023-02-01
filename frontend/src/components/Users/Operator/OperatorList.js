@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as UserAPI from "../../UserList/UserAPI";
-import "./OperatorList.css";
 import Swal from "sweetalert2";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 
-import logo from "../../LandingPage/Images/logo2.png";
 import * as FacturaAPI from "../../Bill/FacturaAPI";
-
+import SearchIcon from "@mui/icons-material/Search";
 // mui material components
+import { useAuth } from "../../../context/Context";
 
 import {
   Box,
@@ -23,38 +21,20 @@ import {
   Grid,
   TableSortLabel,
   IconButton,
+  TextField,
 } from "@mui/material";
-
-import SearchBar from "material-ui-search-bar";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import LocationOn from "@mui/icons-material/LocationOn";
 
 const OperatorList = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [bill, setBill] = useState();
+  const [searchValue, setsearchValue] = useState();
+
+  const { sethideList, hideList } = useAuth();
 
   const navigate = useNavigate();
 
-  const deleteConfirmation = (id) => {
-    Swal.fire({
-      title: "Are you sure you want to delete this user?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        id && handleDelete(id);
-      }
-    });
-  };
-
   const getBill = async (searchVal) => {
-    setisLoading(true);
     try {
       const res = await FacturaAPI.getBill(searchVal);
       const data = await res.json();
@@ -66,15 +46,20 @@ const OperatorList = () => {
     setisLoading(false);
   };
 
-  const listUsers = async (searchVal) => {
-    console.log(searchVal);
+  const listUsers = async () => {
     try {
       const res = await UserAPI.listUsers();
       const data = await res.json();
-      console.log(data.users);
+      console.log(searchValue)
       for (let i = 0; i < data.users.length; i++) {
         // eslint-disable-next-line
-        if (data.users[i].id == searchVal && data.users[i].role == "Cliente") {
+        if (
+          data.users[i].id == searchValue &&
+          data.users[i].role === "Cliente"
+        ) {
+          setUsers([]);
+          setisLoading(true);
+          getBill(searchValue);
           console.log(data.users[i]);
           setUsers([data.users[i]]);
         }
@@ -84,22 +69,26 @@ const OperatorList = () => {
     }
   };
 
-  const handleSearch = (searchVal) => {
-    listUsers(searchVal);
-    getBill(searchVal);
-  };
-
-  // eslint-disable-next-line
-  const handleDelete = async (userId) => {
-    await UserAPI.deleteUser(userId);
+  const handleSearch = () => {
     listUsers();
   };
+
+  const handlePay = () => {
+    sethideList(!hideList);
+    setTimeout(navigate('/Operador#pay'), 3000)
+  };
+
 
   return (
     <Box>
       <Box
         component={Paper}
-        sx={{ background: "aliceblue", borderRadius: 5, mt: 3, mb: 3 }}
+        sx={{
+          background: "aliceblue",
+          borderRadius: 5,
+          mt: 3,
+          mb: 3,
+        }}
       >
         <Grid container sx={{ mb: 3, mt: 3, ml: 3, alignItems: "center" }}>
           <Grid item>
@@ -107,12 +96,24 @@ const OperatorList = () => {
               <strong>Ingrese ID para registrar pago</strong>
             </h3>
           </Grid>
-          <Grid item sx={{ ml: 4 }}>
-            <SearchBar onChange={(searchVal) => handleSearch(searchVal)} />
+          <Grid item sx={{ ml: 4, position: "relative" }}>
+            <TextField
+              size="small"
+              onChange={(e) => setsearchValue(e.target.value)}
+            />
+            <IconButton
+              height="40px"
+              sx={{ position: "absolute", right: 0 }}
+              onClick={handleSearch}
+            >
+              <SearchIcon />
+            </IconButton>
           </Grid>
         </Grid>
         {isLoading ? (
-          <h1>Cargando...</h1>
+          <Grid width="100%" textAlign="center">
+            <h4>Cargando...</h4>
+          </Grid>
         ) : (
           <TableContainer>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -162,7 +163,7 @@ const OperatorList = () => {
                             bgcolor: "#008000",
                           },
                         }}
-                        onClick={() => navigate()}
+                        onClick={handlePay}
                       >
                         Pagar
                       </Button>

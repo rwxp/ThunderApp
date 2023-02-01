@@ -163,19 +163,19 @@ const Sidebar = ({ handleDashboard, handleUserList, handleRegister }) => {
               icon={<ReceiptOutlinedIcon />}
               onClick={handleUserList}
             >
-              Manage users
+              Administrar usuarios
             </MenuItem>
 
             <MenuItem
               icon={<PersonAddAltIcon />}
               onClick={handleRegister}
             >
-              Add new user
+              Añadir usuario
             </MenuItem>
             <MenuItem
               icon={<ContactsOutlinedIcon />}
             >
-              Contacts Info
+              Contactos
             </MenuItem>
 
             {/*<Typography
