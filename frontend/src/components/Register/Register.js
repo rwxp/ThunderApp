@@ -21,6 +21,7 @@ function AdminRegister() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [birthdate, setBirthdate] = useState("");
+  const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -39,6 +40,7 @@ function AdminRegister() {
       firstName,
       lastName,
       birthdate,
+      email,
       address,
       phone,
       password,
@@ -125,8 +127,10 @@ function AdminRegister() {
                 <div className="alert alert-danger" role="alert">
                   Los datos ingresados son incorrectos
                 </div>
-              ) : respuesta === "Success" ? (
+              ) : respuesta === "Success" && userRole==="Admin" ? (
                 navigate("/Dashboard")
+              ) : respuesta === "Success" && userRole==="Operador" ? (
+                navigate("/Operador")
               ) : (
                 <div></div>
               )}
@@ -165,6 +169,12 @@ function AdminRegister() {
                 id="bdate"
                 type="id"
                 onChange={(e) => setBirthdate(e.target.value)}
+              />
+              <MDBInput
+                label="Email"
+                id="email"
+                type="id"
+                onChange={(e) => setEmail(e.target.value)}
               />
               <MDBInput
                 label="Address"

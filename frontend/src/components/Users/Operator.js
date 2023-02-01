@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../App.css";
+//import 
 
 import {
   styled,
@@ -57,6 +58,7 @@ import LocationOn from "@mui/icons-material/LocationOn";
 import "../UserList/UserList.css";
 import Swal from "sweetalert2";
 import Map from "../UserData/Map";
+import AdminRegister from "../Register/Register";
 //
 
 const drawerWidth = 240;
@@ -125,9 +127,11 @@ const Operador = () => {
     if (index === 0) {
       navigate("/Operador#registerpay");
     } else if (index === 1) {
-      navigate("/Operador#registeruser");
+      navigate("/Operador#updateuser");
     } else if (index === 2) {
       navigate("/Operador#users");
+    } else if (index === 3) {
+      navigate("/Operador#registercliente");
     }
   };
 
@@ -206,7 +210,7 @@ const Operador = () => {
           }}
         />
         <List>
-          {["Registrar pagos", "Registrar usuario", "Administrar usuarios"].map(
+          {["Registrar pagos", "Actualiza tus datos", "Administrar usuarios", "Registrar Cliente"].map(
             (text, index) => (
               <ListItem
                 key={text}
@@ -216,9 +220,9 @@ const Operador = () => {
                 <ListItemButton>
                   <ListItemIcon>
                     {index === 0 ? (
-                      
+
                       <AssignmentLateOutlined sx={{ color: "white" }} />
-                      
+
                     ) : index === 1 ? (
                       <MonetizationOnOutlined sx={{ color: "white" }} />
                     ) : (
@@ -246,111 +250,157 @@ const Operador = () => {
             <Box sx={{ backgroundColor: "white", mt: isMobile ? 14 : 4 }}>
 
 
-            <Box
-              sx={{
-                mt: 5,
-                px: 5,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Grid
-                container
+              <Box
                 sx={{
-
+                  mt: 5,
+                  px: 5,
+                  justifyContent: "center",
                   alignItems: "center",
-                  direction: "column",
-
                 }}
-                xs={12}
-                spacing={2}
               >
+                <Grid
+                  container
+                  sx={{
 
-                <Grid item xs={8} >
-                  <h3
-                    style={{
-                      fontWeight: 600,
-                      fontSize: 50,
-                      color: "#1a5c83",
-                      textAlign: "left",
-                      fontFamily: "montserrat",
-                    }}
-                  >
-                    Thunder App
-                  </h3>
-                </Grid>
+                    alignItems: "center",
+                    direction: "column",
 
-                <Grid item xs={4}>
-                  {isMobile ? (
-                    <Grid item sx={{ mt: 4 }}>
+                  }}
+                  xs={12}
+                  spacing={2}
+                >
+
+                  <Grid item xs={8} >
+                    <h3
+                      style={{
+                        fontWeight: 600,
+                        fontSize: 50,
+                        color: "#1a5c83",
+                        textAlign: "left",
+                        fontFamily: "montserrat",
+                      }}
+                    >
+                      Thunder App
+                    </h3>
+                  </Grid>
+
+                  <Grid item xs={4}>
+                    {isMobile ? (
+                      <Grid item sx={{ mt: 4 }}>
+                        <img
+                          src={logo}
+                          width="80%"
+                          height="30px"
+                          alt="logo"
+                          alignItems="right"
+                        />
+                      </Grid>
+                    ) : (
+                      <Grid item xs={6} float="right">
+                        <img
+                          src={logo}
+                          width="90%"
+                          height="auto"
+                          alt="logo"
+                          a
+                          style={{ float: "right" }}
+                        />
+                      </Grid>
+                    )}
+                  </Grid>
+
+                  <Grid container sx={{ mt: 2, mb: 2 }} xs={12} spacing={5}>
+                    <Grid item xs={6} spacing={5} >
+                      <p
+                        style={{
+                          fontSize: 25,
+                          textAlign: "justify",
+                          fontFamily: "montserrat",
+
+
+                        }}
+
+                      >
+                        {" "}
+                        Bienvenido a thunder {<span style={{ color: "#33b4db" }}>{name + ", "}</span>}
+                        somos una aplicación segura para generar facturas {" "} automáticas
+                        del consumo energético de cada uno de nuestros usuarios, con su rol de operador usted podrá
+                        gestionar el pago y actualización de clientes le agradecemos
+                        su apoyo y esperemos que su experiencia en nuestra aplicación sea la mejor
+                      </p>
+                    </Grid>
+                    <Grid item sx={{ mb: 5, ml: 5 }} xs={5} alignItems="right">
                       <img
-                        src={logo}
+                        src={image}
                         width="80%"
-                        height="30px"
+                        height="auto"
                         alt="logo"
                         alignItems="right"
                       />
                     </Grid>
-                  ) : (
-                    <Grid item xs={6} float="right">
-                      <img
-                        src={logo}
-                        width="90%"
-                        height="auto"
-                        alt="logo"
-                        a
-                        style={{ float: "right" }}
-                      />
-                    </Grid>
-                  )}
-                </Grid>
 
-                <Grid container sx={{ mt: 2, mb: 2 }} xs={12} spacing={5}>
-                  <Grid item xs={6} spacing={5} >
-                    <p
-                      style={{
-                        fontSize: 25,
-                        textAlign: "justify",
-                        fontFamily: "montserrat",
-
-
-                      }}
-
-                    >
-                      {" "}
-                      Bienvenido a thunder {<span style={{ color: "#33b4db" }}>{name + ", "}</span>}
-                      somos una aplicación segura para generar facturas {" "} automáticas
-                      del consumo energético de cada uno de nuestros usuarios, con su rol de operador usted podrá 
-                      gestionar el pago y actualización de clientes le agradecemos
-                      su apoyo y esperemos que su experiencia en nuestra aplicación sea la mejor
-                    </p>
                   </Grid>
-                  <Grid item sx={{ mb: 5 , ml: 5}} xs={5} alignItems="right">
-                    <img
-                      src={image}
-                      width="80%"
-                      height="auto"
-                      alt="logo"
-                      alignItems="right"
-                    />
-                  </Grid>
+
 
                 </Grid>
 
 
-              </Grid>
 
-
+              </Box>
 
             </Box>
-
-          </Box>
-          ) : hashLoc === "#registerpay" ? (
+          ): hashLoc ==="#updateuser"? (
+            <UpdateProfile isMobile={isMobile} />
+          ): hashLoc ==="#registercliente"? (
+            <AdminRegister isMobile={isMobile} />
+          ): hashLoc === "#registerpay" ? (
             <Box>
               <OperatorList />
             </Box>
           ) : hashLoc === "#pay" ? (
-            <h1>PAGO</h1>
+            <Box
+              sx={{
+                backgroundColor: "#E6E6FA",
+                mt: 10,
+                py: 5,
+                px: 8,
+                width: "500px",
+                borderRadius: "16px",
+              }}
+            >
+              <Typography
+                fontSize={isMobile ? 22 : 40}
+                sx={{
+                  fontWeight: 800,
+                  color: "#124265",
+                  textAlign: "center",
+                  fontFamily: "Montserrat",
+
+                }}
+              >
+                Registro de pago exitoso
+              </Typography>
+              <Typography
+                fontSize={isMobile ? 20 : 25}
+                sx={{
+                  fontWeight: 200,
+                  color: "#124265",
+                  textAlign: "center",
+                  fontFamily: "Montserrat",
+                }}
+              >
+                Usted acaba de registrar el pago de manera exitosa el cliente se encuentra al día
+              </Typography>
+              <Grid container justifyContent={"center"}>
+                <Button
+                  variant="contained"
+                  sx={{ mt: 2.5, mb: 2.5 }}
+                  onClick={() => navigate("")}
+                >
+                  Go back
+                </Button>
+              </Grid>
+            </Box>
           ) : hashLoc === "#users" ? (
             <UserList />
           ) : getUpdateID(hashLoc)[0] === "#users" ? (
@@ -817,3 +867,183 @@ const getUpdateID = (path) => {
   const id = path.split("/");
   return id;
 };
+
+const UpdateProfile = ({ isMobile }) => {
+  const [isLoading, setisLoading] = useState(false);
+
+  const loggedInUser = window.localStorage.getItem("loggedInUser");
+  const userJson = JSON.parse(loggedInUser);
+  const idUser = userJson.id;
+  console.log(idUser);
+
+  const initialState = {
+    id: 0,
+    lastName: "",
+    firstName: "",
+    birthDate: "",
+    address: "",
+    phone: "",
+    role: "",
+    isActive: false,
+  };
+
+  const navigate = useNavigate();
+  const [user, setUser] = useState(initialState);
+
+  const handleInputChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (id) => {
+    try {
+      await UserAPI.updateUser(id, user);
+      window.localStorage.setItem("loggedInUser", JSON.stringify(user));
+      navigate("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const loadUser = async () => {
+    setisLoading(true);
+    try {
+      const res = await UserAPI.getUser(idUser);
+      const data = await res.json();
+      console.log(data.user);
+      setUser(data.user);
+      setisLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  return (
+    <Box
+      sx={{
+        backgroundColor: "#E6E6FA",
+        my: 12,
+        py: 5,
+        px: 5,
+        borderRadius: "16px",
+
+      }}
+    >
+      <Typography
+        fontSize={isMobile ? 22 : 30}
+        sx={{
+          fontWeight: 800,
+          color: "#124265",
+          textAlign: "center",
+          fontFamily: "Montserrat",
+        }}
+      >
+        Actualiza los datos de tu perfil
+      </Typography>
+      <Box sx={{ my: 2, px: 2 }}>
+        <Box sx={{ my: 2, px: 2 }}>
+          <Grid
+            container
+            width={isMobile ? 300 : 600}
+            justify="center"
+            direction="column"
+            spacing="15px"
+          >
+            <Grid item>
+              <TextField
+                fullWidth
+                sx={{
+                  input: {
+                    background: "white",
+                  },
+                }}
+                label="First Name"
+                name="firstName"
+                type="text"
+                value={user.firstName}
+                onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                fullWidth
+                sx={{
+                  input: {
+                    background: "white",
+                  },
+                }}
+                id="lname-input"
+                label="Last Name"
+                name="lastName"
+                type="text"
+                value={user.lastName}
+                onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                fullWidth
+                sx={{
+                  input: {
+                    background: "white",
+                  },
+                }}
+                id="bdate-input"
+                label="Birth Date"
+                name="birthDate"
+                type="text"
+                value={user.birthDate}
+                onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                fullWidth
+                sx={{
+                  input: {
+                    background: "white",
+                  },
+                }}
+                id="address-input"
+                label="Address"
+                name="address"
+                type="text"
+                value={user.address}
+                onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                fullWidth
+                sx={{
+                  input: {
+                    background: "white",
+                  },
+                }}
+                id="phone-input"
+                label="Phone Number"
+                name="phone"
+                type="text"
+                value={user.phone}
+                onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item sx={{ mt: 5 }}>
+              <Button
+                variant="contained"
+                disableElevation
+                onClick={() => handleSubmit(user.id)}
+              >
+                Guardar
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
