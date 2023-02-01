@@ -8,4 +8,6 @@ urlpatterns=[
     path('bills/', BillsView.as_view(), name="bills"),
     path('bills/<int:id>', BillsView.as_view(), name="bill"),
     path('users/verifyUser', UsersView.verifyUser, name="verify"),
+    path('bills/activateBill', BillsView.activateBill, name="activatebill"),
+
 ]

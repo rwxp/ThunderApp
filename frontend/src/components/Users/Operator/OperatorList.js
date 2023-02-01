@@ -27,7 +27,7 @@ import SearchBar from "material-ui-search-bar";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LocationOn from "@mui/icons-material/LocationOn";
-
+  
 const OperatorList = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setisLoading] = useState(false);
