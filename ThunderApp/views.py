@@ -108,10 +108,12 @@ class BillsView(View):
             datos = {'message': 'Bill not found!'}
         else:
             print("HE ENTRAU AQUI QUE PEDAZO DE MAKINA")
-            datos = (list(Bills.objects.filter(userID=id).values('isGenerated')))[0]['isGenerated']
-            print(datos)    
-            if (datos == True):
-                Bills.objects.filter(userID=id).update(isGenerated=False)
+            datos = (list(Bills.objects.filter(userID=id).values('isPaid')))[
+                0]['isPaid']
+            print(datos)
+            if (datos == False):
+                Bills.objects.filter(userID=id).update(isPaid=True)
+                Bills.objects.filter(userID=id).update(status="paid")
                 datos = {'message': 'Bill has been payed!'}
             else:
                 datos = {'message': 'Bill not found'}
@@ -173,6 +175,7 @@ class BillsView(View):
                     energyConsumption = random.randrange(100, 200)
                     amountCalc = 500*energyConsumption
                     Bills.objects.filter(userID=id).update(amount=amountCalc)
+                    billData = {'message': 'Success', 'bill': bill}
 
                 elif (dueDate <= fechaActual.date()):
                     Bills.objects.filter(userID=id).update(status='mora')

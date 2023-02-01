@@ -158,7 +158,7 @@ const Gerente = () => {
           }}
         />
         <List>
-          {["Consultar estado", "Pagar factura", "Ver factura"].map(
+          {["Ver reportes", "Ver usuarios"].map(
             (text, index) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton>

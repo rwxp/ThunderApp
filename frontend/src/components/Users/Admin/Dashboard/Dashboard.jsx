@@ -212,7 +212,7 @@ const Dashboard = () => {
                 }}
               >
                 {hashLoc === "" ? (
-                  <Box sx={{ pb:10 }}>
+                  <Box sx={{ pb:10, position:"absolute", top: 250}}>
                     <Charts />
                   </Box>
                 ) : hashLoc === "#users" ? (

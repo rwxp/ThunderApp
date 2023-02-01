@@ -100,6 +100,23 @@ const Customer = () => {
   const theme = useTheme();
   const [open, setOpen] = useState(true);
 
+  const [bill, setBill] = useState();
+
+  const getBill = async (searchVal) => {
+    try {
+      const res = await FacturaAPI.getBill(searchVal);
+      const data = await res.json();
+      setBill(data.bill);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getBill();
+    // eslint-disable-next-line
+  }, []);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openMenu = Boolean(anchorEl);
   const handleMenu = (event) => {
@@ -140,22 +157,20 @@ const Customer = () => {
     navigate("/Cliente#bill");
     handleClose();
   };
-  
-  const handlePagar = () =>{
+
+  const handlePagar = () => {
     navigate("/Cliente#pagoexitoso");
     handleClose();
-
-  }
+  };
 
   const loggedInUser = window.localStorage.getItem("loggedInUser");
   const userJson = JSON.parse(loggedInUser);
   const name = userJson.firstName + " " + userJson.lastName;
 
   const billStatus = window.localStorage.getItem("clientBill");
-  console.log(billStatus);
-  console.log(billStatus.status);
+  const billJson = JSON.parse(billStatus);
+  console.log(billJson.status);
   const estado = userJson.isActive;
-  const estadostr = String(estado);
 
   const handleDrawerItem = ({ index }) => {
     if (isMobile) {
@@ -340,50 +355,48 @@ const Customer = () => {
             <UpdateProfile isMobile={isMobile} />
           ) : hashLoc === "#pagoexitoso" ? (
             <Box
-            sx={{
-              backgroundColor: "#E6E6FA",
-              mt: 10,
-              py: 5,
-              px: 8,
-              width: "500px",
-              borderRadius: "16px",
-            }}
-          >
-            <Typography
-              fontSize={isMobile ? 22 : 40}
               sx={{
-                fontWeight: 800,
-                color: "#124265",
-                textAlign: "center",
-                fontFamily: "Montserrat",
-
+                backgroundColor: "#E6E6FA",
+                mt: 10,
+                py: 5,
+                px: 8,
+                width: "500px",
+                borderRadius: "16px",
               }}
             >
-              Pago exitoso
-            </Typography>
-            <Typography
-              fontSize={isMobile ? 20 : 25}
-              sx={{
-                fontWeight: 200,
-                color: "#124265",
-                textAlign: "center",
-                fontFamily: "Montserrat",
-              }}
-            >
-              Usted acaba de registrar el pago de manera exitosa 
-            </Typography>
-            <Grid container justifyContent={"center"}>
-              <Button
-                variant="contained"
-                sx={{ mt: 2.5, mb: 2.5 }}
-                onClick={() => navigate("")}
+              <Typography
+                fontSize={isMobile ? 22 : 40}
+                sx={{
+                  fontWeight: 800,
+                  color: "#124265",
+                  textAlign: "center",
+                  fontFamily: "Montserrat",
+                }}
               >
-                Go back
-              </Button>
-            </Grid>
-          </Box>
-
-          ): hashLoc === "#status" ? (
+                Pago exitoso
+              </Typography>
+              <Typography
+                fontSize={isMobile ? 20 : 25}
+                sx={{
+                  fontWeight: 200,
+                  color: "#124265",
+                  textAlign: "center",
+                  fontFamily: "Montserrat",
+                }}
+              >
+                Usted acaba de registrar el pago de manera exitosa
+              </Typography>
+              <Grid container justifyContent={"center"}>
+                <Button
+                  variant="contained"
+                  sx={{ mt: 2.5, mb: 2.5 }}
+                  onClick={() => navigate("")}
+                >
+                  Go back
+                </Button>
+              </Grid>
+            </Box>
+          ) : hashLoc === "#status" ? (
             <Box
               sx={{
                 backgroundColor: "#E6E6FA",
@@ -417,7 +430,14 @@ const Customer = () => {
                 Hola {name} recuerda que debes estar al día con el pago de tus
                 facturas, en caso de que tu estado no esté activado, dirigete a
                 la pestaña de pagos. Tu estado es:{" "}
-                {estadostr ? "activo" : "inactivo"}
+                <span
+                  style={{
+                    fontWeight: "bold",
+                    color: billJson.status === "mora" ? "red" : "blue",
+                  }}
+                >
+                  {billJson.status === "mora" ? "en mora" : "al día"}
+                </span>
               </Typography>
             </Box>
           ) : hashLoc === "#payment" ? (
@@ -630,16 +650,14 @@ const UpdateProfile = ({ isMobile }) => {
 const Payment = ({ isMobile }) => {
   const navigate = useNavigate();
 
-  const handlePagar = () =>{
-    const loggedInUser = localStorage.getItem("clientBill")
-    console.log("El logged in User", loggedInUser)
+  const handlePagar = () => {
+    const loggedInUser = localStorage.getItem("clientBill");
     const userJson = JSON.parse(loggedInUser);
-    console.log("El usarID es", userJson.userID)
-    FacturaAPI.payBill(userJson.userID)
+    FacturaAPI.payBill(userJson.userID);
     navigate("/Cliente#pagoexitoso");
     handleClose();
-  }
-  
+  };
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClose = () => {
     setAnchorEl(null);
@@ -753,7 +771,7 @@ const WelcomeUser = ({ isMobile, name }) => {
         display="flex"
         flexDirection="row"
         justifyContent="center"
-        sx={{ my: isMobile ? 0 : 8, alignItems: "center"}}
+        sx={{ my: isMobile ? 0 : 8, alignItems: "center" }}
       >
         <Grid
           item
@@ -765,7 +783,7 @@ const WelcomeUser = ({ isMobile, name }) => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            height:"60vh"
+            height: "60vh",
           }}
         >
           <Typography
@@ -780,9 +798,9 @@ const WelcomeUser = ({ isMobile, name }) => {
           >
             Thunder App
           </Typography>
-          <br/>
-          <br/>
-          <Typography variant="h6">
+          <br />
+          <br />
+          <Typography variant="h6" textAlign="justify">
             Bienvenido a thunder{" "}
             {<span style={{ color: "#33b4db" }}>{name + ", "}</span>}
             somos una aplicación segura para generar facturas automáticas del
@@ -802,7 +820,7 @@ const WelcomeUser = ({ isMobile, name }) => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "space-between",
-            height:"60vh"
+            height: "60vh",
           }}
         >
           {isMobile ? null : (

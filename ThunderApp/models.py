@@ -26,3 +26,4 @@ class Bills(models.Model):
     status = models.CharField(max_length=24)
     payMethod = models.CharField(max_length=24)
     isGenerated = models.BooleanField(default=False)
+    isPaid = models.BooleanField(default=False)

@@ -30,7 +30,6 @@ const OperatorList = () => {
   const [bill, setBill] = useState();
   const [searchValue, setsearchValue] = useState();
 
-  const { sethideList, hideList } = useAuth();
 
   const navigate = useNavigate();
 
@@ -38,7 +37,6 @@ const OperatorList = () => {
     try {
       const res = await FacturaAPI.getBill(searchVal);
       const data = await res.json();
-      console.log(data.bill);
       setBill(data.bill);
     } catch (error) {
       console.log(error);
@@ -50,7 +48,6 @@ const OperatorList = () => {
     try {
       const res = await UserAPI.listUsers();
       const data = await res.json();
-      console.log(searchValue)
       for (let i = 0; i < data.users.length; i++) {
         // eslint-disable-next-line
         if (
@@ -74,10 +71,9 @@ const OperatorList = () => {
   };
 
   const handlePay = () => {
-    sethideList(!hideList);
-    setTimeout(navigate('/Operador#pay'), 3000)
+    FacturaAPI.payBill(users[0].id);
+    navigate('/Operador#pay')
   };
-
 
   return (
     <Box>

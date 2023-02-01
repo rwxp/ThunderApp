@@ -106,7 +106,7 @@ const Bill = ({ bill, name, address }) => {
 
   return (
     <div style={{ marginTop: 30 }}>
-      {bill.isGenerated === false ? (
+      {bill.isGenerated === false && bill.isPaid === false ? (
         <div
           style={{
             height: "100%",
@@ -122,6 +122,21 @@ const Bill = ({ bill, name, address }) => {
           <h3 style={{ color: "rgb(0, 122, 165)" }}>
             La próxima factura será generada el {bill.billingDate}
           </h3>
+        </div>
+      ) : bill.isPaid ? (
+        <div
+          style={{
+            height: "80%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+          }}
+        >
+          <h2 style={{ color: "rgb(0, 122, 165)" }}>
+            Ya se han pagado las facturas
+          </h2>
         </div>
       ) : (
         <Grid container justifyContent="center">

@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../App.css";
-//import 
+//import
 
 import {
   styled,
@@ -210,30 +210,31 @@ const Operador = () => {
           }}
         />
         <List>
-          {["Registrar pagos", "Actualiza tus datos", "Administrar usuarios", "Registrar Cliente"].map(
-            (text, index) => (
-              <ListItem
-                key={text}
-                onClick={() => handleDrawerItem({ index })}
-                disablePadding
-              >
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index === 0 ? (
-
-                      <AssignmentLateOutlined sx={{ color: "white" }} />
-
-                    ) : index === 1 ? (
-                      <MonetizationOnOutlined sx={{ color: "white" }} />
-                    ) : (
-                      <ReceiptOutlined sx={{ color: "white" }} />
-                    )}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            )
-          )}
+          {[
+            "Registrar pagos",
+            "Actualiza tus datos",
+            "Administrar usuarios",
+            "Registrar Cliente",
+          ].map((text, index) => (
+            <ListItem
+              key={text}
+              onClick={() => handleDrawerItem({ index })}
+              disablePadding
+            >
+              <ListItemButton>
+                <ListItemIcon>
+                  {index === 0 ? (
+                    <AssignmentLateOutlined sx={{ color: "white" }} />
+                  ) : index === 1 ? (
+                    <MonetizationOnOutlined sx={{ color: "white" }} />
+                  ) : (
+                    <ReceiptOutlined sx={{ color: "white" }} />
+                  )}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
         </List>
       </Drawer>
 
@@ -247,160 +248,17 @@ const Operador = () => {
           }}
         >
           {hashLoc === "" ? (
-            <Box sx={{ backgroundColor: "white", mt: isMobile ? 14 : 4 }}>
-
-
-              <Box
-                sx={{
-                  mt: 5,
-                  px: 5,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Grid
-                  container
-                  sx={{
-
-                    alignItems: "center",
-                    direction: "column",
-
-                  }}
-                  xs={12}
-                  spacing={2}
-                >
-
-                  <Grid item xs={8} >
-                    <h3
-                      style={{
-                        fontWeight: 600,
-                        fontSize: 50,
-                        color: "#1a5c83",
-                        textAlign: "left",
-                        fontFamily: "montserrat",
-                      }}
-                    >
-                      Thunder App
-                    </h3>
-                  </Grid>
-
-                  <Grid item xs={4}>
-                    {isMobile ? (
-                      <Grid item sx={{ mt: 4 }}>
-                        <img
-                          src={logo}
-                          width="80%"
-                          height="30px"
-                          alt="logo"
-                          alignItems="right"
-                        />
-                      </Grid>
-                    ) : (
-                      <Grid item xs={6} float="right">
-                        <img
-                          src={logo}
-                          width="90%"
-                          height="auto"
-                          alt="logo"
-                          a
-                          style={{ float: "right" }}
-                        />
-                      </Grid>
-                    )}
-                  </Grid>
-
-                  <Grid container sx={{ mt: 2, mb: 2 }} xs={12} spacing={5}>
-                    <Grid item xs={6} spacing={5} >
-                      <p
-                        style={{
-                          fontSize: 25,
-                          textAlign: "justify",
-                          fontFamily: "montserrat",
-
-
-                        }}
-
-                      >
-                        {" "}
-                        Bienvenido a thunder {<span style={{ color: "#33b4db" }}>{name + ", "}</span>}
-                        somos una aplicación segura para generar facturas {" "} automáticas
-                        del consumo energético de cada uno de nuestros usuarios, con su rol de operador usted podrá
-                        gestionar el pago y actualización de clientes le agradecemos
-                        su apoyo y esperemos que su experiencia en nuestra aplicación sea la mejor
-                      </p>
-                    </Grid>
-                    <Grid item sx={{ mb: 5, ml: 5 }} xs={5} alignItems="right">
-                      <img
-                        src={image}
-                        width="80%"
-                        height="auto"
-                        alt="logo"
-                        alignItems="right"
-                      />
-                    </Grid>
-
-                  </Grid>
-
-
-                </Grid>
-
-
-
-              </Box>
-
-            </Box>
-          ): hashLoc ==="#updateuser"? (
+            <WelcomeOperator isMobile={isMobile} name={name} />
+          ) : hashLoc === "#updateuser" ? (
             <UpdateProfile isMobile={isMobile} />
-          ): hashLoc ==="#registercliente"? (
+          ) : hashLoc === "#registercliente" ? (
             <AdminRegister isMobile={isMobile} />
-          ): hashLoc === "#registerpay" ? (
+          ) : hashLoc === "#registerpay" ? (
             <Box>
               <OperatorList />
             </Box>
           ) : hashLoc === "#pay" ? (
-            <Box
-              sx={{
-                backgroundColor: "#E6E6FA",
-                mt: 10,
-                py: 5,
-                px: 8,
-                width: "500px",
-                borderRadius: "16px",
-              }}
-            >
-              <Typography
-                fontSize={isMobile ? 22 : 40}
-                sx={{
-                  fontWeight: 800,
-                  color: "#124265",
-                  textAlign: "center",
-                  fontFamily: "Montserrat",
-
-                }}
-              >
-                Registro de pago exitoso
-              </Typography>
-              <Typography
-                fontSize={isMobile ? 20 : 25}
-                sx={{
-                  fontWeight: 200,
-                  color: "#124265",
-                  textAlign: "center",
-                  fontFamily: "Montserrat",
-                }}
-              >
-                Usted acaba de registrar el pago de manera exitosa el cliente se encuentra al día
-              </Typography>
-              <Grid container justifyContent={"center"}>
-                <Button
-                  variant="contained"
-                  sx={{ mt: 2.5, mb: 2.5 }}
-                  onClick={() => navigate("")}
-                >
-                  Go back
-                </Button>
-              </Grid>
-            </Box>
+            <SuccessfulPayment isMobile={isMobile} />
           ) : hashLoc === "#users" ? (
             <UserList />
           ) : getUpdateID(hashLoc)[0] === "#users" ? (
@@ -929,7 +787,6 @@ const UpdateProfile = ({ isMobile }) => {
         py: 5,
         px: 5,
         borderRadius: "16px",
-
       }}
     >
       <Typography
@@ -1047,3 +904,123 @@ const UpdateProfile = ({ isMobile }) => {
   );
 };
 
+const SuccessfulPayment = ({ isMobile }) => {
+  const navigate = useNavigate();
+  return (
+    <Box
+      sx={{
+        backgroundColor: "#E6E6FA",
+        mt: 10,
+        py: 5,
+        px: 8,
+        width: "500px",
+        borderRadius: "16px",
+      }}
+    >
+      <Typography
+        fontSize={isMobile ? 22 : 36}
+        sx={{
+          fontWeight: 800,
+          color: "#124265",
+          textAlign: "center",
+          fontFamily: "Montserrat",
+        }}
+      >
+        Registro de pago exitoso
+      </Typography>
+      <Typography
+        fontSize={isMobile ? 20 : 25}
+        sx={{
+          fontWeight: 200,
+          color: "#124265",
+          textAlign: "center",
+          fontFamily: "Montserrat",
+        }}
+      >
+        Usted acaba de registrar el pago de manera exitosa el cliente se
+        encuentra al día
+      </Typography>
+      <Grid container justifyContent={"center"}>
+        <Button
+          variant="contained"
+          sx={{ mt: 2.5, mb: 2.5 }}
+          onClick={() => navigate("/Operador#registerpay")}
+        >
+          Go back
+        </Button>
+      </Grid>
+    </Box>
+  );
+};
+
+const WelcomeOperator = ({ isMobile, name }) => {
+  return (
+    <Box sx={{ m: 8, pt: isMobile ? 4 : 0 }}>
+      <Grid
+        container
+        display="flex"
+        flexDirection="row"
+        justifyContent="center"
+        sx={{ my: isMobile ? 0 : 8, alignItems: "center" }}
+      >
+        <Grid
+          item
+          xs={12}
+          md={4}
+          sx={{
+            textAlign: "center",
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            height: "60vh",
+          }}
+        >
+          <Typography
+            variant="h1"
+            style={{
+              fontWeight: 600,
+              fontSize: 40,
+              color: "#1a5c83",
+              textAlign: "center",
+              fontFamily: "montserrat",
+            }}
+          >
+            Thunder App
+          </Typography>
+          <br />
+          <br />
+          <Typography variant="h6" textAlign="justify">
+            {" "}
+            Bienvenido a thunder{" "}
+            {<span style={{ color: "#33b4db" }}>{name + ", "}</span>}
+            somos una aplicación segura para generar facturas automáticas del
+            consumo energético de cada uno de nuestros usuarios, con su rol de
+            operador usted podrá gestionar el pago y actualización de clientes
+            le agradecemos su apoyo y esperemos que su experiencia en nuestra
+            aplicación sea la mejor
+          </Typography>
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+          md={4}
+          sx={{
+            mt: isMobile ? 8 : 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "space-between",
+            height: "60vh",
+          }}
+        >
+          {isMobile ? null : (
+            <img src={logo} width="25%" height="auto" alt="logo" />
+          )}
+          <img src={image} alt="img" width="60%" height="auto" />
+        </Grid>
+      </Grid>
+    </Box>
+  );
+};

@@ -14,7 +14,27 @@ import BarChart from "../ComponentsDashboard/BarChart";
 import StatBox from "../ComponentsDashboard/StatBox";
 import ProgressCircle from "../ComponentsDashboard/ProgressCircle";
 
+import * as UserAPI from "../../../UserList/UserAPI";
+
 const Charts = () => {
+  const [clientes, setclientes] = React.useState();
+
+  const listUsers = async () => {
+    try {
+      const res = await UserAPI.listUsers();
+      const data = await res.json();
+      const clients = data.users.filter((user) => user.role === "Cliente");
+      setclientes(clients.length);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  React.useMemo(() => {
+    listUsers();
+    // eslint-disable-next-line
+  }, []);
+
   const [theme, colorMode] = useMode();
   const colors = tokens(theme.palette.mode);
 
@@ -31,11 +51,13 @@ const Charts = () => {
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
+          height="30vh"
+          width="15vw"
           justifyContent="center"
         >
           <StatBox
-            title="32,441"
-            subtitle="New Clients"
+            title={clientes}
+            subtitle="Nuevos clientes"
             progress="0.30"
             icon={
               <PersonAddIcon
@@ -47,123 +69,13 @@ const Charts = () => {
             }
           />
         </Box>
-        {/*
-      <Box
-        gridColumn="span 3"
-        backgroundColor={colors.primary[400]}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <StatBox
-          title="12,361"
-          subtitle="Emails Sent"
-          progress="0.75"
-          increase="+14%"
-          icon={
-            <EmailIcon
-              sx={{
-                color: colors.greenAccent[600],
-                fontSize: "26px",
-              }}
-            />
-          }
-        />
-      </Box>
-      <Box
-        gridColumn="span 3"
-        backgroundColor={colors.primary[400]}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <StatBox
-          title="431,225"
-          subtitle="Sales Obtained"
-          progress="0.50"
-          increase="+21%"
-          icon={
-            <PointOfSaleIcon
-              sx={{
-                color: colors.greenAccent[600],
-                fontSize: "26px",
-              }}
-            />
-          }
-        />
-      </Box>
-
-
-      <Box
-        gridColumn="span 3"
-        backgroundColor={colors.primary[400]}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <StatBox
-          title="1,325,134"
-          subtitle="Traffic Received"
-          progress="0.80"
-          increase="+43%"
-          icon={
-            <TrafficIcon
-              sx={{
-                color: colors.greenAccent[600],
-                fontSize: "26px",
-              }}
-            />
-          }
-        />
-      </Box>
-      */}
-
-        <Box
-          gridColumn="span 8"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-        >
-          <Box
-            mt="25px"
-            p="0 30px"
-            display="flex "
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Box>
-              <Typography
-                variant="h5"
-                fontWeight="600"
-                color={colors.grey[100]}
-              >
-                Revenue Generated
-              </Typography>
-              <Typography
-                variant="h3"
-                fontWeight="bold"
-                color={colors.greenAccent[500]}
-              >
-                $59,342.32
-              </Typography>
-            </Box>
-            <Box>
-              <IconButton>
-                <DownloadOutlinedIcon
-                  sx={{
-                    fontSize: "26px",
-                    color: colors.greenAccent[500],
-                  }}
-                />
-              </IconButton>
-            </Box>
-          </Box>
-          <Box height="250px" m="-20px 0 0 0"></Box>
-        </Box>
+    
         <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           overflow="auto"
+          height="30vh"
         >
           <Box
             display="flex"
@@ -174,12 +86,11 @@ const Charts = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Transactions
+              Transacciones recientes
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
             <Box
-              key={`${transaction.txId}-${i}`}
+              key={0}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
@@ -192,64 +103,40 @@ const Charts = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  {transaction.txId}
+                  ID Factura
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  {transaction.user}
+                  Usuario
                 </Typography>
               </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
+              <Box color={colors.grey[100]}>Fecha</Box>
               <Box
                 backgroundColor={colors.greenAccent[500]}
                 p="5px 10px"
                 borderRadius="4px"
               >
-                ${transaction.cost}
+                ${0}
               </Box>
             </Box>
-          ))}
         </Box>
 
         <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
-          p="30px"
+          p="20px"
+          height="30vh"
         >
           <Typography variant="h5" fontWeight="600">
-            Campaign
+            Crecimiento
           </Typography>
           <Box
             display="flex"
             flexDirection="column"
             alignItems="center"
-            mt="25px"
+            mt="20px"
           >
-            <ProgressCircle size="125" />
-            <Typography
-              variant="h5"
-              color={colors.greenAccent[500]}
-              sx={{ mt: "15px" }}
-            >
-              $48,352 revenue generated
-            </Typography>
-            <Typography>Includes extra misc expenditures and costs</Typography>
-          </Box>
-        </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ padding: "30px 30px 0 30px" }}
-          >
-            Sales Quantity
-          </Typography>
-          <Box height="250px" mt="-20px">
-            <BarChart isDashboard={true} />
+            <ProgressCircle size="100" />
           </Box>
         </Box>
       </Box>

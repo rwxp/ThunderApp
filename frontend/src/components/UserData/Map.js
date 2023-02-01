@@ -68,11 +68,10 @@ const Map = () => {
 
   const path = window.location.pathname;
 
-
   const handleGoBack = () => {
     if (path === "/Dashboard") {
       navigate(`/Dashboard#users`);
-    } else if (path === "/Operador"){
+    } else if (path === "/Operador") {
       navigate(`/Operador#users`);
     }
   };
@@ -126,9 +125,19 @@ const Map = () => {
               </IconButton>
             </Box>
           </Box>
-          <Button variant="contained" onClick={handleGoBack}>
+          <Button
+            variant="contained"
+            onClick={handleGoBack}
+            sx={{
+              bgcolor: "lightblue",
+              color: "black",
+              "&:hover": {
+                color: "white",
+              },
+            }}
+          >
             {" "}
-            Go back{" "}
+            Volver{" "}
           </Button>
         </Box>
       ) : (
