@@ -205,7 +205,7 @@ const Dashboard = () => {
                   width: "100%",
                   display: "grid",
                   placeItems: "center",
-                  mt: 2,
+                  my: 4,
                 }}
               >
                 {hashLoc === "" ? (

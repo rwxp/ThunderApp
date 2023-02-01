@@ -1,5 +1,5 @@
-//const API_URL = "https://thunderapp-w105-backend-2yfhokam6q-wm.a.run.app/api/users/";
-const API_URL = "http://localhost:8000/api/users/";
+const API_URL = "https://thunderapp-w105-backend-2yfhokam6q-wm.a.run.app/api/users/";
+//const API_URL = "http://localhost:8000/api/users/";
 
 export const listUsers = async () => {
   return await fetch(API_URL);
