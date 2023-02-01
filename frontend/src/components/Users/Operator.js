@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../../App.css";
 
 import {
@@ -18,6 +18,9 @@ import {
   ListItemIcon,
   ListItemText,
   Grid,
+  Button,
+  useMediaQuery,
+  TextField,
   TableContainer,
   Table,
   TableHead,
@@ -33,6 +36,7 @@ import {
   Switch,
 } from "@mui/material";
 
+import * as UserAPI from "../UserList/UserAPI.js";
 import MuiAppBar from "@mui/material/AppBar";
 
 import MenuIcon from "@mui/icons-material/Menu";
@@ -53,7 +57,6 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LocationOn from "@mui/icons-material/LocationOn";
 
-import * as UserAPI from "../UserList/UserAPI";
 import "../UserList/UserList.css";
 import Swal from "sweetalert2";
 import Map from "../UserData/Map";
@@ -106,11 +109,13 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const Operador = () => {
+  const params = useParams();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const navigate = useNavigate();
+  const [users, setUser] = useState([]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -214,7 +219,9 @@ const Operador = () => {
                 <ListItemButton>
                   <ListItemIcon>
                     {index === 0 ? (
+                      
                       <AssignmentLateOutlined sx={{ color: "white" }} />
+                      
                     ) : index === 1 ? (
                       <MonetizationOnOutlined sx={{ color: "white" }} />
                     ) : (

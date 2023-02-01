@@ -36,8 +36,6 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import AssignmentLateOutlined from "@mui/icons-material/AssignmentLateOutlined";
 import ReceiptOutlined from "@mui/icons-material/ReceiptOutlined";
 import MonetizationOnOutlined from "@mui/icons-material/MonetizationOnOutlined";
-import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 
 import UserMenu from "./UserMenu";
 import Factura from "../Bill/Factura";
@@ -125,6 +123,7 @@ const Customer = () => {
     navigate("/Cliente#profile");
     handleClose();
   };
+
 
   const handleViewStatus = () => {
     navigate("/Cliente#status");
@@ -261,7 +260,7 @@ const Customer = () => {
             width: drawerWidth,
             boxSizing: "border-box",
             backgroundColor: "#33b4db",
-            color: "white",
+            color: "#FFFFFF",
           },
         }}
         variant="persistent"
@@ -271,9 +270,9 @@ const Customer = () => {
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
+              <ChevronLeftIcon sx={{ color: "white" }} />
             ) : (
-              <ChevronRightIcon />
+              <ChevronRightIcon sx={{ color: "white" }} />
             )}
           </IconButton>
         </DrawerHeader>
@@ -285,43 +284,31 @@ const Customer = () => {
         <Grid sx={{ py: 3, display: "grid", justifyContent: "center" }}>
           <img src={logo} alt="logo" width="100px" height="auto" />
         </Grid>
-        <List sx={{ justifyContent: "center", px: 2 }}>
-          {[
-            "Update profile",
-            "Consultar estado",
-            "Pagar factura",
-            "Ver factura",
-          ].map((text, index) => (
-            <MenuItem
-              key={text}
-              disableRipple
-              onClick={() => handleDrawerItem({ index })}
-            >
-              <ListItemIcon sx={{ p: 1 }}>
-                {index === 0 ? (
-                  <Avatar
-                    sx={{
-                      bgcolor: "rgba(0,0,0,0.2)",
-                      color: "white",
-                      width: 26,
-                      height: 26,
-                      fontSize: 14,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {name.substring(0, 1)}
-                  </Avatar>
-                ) : index === 1 ? (
-                  <AssignmentLateOutlined sx={{ color: "white" }} />
-                ) : index === 2 ? (
-                  <MonetizationOnOutlined sx={{ color: "white" }} />
-                ) : (
-                  <ReceiptOutlined sx={{ color: "white" }} />
-                )}
-              </ListItemIcon>
-              <Typography sx={{ pl: 1 }}>{text}</Typography>
-            </MenuItem>
-          ))}
+        <List>
+          {["update profile", "Consultar estado", "Pagar factura", "Ver factura"].map(
+            (text, index) => (
+              <ListItem
+                key={text}
+                disablePadding
+                onClick={() => handleDrawerItem({ index })}
+              >
+                <ListItemButton>
+                  <ListItemIcon>
+                    {index === 0 ? (
+                      <UserMenu sx={{ color: "white" }} />
+                    ) : index === 1 ? (
+                      <AssignmentLateOutlined sx={{ color: "white" }} />
+                    ) : index === 2 ? (
+                      <MonetizationOnOutlined sx={{ color: "white" }} />
+                    ) : (
+                      <ReceiptOutlined sx={{ color: "white" }} />
+                    )}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            )
+          )}
         </List>
       </Drawer>
 
@@ -346,6 +333,7 @@ const Customer = () => {
                   color: "#124265",
                   textAlign: "center",
                   fontFamily: "Montserrat",
+
                 }}
               >
                 Tu estado en Thunder
@@ -365,7 +353,8 @@ const Customer = () => {
               </Typography>
             </Box>
           ) : hashLoc === "#payment" ? (
-            <Payment />
+            <Payment  />
+
           ) : hashLoc === "#bill" ? (
             <Box sx={{ backgroundColor: "white", mt: isMobile ? 14 : 4 }}>
               {isMobile ? (
@@ -394,7 +383,9 @@ const Customer = () => {
               Bienvenido {<span style={{ color: "#33b4db" }}>{name}</span>}
             </Typography>
           )}
+
         </Grid>
+
       </Main>
     </Box>
   );
@@ -463,6 +454,7 @@ const UpdateProfile = ({ isMobile }) => {
         py: 5,
         px: 5,
         borderRadius: "16px",
+        
       }}
     >
       <Typography
@@ -581,6 +573,10 @@ const UpdateProfile = ({ isMobile }) => {
 };
 
 const Payment = ({isMobile}) => {
+  
+  
+  return (
+    
   <Box
     sx={{
       backgroundColor: "#E6E6FA",
@@ -677,5 +673,7 @@ const Payment = ({isMobile}) => {
         pagar
       </Button>
     </Box>
-  </Box>;
+  </Box>
+  );
+
 };

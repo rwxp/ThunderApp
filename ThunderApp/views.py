@@ -99,6 +99,23 @@ class UsersView(View):
 
 
 class BillsView(View):
+        
+    @method_decorator(csrf_exempt)
+    def activateBill(request):
+        data = json.loads(request.body)
+        print("los datos de entrada son", data)
+        id = data["id"]
+        if (id == 0):
+            datos = {'message': 'Bill not found!'}
+        else:
+            datos = list(Bills.objects.filter(userID=id).values())
+            if (len(datos) > 0):
+                Bills.objects.filter(userID=id).update(isGenerated=True)
+                datos = {'message': 'Activation Successful'}
+            else:
+                datos = {'message': 'Bill not found'}
+        return JsonResponse(datos)
+        
 
     def post(self, request):
         jd = json.loads(request.body)
@@ -160,3 +177,4 @@ class BillsView(View):
             else:
                 billData = {'message': 'Bill not found'}
             return JsonResponse(billData)
+ 

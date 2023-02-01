@@ -1,6 +1,7 @@
-import React from "react";
+import React,{useRef} from "react";
 import "./Login.css";
 import * as UserAPI from "../UserList/UserAPI";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import logo from "../LandingPage/Images/logo2.png";
 
@@ -31,6 +32,7 @@ import * as FacturaAPI from "../Bill/FacturaAPI";
 import { useAuth } from "../../context/Context";
 
 const Login = () => {
+  const [capchaValido, cambiarCaptchaValido] = useState(null);
   const { setName } = useAuth();
   const [bill, setBill] = useState();
 
@@ -50,6 +52,7 @@ const Login = () => {
       console.log(error);
     }
   };
+    
 
   const handleRole = ({ target }) => {
     setRole(target.value);
@@ -61,14 +64,34 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  const captcha = useRef(null);
+
+  const handleCaptcha = () => {
+    if (captcha.current.getValue()) {
+      cambiarCaptchaValido(true);
+    } else {
+      cambiarCaptchaValido(false);
+    }
+  };
+
   async function handleSubmit(event) {
+    event.preventDefault();
+
+    if (!capchaValido) {
+      Swal.fire({
+        title: "Error",
+        text: "Debes verificar que no eres un robot",
+        background: "rgb(176, 55, 55)",
+        color: "white",
+        timer: 2000,
+      });
+      return;
+    }
+
     try {
-      event.preventDefault();
       var ans = await verifyUser(email, password, role);
       var res = await ans.json();
       setRespuesta(res.message);
-      window.localStorage.setItem("loggedInUser", JSON.stringify(user));
-      window.localStorage.setItem("clientBill", JSON.stringify(bill));
     } catch (error) {
       Swal.fire({
         title: "Error",
@@ -264,6 +287,10 @@ const Login = () => {
                   justifyContent: "center",
                 }}
               >
+                <ReCAPTCHA
+                    sitekey="6LcJ2UAkAAAAAGA8oKYdI-U3HhIp6OGpjgghpgUk"
+                    ref={captcha} onChange={handleCaptcha}/>
+
                 <Grid item xs={12}>
                   <Button
                     className="gradient-custom-2"

@@ -62,10 +62,19 @@ function AdminRegister() {
 
 
   return (
-    <Box sx={{ mt: "80px" }}>
+    <Box
+    sx={{
+      backgroundColor: "#E6E6FA",
+      mb: 4,
+      px: 1,
+      borderRadius: "16px",
+      width: "700px",
+    }}
+  >
       <form onSubmit={handleSubmit}>
-        <Grid container sx={{ justifyContent: "center" }}>
-          <Grid item sx={{ px: 8 }} md={6}>
+        <Grid container sx={isMobile ? 6 : 14 } justifyContent = "center">
+
+          <Grid item sx={{ px: 2  }} width={isMobile ? 300 : 600}>
             <div className="d-flex flex-column">
               <div className="text-center">
                 <img
@@ -81,7 +90,7 @@ function AdminRegister() {
                 <h3
                   className="mt-1 mb-5 pb-1"
                   style={{
-                    fontSize: 28,
+                    fontSize: 30,
                     fontWeight: 800,
                     color: "#124265",
                     textAlign: "center",
@@ -94,9 +103,23 @@ function AdminRegister() {
                     <>Registrar Cliente</>
                   )}
                 </h3>
+
+                <h6
+                  className="mt-1 mb-5 pb-1"
+                  style={{
+                    fontSize: 20,
+                    fontWeight: 800,
+                    color: "#124265",
+                    textAlign: "center",
+                    fontFamily: "Montserrat",
+                  }}
+                >
+                  Por favor añade un nuevo usuario
+                </h6>
+                
               </div>
             </div>
-            <p>Por favor añade un nuevo usuario</p>
+            
             <div>
               {respuesta && respuesta !== "Success" ? (
                 <div className="alert alert-danger" role="alert">
@@ -110,13 +133,16 @@ function AdminRegister() {
             </div>
 
             <Grid
+              
               container
               display="flex"
               direction="column"
-              rowGap={2}
+              rowGap={6}
+              
               marginBottom={isMobile ? 3 : 1}
             >
               <MDBInput
+                
                 label="ID"
                 id="id"
                 type="id"
@@ -216,44 +242,10 @@ function AdminRegister() {
                 </Button>
               </Grid>
             </Grid>
-          </Grid>
-
-          {isMobile ? (
-            <></>
-          ) : (
-            <Grid item md={6}>
-              <div
-                className="d-flex flex-column gradient-custom-2"
-                style={{ position: "absolute", height: "150%" }}
-              >
-                <Typography
-                  className="Small"
-                  color="white"
-                  sx={{ position: "sticky", bottom: 0, top: "40%", px: 8 }}
-                >
-                  <span
-                    style={{
-                      fontSize: "26px",
-                      fontFamily: "Montserrat",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Somos más que sólo una compañía
-                  </span>
-                  <br />
-                  <br />
-                  <span style={{ fontFamily: "Montserrat" }}>
-                    Una empresa de energía eléctrica que desarrolla un sistema
-                    para gestionar la información de sus clientes ya sean
-                    corporativos o personas naturales, su consumo y la
-                    facturación.
-                  </span>
-                </Typography>
-              </div>
-            </Grid>
-          )}
+          </Grid>       
         </Grid>
       </form>
+    
     </Box>
   );
 }

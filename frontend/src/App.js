@@ -17,6 +17,7 @@ import Customer from "./components/Users/Customer";
 import Operator from "./components/Users/Operator";
 import Gerente from "./components/Users/Gerente";
 import OperatorList from "./components/Users/Operator/OperatorList";
+import Operatorpago from "./components/Users/Operator/Operatorpago";
 
 import ContextProvider from "./context/Context";
 import Factura from "./components/Bill/Factura";
@@ -149,6 +150,14 @@ const App = () => {
               element={
                 <OptionalComp>
                   <OperatorList />
+                </OptionalComp>
+              }
+            />
+            <Route
+              path="/Operatorpago"
+              element={
+                <OptionalComp>
+                  <Operatorpago />
                 </OptionalComp>
               }
             />
