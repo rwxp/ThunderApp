@@ -35,6 +35,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import UserList from "./../../../UserList/UserList";
 import UserAdd from "../../../Register/Register";
 import UserForm from "../../../UserData/UserData";
+import Map from "../../../UserData/Map";
 
 const sidebarWidth = 240;
 
@@ -159,38 +160,40 @@ const Dashboard = () => {
               px={isMobile ? 6 : 14}
               pb={6}
             >
-              {!isMobile ? null : (<Box sx={{ position: "absolute", top: 15, left: 30}}>
-                <IconButton
-                  id="fade-button"
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={handleMenu}
-                  disableRipple
-                >
-                  <MenuIcon />
-                </IconButton>
+              {!isMobile ? null : (
+                <Box sx={{ position: "absolute", top: 15, left: 30 }}>
+                  <IconButton
+                    id="fade-button"
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleMenu}
+                    disableRipple
+                  >
+                    <MenuIcon />
+                  </IconButton>
 
-                <Menu
-                  id="fade-menu"
-                  MenuListProps={{
-                    "aria-labelledby": "fade-button",
-                  }}
-                  PaperProps={{ backgroundColor: colors.primary[300] }}
-                  anchorEl={anchorEl}
-                  open={openMenu}
-                  onClose={handleClose}
-                  sx={{
-                    "& .MuiDivider-root": { backgroundColor: "white" },
-                  }}
-                >
-                  {Object.values(buttons).map((button, index) => (
-                    <MenuItem value={index} onClick={button.onclick}>
-                      <ListItemIcon>{button.icon}</ListItemIcon>
-                      {button.name}
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </Box>)}
+                  <Menu
+                    id="fade-menu"
+                    MenuListProps={{
+                      "aria-labelledby": "fade-button",
+                    }}
+                    PaperProps={{ backgroundColor: colors.primary[300] }}
+                    anchorEl={anchorEl}
+                    open={openMenu}
+                    onClose={handleClose}
+                    sx={{
+                      "& .MuiDivider-root": { backgroundColor: "white" },
+                    }}
+                  >
+                    {Object.values(buttons).map((button, index) => (
+                      <MenuItem value={index} onClick={button.onclick}>
+                        <ListItemIcon>{button.icon}</ListItemIcon>
+                        {button.name}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </Box>
+              )}
               <Topbar isMobile={isMobile} />
               <Box
                 display="flex"
@@ -209,7 +212,9 @@ const Dashboard = () => {
                 }}
               >
                 {hashLoc === "" ? (
-                  <Charts />
+                  <Box sx={{ pb:10 }}>
+                    <Charts />
+                  </Box>
                 ) : hashLoc === "#users" ? (
                   <UserList />
                 ) : hashLoc === "#register" ? (
@@ -219,6 +224,8 @@ const Dashboard = () => {
                     idUser={getUpdateID(hashLoc)[1]}
                     isMobile={isMobile}
                   />
+                ) : getUpdateID(hashLoc)[0] === "#map" ? (
+                  <Map />
                 ) : null}
               </Box>
             </Grid>

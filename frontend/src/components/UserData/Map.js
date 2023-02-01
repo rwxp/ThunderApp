@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Button, Grid, IconButton, TextField } from "@mui/material";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 
-const googleApi = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+const googleApi = "AIzaSyCuDfadM8HL6wSWYIcwJ31ub-1t_PFqTK4";
 const libraries = ["places"];
 
 const Map = () => {

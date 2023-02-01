@@ -44,6 +44,7 @@ import Home from "@mui/icons-material/Home";
 import logo from ".././LandingPage/Images/logo3.png";
 import image from "./home.png";
 import Download from "@mui/icons-material/Download";
+import { BicyclingLayer } from "@react-google-maps/api";
 
 const drawerWidth = 240;
 
@@ -124,7 +125,6 @@ const Customer = () => {
     handleClose();
   };
 
-
   const handleViewStatus = () => {
     navigate("/Cliente#status");
     handleClose();
@@ -139,16 +139,16 @@ const Customer = () => {
     navigate("/Cliente#bill");
     handleClose();
   };
-  
-  const handlePagar = () =>{
 
-
-  }
+  const handlePagar = () => {};
 
   const loggedInUser = window.localStorage.getItem("loggedInUser");
   const userJson = JSON.parse(loggedInUser);
   const name = userJson.firstName + " " + userJson.lastName;
 
+  const billStatus = window.localStorage.getItem("clientBill");
+  console.log(billStatus);
+  console.log(billStatus.status);
   const estado = userJson.isActive;
   const estadostr = String(estado);
 
@@ -290,30 +290,42 @@ const Customer = () => {
           <img src={logo} alt="logo" width="100px" height="auto" />
         </Grid>
         <List>
-          {["update profile", "Consultar estado", "Pagar factura", "Ver factura"].map(
-            (text, index) => (
-              <ListItem
-                key={text}
-                disablePadding
-                onClick={() => handleDrawerItem({ index })}
-              >
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index === 0 ? (
-                      <UserMenu sx={{ color: "white" }} />
-                    ) : index === 1 ? (
-                      <AssignmentLateOutlined sx={{ color: "white" }} />
-                    ) : index === 2 ? (
-                      <MonetizationOnOutlined sx={{ color: "white" }} />
-                    ) : (
-                      <ReceiptOutlined sx={{ color: "white" }} />
-                    )}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            )
-          )}
+          {[
+            "Editar perfil",
+            "Consultar estado",
+            "Pagar factura",
+            "Ver factura",
+          ].map((text, index) => (
+            <ListItem
+              key={text}
+              disablePadding
+              onClick={() => handleDrawerItem({ index })}
+            >
+              <ListItemButton>
+                <ListItemIcon>
+                  {index === 0 ? (
+                    <Avatar
+                      sx={{
+                        color: "white",
+                        width: 28,
+                        height: 28,
+                        bgcolor: "rgba(46, 88, 148, 0.3)",
+                      }}
+                    >
+                      {name.substring(0, 1)}
+                    </Avatar>
+                  ) : index === 1 ? (
+                    <AssignmentLateOutlined sx={{ color: "white" }} />
+                  ) : index === 2 ? (
+                    <MonetizationOnOutlined sx={{ color: "white" }} />
+                  ) : (
+                    <ReceiptOutlined sx={{ color: "white" }} />
+                  )}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
         </List>
       </Drawer>
 
@@ -328,7 +340,7 @@ const Customer = () => {
                 mt: 10,
                 py: 5,
                 px: 8,
-                width: "500px",
+                mx: isMobile ? 8 : 30,
                 borderRadius: "16px",
               }}
             >
@@ -339,7 +351,6 @@ const Customer = () => {
                   color: "#124265",
                   textAlign: "center",
                   fontFamily: "Montserrat",
-
                 }}
               >
                 Tu estado en Thunder
@@ -355,13 +366,13 @@ const Customer = () => {
               >
                 Hola {name} recuerda que debes estar al día con el pago de tus
                 facturas, en caso de que tu estado no esté activado, dirigete a
-                la pestaña de pagos. Tu estado es: {estadostr? "activo":"inactivo"}
+                la pestaña de pagos. Tu estado es:{" "}
+                {estadostr ? "activo" : "inactivo"}
               </Typography>
             </Box>
           ) : hashLoc === "#payment" ? (
             <Payment />
-
-          ) : hashLoc === "#bill" ?   (
+          ) : hashLoc === "#bill" ? (
             <Box sx={{ backgroundColor: "white", mt: isMobile ? 14 : 4 }}>
               {isMobile ? (
                 <IconButton
@@ -380,111 +391,9 @@ const Customer = () => {
               <Factura />
             </Box>
           ) : (
-            <Box sx={{ backgroundColor: "white", mt: isMobile ? 14 : 4 }}>
-
-
-              <Box
-                sx={{
-                  mt: 5,
-                  px: 5,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Grid
-                  container
-                  sx={{
-
-                    alignItems: "center",
-                    direction: "column",
-
-                  }}
-                  xs={12}
-                  spacing={2}
-                >
-
-                  <Grid item xs={8} >
-                    <h3
-                      style={{
-                        fontWeight: 600,
-                        fontSize: 50,
-                        color: "#1a5c83",
-                        textAlign: "left",
-                        fontFamily: "montserrat",
-                      }}
-                    >
-                      Thunder App
-                    </h3>
-                  </Grid>
-
-                  <Grid item xs={4}>
-                    {isMobile ? (
-                      <Grid item sx={{ mt: 4 }}>
-                        <img
-                          src={logo}
-                          width="80%"
-                          height="30px"
-                          alt="logo"
-                          alignItems="right"
-                        />
-                      </Grid>
-                    ) : (
-                      <Grid item xs={6} float="right">
-                        <img
-                          src={logo}
-                          width="90%"
-                          height="auto"
-                          alt="logo"
-                          a
-                          style={{ float: "right" }}
-                        />
-                      </Grid>
-                    )}
-                  </Grid>
-
-                  <Grid container sx={{ mt: 2, mb: 2 }} xs={12} spacing={5}>
-                    <Grid item xs={6} spacing={5} >
-                      <p
-                        style={{
-                          fontSize: 25,
-                          textAlign: "justify",
-                          fontFamily: "montserrat",
-
-
-                        }}
-
-                      >
-                        {" "}
-                        Bienvenido a thunder {<span style={{ color: "#33b4db" }}>{name + ", "}</span>}
-                        somos una aplicación segura para generar facturas {" "} automáticas
-                        del consumo energético de cada uno de nuestros usuarios le agradecemos
-                        su apoyo y esperemos que su experiencia en nuestra aplicación sea la mejor
-                      </p>
-                    </Grid>
-                    <Grid item sx={{ mb: 5 }} xs={6} alignItems="right">
-                      <img
-                        src={image}
-                        width="80%"
-                        height="auto"
-                        alt="logo"
-                        alignItems="right"
-                      />
-                    </Grid>
-
-                  </Grid>
-
-
-                </Grid>
-
-
-
-              </Box>
-
-            </Box>
+            <WelcomeUser isMobile={isMobile} name={name} />
           )}
-
         </Grid>
-
       </Main>
     </Box>
   );
@@ -498,7 +407,6 @@ const UpdateProfile = ({ isMobile }) => {
   const loggedInUser = window.localStorage.getItem("loggedInUser");
   const userJson = JSON.parse(loggedInUser);
   const idUser = userJson.id;
-  console.log(idUser);
 
   const initialState = {
     id: 0,
@@ -533,7 +441,6 @@ const UpdateProfile = ({ isMobile }) => {
     try {
       const res = await UserAPI.getUser(idUser);
       const data = await res.json();
-      console.log(data.user);
       setUser(data.user);
       setisLoading(false);
     } catch (error) {
@@ -553,7 +460,6 @@ const UpdateProfile = ({ isMobile }) => {
         py: 5,
         px: 5,
         borderRadius: "16px",
-
       }}
     >
       <Typography
@@ -672,10 +578,7 @@ const UpdateProfile = ({ isMobile }) => {
 };
 
 const Payment = ({ isMobile }) => {
-
-
   return (
-
     <Box
       sx={{
         backgroundColor: "#E6E6FA",
@@ -768,11 +671,165 @@ const Payment = ({ isMobile }) => {
         />
       </Grid>
       <Box component="form" sx={{ py: 2 }}>
-        <Button variant="contained" sx={{ mt: 2 }} >
+        <Button variant="contained" sx={{ mt: 2 }}>
           pagar
         </Button>
       </Box>
     </Box>
   );
+};
 
+const WelcomeUser = ({ isMobile, name }) => {
+  return (
+    <Box sx={{ m: 8, pt: isMobile ? 4 : 0 }}>
+      <Grid
+        container
+        display="flex"
+        flexDirection="row"
+        justifyContent="center"
+        sx={{ my: isMobile ? 0 : 8, alignItems: "center"}}
+      >
+        <Grid
+          item
+          xs={12}
+          md={4}
+          sx={{
+            textAlign: "center",
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            height:"60vh"
+          }}
+        >
+          <Typography
+            variant="h1"
+            style={{
+              fontWeight: 600,
+              fontSize: 40,
+              color: "#1a5c83",
+              textAlign: "center",
+              fontFamily: "montserrat",
+            }}
+          >
+            Thunder App
+          </Typography>
+          <br/>
+          <br/>
+          <Typography variant="h6">
+            Bienvenido a thunder{" "}
+            {<span style={{ color: "#33b4db" }}>{name + ", "}</span>}
+            somos una aplicación segura para generar facturas automáticas del
+            consumo energético de cada uno de nuestros usuarios le agradecemos
+            su apoyo y esperemos que su experiencia en nuestra aplicación sea la
+            mejor
+          </Typography>
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+          md={4}
+          sx={{
+            mt: isMobile ? 8 : 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "space-between",
+            height:"60vh"
+          }}
+        >
+          {isMobile ? null : (
+            <img src={logo} width="25%" height="auto" alt="logo" />
+          )}
+          <img src={image} alt="img" width="60%" height="auto" />
+        </Grid>
+      </Grid>
+    </Box>
+  );
+
+  {
+    /*<Box
+      sx={{
+        backgroundColor: "white",
+        mt: isMobile ? 14 : 4,
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+      }}
+    >
+      <Box
+        sx={{
+          mt: 5,
+          px: 10,
+          mx: 10,
+          my: 5,
+        }}
+      >
+        <Grid
+          container
+          sx={{
+            alignItems: "center",
+            direction: "column",
+          }}
+          xs={12}
+          spacing={2}
+        >
+          <Grid item xs={8}>
+            
+          </Grid>
+
+          <Grid container sx={{ mt: 2, mb: 2 }} xs={12} spacing={5}>
+            <Grid item xs={6} spacing={5}>
+              <p
+                style={{
+                  fontSize: 23,
+                  textAlign: "justify",
+                  fontFamily: "montserrat",
+                }}
+              >
+                {" "}
+                Bienvenido a thunder{" "}
+                {<span style={{ color: "#33b4db" }}>{name + ", "}</span>}
+                somos una aplicación segura para generar facturas automáticas
+                del consumo energético de cada uno de nuestros usuarios le
+                agradecemos su apoyo y esperemos que su experiencia en nuestra
+                aplicación sea la mejor
+              </p>
+            </Grid>
+
+            <Box sx={{ bgcolor: "blue" }}>
+              <Grid item xs={4}>
+                {isMobile ? (
+                  <Grid item sx={{ mt: 4 }}>
+                   
+                  </Grid>
+                ) : (
+                  <Grid item xs={6} float="right">
+                    <img
+                      src={logo}
+                      width="90%"
+                      height="auto"
+                      alt="logo"
+                      a
+                      style={{ float: "right" }}
+                    />
+                  </Grid>
+                )}
+              </Grid>
+              <Grid item sx={{ mb: 5 }} xs={6} alignItems="right">
+                <img
+                  src={image}
+                  width="60%"
+                  height="auto"
+                  alt="logo"
+                  alignItems="right"
+                />
+              </Grid>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
+    </Box>*/
+  }
 };

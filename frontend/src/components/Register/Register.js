@@ -57,26 +57,24 @@ function AdminRegister() {
 
   const handleChangePassword = ({ target }) => {
     setPassword(target.value);
-    if(userRole !== "Admin") {
-      setRole("Cliente")
+    if (userRole !== "Admin") {
+      setRole("Cliente");
     }
-  }
-
+  };
 
   return (
     <Box
-    sx={{
-      backgroundColor: "#E6E6FA",
-      mb: 4,
-      px: 1,
-      borderRadius: "16px",
-      width: "700px",
-    }}
-  >
+      sx={{
+        backgroundColor: "white",
+        mb: 4,
+        px: 1,
+        borderRadius: "16px",
+        width: "700px",
+      }}
+    >
       <form onSubmit={handleSubmit}>
-        <Grid container sx={isMobile ? 6 : 14 } justifyContent = "center">
-
-          <Grid item sx={{ px: 2  }} width={isMobile ? 300 : 600}>
+        <Grid container sx={isMobile ? 6 : 14} justifyContent="center">
+          <Grid item sx={{ px: 2 }} width={isMobile ? 300 : 600}>
             <div className="d-flex flex-column">
               <div className="text-center">
                 <img
@@ -118,10 +116,9 @@ function AdminRegister() {
                 >
                   Por favor añade un nuevo usuario
                 </h6>
-                
               </div>
             </div>
-            
+
             <div>
               {respuesta && respuesta !== "Success" ? (
                 <div className="alert alert-danger" role="alert">
@@ -135,16 +132,13 @@ function AdminRegister() {
             </div>
 
             <Grid
-              
               container
               display="flex"
               direction="column"
-              rowGap={6}
-              
+              rowGap={3}
               marginBottom={isMobile ? 3 : 1}
             >
               <MDBInput
-                
                 label="ID"
                 id="id"
                 type="id"
@@ -250,10 +244,9 @@ function AdminRegister() {
                 </Button>
               </Grid>
             </Grid>
-          </Grid>       
+          </Grid>
         </Grid>
       </form>
-    
     </Box>
   );
 }

@@ -92,10 +92,10 @@ const UserList = () => {
     listUsers();
   };
 
-  const handleEditUser = (id) => {
+  const handleMap = (id) => {
     const user = users.filter((user) => user.id === id)[0];
     window.localStorage.setItem("userAddress", JSON.stringify(user.address));
-    navigate(`/profile/${id}`);
+    navigate(`/Dashboard#map/${id}`);
   };
 
   return (
@@ -238,7 +238,7 @@ const UserList = () => {
                                     color: "#008000",
                                   },
                                 }}
-                                onClick={() => handleEditUser(user.id)}
+                                onClick={() => handleMap(user.id)}
                               >
                                 <LocationOn />
                               </IconButton>
