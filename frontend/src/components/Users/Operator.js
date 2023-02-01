@@ -892,7 +892,7 @@ const UpdateProfile = ({ isMobile }) => {
     try {
       await UserAPI.updateUser(id, user);
       window.localStorage.setItem("loggedInUser", JSON.stringify(user));
-      navigate("/Cliente");
+      navigate("");
     } catch (error) {
       console.log(error);
     }
