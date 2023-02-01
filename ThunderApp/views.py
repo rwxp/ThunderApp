@@ -101,23 +101,34 @@ class UsersView(View):
 class BillsView(View):
 
     @method_decorator(csrf_exempt)
-    def activateBill(request):
+    def payBill(request):
         data = json.loads(request.body)
-        print("los datos de entrada son", data)
         id = data["id"]
         if (id == 0):
             datos = {'message': 'Bill not found!'}
         else:
+            print("HE ENTRAU AQUI QUE PEDAZO DE MAKINA")
             datos = (list(Bills.objects.filter(userID=id).values('isGenerated')))[0]['isGenerated']
-            print(datos)
+            print(datos)    
             if (datos == True):
                 Bills.objects.filter(userID=id).update(isGenerated=False)
-            elif(datos == False):
-                Bills.objects.filter(userID=id).update(isGenerated=True)
-                datos = {'message': 'Activation Successful'}
+                datos = {'message': 'Bill has been payed!'}
             else:
-                print("hola")
                 datos = {'message': 'Bill not found'}
+        return JsonResponse(datos)
+
+
+    @method_decorator(csrf_exempt)
+    def alterDate(request):
+        data = json.loads(request.body)
+        id = data["id"]
+        date = data["date"]
+        print("Los datos de entrada son:", data)
+        if (id == 0):
+            datos = {'message': 'Bill not found!'}
+        else:
+            Bills.objects.filter(userID=id).update(billingDate=date)
+            datos = {'message': 'Date change successful'}
         return JsonResponse(datos)
 
     def post(self, request):

@@ -37,6 +37,7 @@ import AssignmentLateOutlined from "@mui/icons-material/AssignmentLateOutlined";
 import ReceiptOutlined from "@mui/icons-material/ReceiptOutlined";
 import MonetizationOnOutlined from "@mui/icons-material/MonetizationOnOutlined";
 
+import * as FacturaAPI from "../Bill/FacturaAPI.js";
 import UserMenu from "./UserMenu";
 import Factura from "../Bill/Factura";
 import Home from "@mui/icons-material/Home";
@@ -139,8 +140,12 @@ const Customer = () => {
     navigate("/Cliente#bill");
     handleClose();
   };
+  
+  const handlePagar = () =>{
+    navigate("/Cliente#pagoexitoso");
+    handleClose();
 
-  const handlePagar = () => {};
+  }
 
   const loggedInUser = window.localStorage.getItem("loggedInUser");
   const userJson = JSON.parse(loggedInUser);
@@ -333,7 +338,52 @@ const Customer = () => {
         <Grid sx={{ display: "grid", placeItems: "center", height: "100vh" }}>
           {hashLoc === "#profile" ? (
             <UpdateProfile isMobile={isMobile} />
-          ) : hashLoc === "#status" ? (
+          ) : hashLoc === "#pagoexitoso" ? (
+            <Box
+            sx={{
+              backgroundColor: "#E6E6FA",
+              mt: 10,
+              py: 5,
+              px: 8,
+              width: "500px",
+              borderRadius: "16px",
+            }}
+          >
+            <Typography
+              fontSize={isMobile ? 22 : 40}
+              sx={{
+                fontWeight: 800,
+                color: "#124265",
+                textAlign: "center",
+                fontFamily: "Montserrat",
+
+              }}
+            >
+              Pago exitoso
+            </Typography>
+            <Typography
+              fontSize={isMobile ? 20 : 25}
+              sx={{
+                fontWeight: 200,
+                color: "#124265",
+                textAlign: "center",
+                fontFamily: "Montserrat",
+              }}
+            >
+              Usted acaba de registrar el pago de manera exitosa 
+            </Typography>
+            <Grid container justifyContent={"center"}>
+              <Button
+                variant="contained"
+                sx={{ mt: 2.5, mb: 2.5 }}
+                onClick={() => navigate("")}
+              >
+                Go back
+              </Button>
+            </Grid>
+          </Box>
+
+          ): hashLoc === "#status" ? (
             <Box
               sx={{
                 backgroundColor: "#E6E6FA",
@@ -578,6 +628,22 @@ const UpdateProfile = ({ isMobile }) => {
 };
 
 const Payment = ({ isMobile }) => {
+  const navigate = useNavigate();
+
+  const handlePagar = () =>{
+    const loggedInUser = localStorage.getItem("clientBill")
+    console.log("El logged in User", loggedInUser)
+    const userJson = JSON.parse(loggedInUser);
+    console.log("El usarID es", userJson.userID)
+    FacturaAPI.payBill(userJson.userID)
+    navigate("/Cliente#pagoexitoso");
+    handleClose();
+  }
+  
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <Box
       sx={{
@@ -671,7 +737,7 @@ const Payment = ({ isMobile }) => {
         />
       </Grid>
       <Box component="form" sx={{ py: 2 }}>
-        <Button variant="contained" sx={{ mt: 2 }}>
+        <Button variant="contained" sx={{ mt: 2 }} onClick={handlePagar}>
           pagar
         </Button>
       </Box>
@@ -747,89 +813,4 @@ const WelcomeUser = ({ isMobile, name }) => {
       </Grid>
     </Box>
   );
-
-  {
-    /*<Box
-      sx={{
-        backgroundColor: "white",
-        mt: isMobile ? 14 : 4,
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-      }}
-    >
-      <Box
-        sx={{
-          mt: 5,
-          px: 10,
-          mx: 10,
-          my: 5,
-        }}
-      >
-        <Grid
-          container
-          sx={{
-            alignItems: "center",
-            direction: "column",
-          }}
-          xs={12}
-          spacing={2}
-        >
-          <Grid item xs={8}>
-            
-          </Grid>
-
-          <Grid container sx={{ mt: 2, mb: 2 }} xs={12} spacing={5}>
-            <Grid item xs={6} spacing={5}>
-              <p
-                style={{
-                  fontSize: 23,
-                  textAlign: "justify",
-                  fontFamily: "montserrat",
-                }}
-              >
-                {" "}
-                Bienvenido a thunder{" "}
-                {<span style={{ color: "#33b4db" }}>{name + ", "}</span>}
-                somos una aplicación segura para generar facturas automáticas
-                del consumo energético de cada uno de nuestros usuarios le
-                agradecemos su apoyo y esperemos que su experiencia en nuestra
-                aplicación sea la mejor
-              </p>
-            </Grid>
-
-            <Box sx={{ bgcolor: "blue" }}>
-              <Grid item xs={4}>
-                {isMobile ? (
-                  <Grid item sx={{ mt: 4 }}>
-                   
-                  </Grid>
-                ) : (
-                  <Grid item xs={6} float="right">
-                    <img
-                      src={logo}
-                      width="90%"
-                      height="auto"
-                      alt="logo"
-                      a
-                      style={{ float: "right" }}
-                    />
-                  </Grid>
-                )}
-              </Grid>
-              <Grid item sx={{ mb: 5 }} xs={6} alignItems="right">
-                <img
-                  src={image}
-                  width="60%"
-                  height="auto"
-                  alt="logo"
-                  alignItems="right"
-                />
-              </Grid>
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
-    </Box>*/
-  }
 };
