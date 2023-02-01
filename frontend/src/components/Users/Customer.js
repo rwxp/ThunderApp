@@ -454,6 +454,7 @@ const UpdateProfile = ({ isMobile }) => {
         py: 5,
         px: 5,
         borderRadius: "16px",
+        
       }}
     >
       <Typography
