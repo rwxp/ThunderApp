@@ -9,7 +9,6 @@ import logo from "../../LandingPage/Images/logo2.png";
 import * as FacturaAPI from "../../Bill/FacturaAPI";
 
 // mui material components
-
 import {
   Box,
   TableContainer,
@@ -24,7 +23,6 @@ import {
   TableSortLabel,
   IconButton,
 } from "@mui/material";
-
 import SearchBar from "material-ui-search-bar";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";

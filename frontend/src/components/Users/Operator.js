@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import efecto from "./Operator/OperatorList.css";
 import {
   styled,
@@ -17,8 +17,11 @@ import {
   ListItemIcon,
   ListItemText, 
   Grid,
+  Button,
+  useMediaQuery,
+  TextField,
 } from "@mui/material";
-
+import * as UserAPI from "../UserList/UserAPI.js";
 import MuiAppBar from "@mui/material/AppBar";
 
 import MenuIcon from "@mui/icons-material/Menu";
@@ -81,9 +84,11 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const Operador = () => {
+  const params = useParams();
   const theme = useTheme();
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
+  const [users, setUser] = useState([]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -94,7 +99,13 @@ const Operador = () => {
   };
   const handleDrawerItem = ({ index }) => {
     if (index === 0) {
-      handlePagos();
+      
+      navigate("/OperatorList")
+      
+
+    }if (index == 1){
+      navigate("/Operatorpago")
+              
     }
   };
   const handlePagos = () => {
@@ -186,7 +197,9 @@ const Operador = () => {
                 <ListItemButton>
                   <ListItemIcon>
                     {index === 0 ? (
+                      
                       <AssignmentLateOutlined sx={{ color: "white" }} />
+                      
                     ) : index === 1 ? (
                       <MonetizationOnOutlined sx={{ color: "white" }} />
                     ) : (

@@ -33,6 +33,7 @@ import PersonAdd from "@mui/icons-material/PersonAdd";
 import { useNavigate, useParams } from "react-router-dom";
 
 import UserList from "./../../../UserList/UserList";
+import UserAdd from "../../../Register/Register";
 import UserForm from "../../../UserData/UserData";
 
 const sidebarWidth = 240;
@@ -212,7 +213,7 @@ const Dashboard = () => {
                 ) : hashLoc === "#users" ? (
                   <UserList />
                 ) : hashLoc === "#register" ? (
-                  <h1>Register User</h1>
+                  <UserAdd />
                 ) : getUpdateID(hashLoc)[0] === "#users" ? (
                   <UserForm
                     idUser={getUpdateID(hashLoc)[1]}
