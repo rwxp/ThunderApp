@@ -42,7 +42,7 @@ import Factura from "../Bill/Factura";
 import Home from "@mui/icons-material/Home";
 
 import logo from ".././LandingPage/Images/logo3.png";
-
+import image from "./home.png";
 import Download from "@mui/icons-material/Download";
 
 const drawerWidth = 240;
@@ -376,109 +376,104 @@ const Customer = () => {
           ) : (
             <Box sx={{ backgroundColor: "white", mt: isMobile ? 14 : 4 }}>
 
-              <div className="super">
-                <div className="banner">
-                  <div className="banner-text">
 
-                    <Box
-                      sx={{
-                        mt: 5,
-                        px: 5,
-                        justifyContent: "center",
-                        alignItems: "center",
+              <Box
+                sx={{
+                  mt: 5,
+                  px: 5,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Grid
+                  container
+                  sx={{
+
+                    alignItems: "center",
+                    direction: "column",
+
+                  }}
+                  xs={12}
+                  spacing={2}
+                >
+
+                  <Grid item xs={8} >
+                    <h3
+                      style={{
+                        fontWeight: 600,
+                        fontSize: 50,
+                        color: "#1a5c83",
+                        textAlign: "left",
+                        fontFamily: "montserrat",
                       }}
                     >
-                      <Grid
-                        container
-                        sx={{
+                      Thunder App
+                    </h3>
+                  </Grid>
 
-                          alignItems: "center",
-                          direction: "column",
+                  <Grid item xs={4}>
+                    {isMobile ? (
+                      <Grid item sx={{ mt: 4 }}>
+                        <img
+                          src={logo}
+                          width="80%"
+                          height="30px"
+                          alt="logo"
+                          alignItems="right"
+                        />
+                      </Grid>
+                    ) : (
+                      <Grid item xs={6} float="right">
+                        <img
+                          src={logo}
+                          width="90%"
+                          height="auto"
+                          alt="logo"
+                          a
+                          style={{ float: "right" }}
+                        />
+                      </Grid>
+                    )}
+                  </Grid>
+
+                  <Grid container sx={{ mt: 2, mb: 2 }} xs={12} spacing={5}>
+                    <Grid item xs={6} spacing={5} >
+                      <p
+                        style={{
+                          fontSize: 25,
+                          textAlign: "justify",
+                          fontFamily: "montserrat",
+
+
                         }}
-                        spacing={2}
+
                       >
+                        {" "}
+                        Bienvenido a thunder {<span style={{ color: "#33b4db" }}>{name + ", "}</span>}
+                        somos una aplicación segura para generar facturas {" "} automáticas
+                        del consumo energético de cada uno de nuestros usuarios le agradecemos
+                        su apoyo y esperemos que su experiencia en nuestra aplicación sea la mejor
+                      </p>
+                    </Grid>
+                    <Grid item sx={{ mb: 5 }} xs={6} alignItems="right">
+                      <img
+                        src={image}
+                        width="80%"
+                        height="auto"
+                        alt="logo"
+                        alignItems="right"
+                      />
+                    </Grid>
 
-                         <Grid item xs={8} >
-                          <h3
-                            style={{
-                              fontWeight: 600,
-                              fontSize: 50,
-                              color: "#1a5c83",
-                              textAlign: "left",
-                              fontFamily: "montserrat",
-                            }}
-                          >
-                            Thunder App
-                          </h3>
-                          </Grid>
-                          
-                          <Grid item xs={4}>
-                          {isMobile ? (
-                            <Grid item sx={{ mt: 4 }}>
-                              <img
-                                src={logo}
-                                width="80%"
-                                height="30px"
-                                alt="logo"
-                                alignItems="right"
-                              />
-                            </Grid>
-                          ) : (
-                            <Grid item xs={2}>
-                              <img
-                                src={logo}
-                                width="80%"
-                                height="auto"
-                                alt="logo"
-                                alignItems="right"
-                                style={{ float: "right" }}
-                              />
-                            </Grid>
-                          )}
-                          </Grid>
-
-                          <Grid item sx={{ mt: 2, mb: 2 }}>
-                            <p
-                              style={{
-                                fontSize: 25,
-                                textAlign: "left",
-                                fontFamily: "montserrat",
-                              }}
-                            >
-                              {" "}
-                              Bienvenido {<span style={{ color: "#33b4db" }}>{name + " "}</span>}
-                              somos una aplicación segura para generar facturas {" "} automáticas
-                              del consumo energético de cada uno de nuestros usuarios le agradecemos
-                              su apoyo y esperemos que su experiencia en nuestra aplicación sea la mejor
-                            </p>
-                          </Grid>
-                          <Grid item sx={{ mt: 4 }}>
-                            <img
-                              src="https://img.freepik.com/vector-premium/concepto-consumo-energi
-                              a-inteligente-ilustracion-vectorial-dibujos-animados-plana_657802-8.jpg?w=740"
-                              width="80%"
-                              height="auto"
-                              alt="logo"
-                              alignItems="right"
-                            />
-                          </Grid>
-
-                        </Grid>
+                  </Grid>
 
 
-                      
-
-                    </Box>
+                </Grid>
 
 
 
+              </Box>
 
-                  </div>
-                  <div>
-
-                  </div>
-                </div>
-              </div>
             </Box>
           )}
 
