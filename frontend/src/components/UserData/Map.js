@@ -66,6 +66,17 @@ const Map = () => {
     isLoaded && loadInfo(address);
   });
 
+  const path = window.location.pathname;
+
+
+  const handleGoBack = () => {
+    if (path === "/Dashboard") {
+      navigate(`/Dashboard#users`);
+    } else if (path === "/Operador"){
+      navigate(`/Operador#users`);
+    }
+  };
+
   return (
     <div style={{ overflow: "hidden" }}>
       {isLoaded ? (
@@ -115,10 +126,7 @@ const Map = () => {
               </IconButton>
             </Box>
           </Box>
-          <Button
-            variant="contained"
-            onClick={() => navigate("/Dashboard#users")}
-          >
+          <Button variant="contained" onClick={handleGoBack}>
             {" "}
             Go back{" "}
           </Button>

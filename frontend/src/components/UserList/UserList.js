@@ -16,13 +16,9 @@ import {
   TableRow,
   TableBody,
   TableCell,
-  Paper,
-  Button,
   Grid,
   TableSortLabel,
   IconButton,
-  Skeleton,
-  CircularProgress,
   Tooltip,
 } from "@mui/material";
 
@@ -87,6 +83,7 @@ const UserList = () => {
 
   useMemo(() => {
     listUsers(sortUp);
+    // eslint-disable-next-line
   }, [sortUp]);
 
   // eslint-disable-next-line
@@ -232,7 +229,7 @@ const UserList = () => {
                             </IconButton>
                           </Tooltip>
                           {user.isActive === false ? null : (
-                            <Tooltip title="Ver perfil" placement="top">
+                            <Tooltip title="Ver en el mapa" placement="top">
                               <IconButton
                                 disableRipple
                                 size="small"
