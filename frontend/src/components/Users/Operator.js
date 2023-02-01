@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../App.css";
+//import 
 
 import {
   styled,
@@ -57,6 +58,7 @@ import LocationOn from "@mui/icons-material/LocationOn";
 import "../UserList/UserList.css";
 import Swal from "sweetalert2";
 import Map from "../UserData/Map";
+import AdminRegister from "../Register/Register";
 //
 
 const drawerWidth = 240;
@@ -125,9 +127,11 @@ const Operador = () => {
     if (index === 0) {
       navigate("/Operador#registerpay");
     } else if (index === 1) {
-      navigate("/Operador#registeruser");
+      navigate("/Operador#updateuser");
     } else if (index === 2) {
       navigate("/Operador#users");
+    } else if (index === 3) {
+      navigate("/Operador#registercliente");
     }
   };
 
@@ -206,7 +210,7 @@ const Operador = () => {
           }}
         />
         <List>
-          {["Registrar pagos", "Actualiza tus datos", "Administrar usuarios"].map(
+          {["Registrar pagos", "Actualiza tus datos", "Administrar usuarios", "Registrar Cliente"].map(
             (text, index) => (
               <ListItem
                 key={text}
@@ -345,9 +349,11 @@ const Operador = () => {
               </Box>
 
             </Box>
-          ): hashLoc ==="#registeruser"? (
+          ): hashLoc ==="#updateuser"? (
             <UpdateProfile isMobile={isMobile} />
-          ) : hashLoc === "#registerpay" ? (
+          ): hashLoc ==="#registercliente"? (
+            <AdminRegister isMobile={isMobile} />
+          ): hashLoc === "#registerpay" ? (
             <Box>
               <OperatorList />
             </Box>

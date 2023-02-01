@@ -127,10 +127,8 @@ function AdminRegister() {
                 <div className="alert alert-danger" role="alert">
                   Los datos ingresados son incorrectos
                 </div>
-              ) : respuesta === "Success" && userRole==="Admin" ? (
+              ) : respuesta === "Success" ? (
                 navigate("/Dashboard")
-              ) : respuesta === "Success" && userRole==="Operador" ? (
-                navigate("/Operador")
               ) : (
                 <div></div>
               )}
